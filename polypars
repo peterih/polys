@@ -1,0 +1,764 @@
+/*************************************************************************
+
+   P O L Y S   C O M M A N D   P A R S E R
+   P O L Y S   C O M M A N D   P A R S E R
+   P O L Y S   C O M M A N D   P A R S E R
+
+   Written by Soren B. Engelsen, INRA 1993-94.
+   Last revision: S.B.E. 1997
+*************************************************************************/
+%{
+#include <stdio.h>
+#include <string.h>
+#include "defs.h"
+#include "polys.h"
+
+/*****************************************************************
+   parser variables needed for the subcommands
+*****************************************************************/
+Label    lab;
+BOOLEAN  descarte = TRUE;       /* write as cartesian coordinates */
+BOOLEAN  reference = FALSE;     /* read into the reference coordinate set */
+BOOLEAN  optimize = FALSE;      /* helical optimization */
+int      parspace = 0;             /* default space: cartesian */
+int      parformat = 6;            /* default parformat: PF */
+int      i, j, no;
+int      inx=0, Aijkl[4];
+int      pargenopt = 1;
+int      intopt = 0;
+int      recopt = 0;
+int      deriv = 0;
+int      phino = 0;             /* no. of phi i rotb tabel */
+int      psino = 0;             /* no. of psi i rotb tabel */
+int      rnat = 0;              /* no. of atoms in reference set */
+int      symno = 0;             /* no. of symmetry direction */
+int      resno = 0;
+int      nsets = 1;
+int      nreps = 0;
+int      nstr = 1;
+double   shift = 0.0;
+double   nfold = 0.0;           /* helical n parameter */
+double   xmult, xtransl;
+double   psib = 0.0;
+double   psie = 350.0;
+double   psiinc = 10.0;
+double   phib = 0.0;
+double   phie = 350.0;
+double   phiinc = 10.0;
+double   thev = 999.9;
+double   phiv = 999.9;
+double   psiv = 999.9;
+double   omev = 999.9;
+Matrix   TM;
+
+/*****************************************************************
+   parser variables needed for the BUILD command
+*****************************************************************/
+char     *fname;               /* the name of the MONOBANK member */
+char     *mapfile;             /* the name of the DIBANK member */
+char     *macrof;              /* the name of the macro file */
+int      con_b, con_f;         /* glycosidic connection */
+int      polyres = 0;          /* no of residue on segment to connect 
+                                  sidechain */
+int      repno=0;              /* current repeat sequence */
+int      offset=0;             /* repeat offset */
+int      status=0, oldstatus;  /* chain status */
+struct  
+{ int    rep;                  /* repeating factor */
+  int    first;                /* first residue in repeating segment */
+  int    fconnect;             /* connecting residue in repeating segment */
+  int    last;                 /* last residue in repeating segment */
+} reptab[10];  /* repeat table */
+
+/*****************************************************************
+   External variabels  needed for the parser
+*****************************************************************/
+extern   BOOLEAN debug;
+extern   int lineno;
+extern   int seed;
+extern   int da;
+extern   int silent;
+extern   int maxit;
+extern   int maxfun;
+extern   double enetol;
+extern   double grdtol;
+extern   double tid;
+extern   Molecule M;
+%}
+%union { double   real;
+         int      integer;
+         char     *string;
+         int      cmd;
+       }
+
+%token <real> REAL
+%token <integer> INTEGER
+%token <string> QSTRING NAME
+%token <cmd> NL
+%token <cmd> ATTACH BUILD CALC COORD CREATE DATE DOUBLEHELIX END ENER GENERATE
+%token <cmd> INIT HELIX HELP LABEL MINI PRIMARY READ RECORD MODIFY SET TIME
+%token <cmd> WRITE STOP
+%token <cmd> NSETS SAVE
+%token <cmd> DIST DTAB MASS VOLUME RGYR
+%token <cmd> COPY ORIENT RMS STAT
+%token <cmd> DERIV
+%token <cmd> NFOLD OPTIMIZE NREPS NSTR SHIFT
+%token <cmd> ONE ALL BOND NBOND ANGLE TORSION ROTBOND
+%token <cmd> CARTE DIHED FRAC GRDTOL ENETOL MAXIT MAXFUN SILENT NOISE
+%token <cmd> SYMMETRY INTERNAL PARAM CHARGES REF
+%token <cmd> PHI PHIB PHIE PHIINC PSI PSIB PSIE PSIINC RECOPT
+%token <cmd> DEBUG ID TITLE RANSEED
+%token <cmd> AMBER CHARMM CFF CSD DAT MM3 MONO PDB PF PLOT SYBYL SPF PIM XYZ
+%%
+lines    : /* empty */
+         | lines line
+         ;
+line     : term
+         | comstr term
+         ;
+comstr   : ATTACH conres connexion resno QSTRING
+           {  putchar('\n');
+              putchar('\n');
+              macrof = strdup(yylval.string);
+              addmacro(polyres, con_b, con_f, no, macrof, phiv, psiv, omev);
+              wline('-', MAXLEN);
+           }
+         | BUILD buildpar
+           {  putchar('\n'); 
+              putchar('\n'); 
+              tertiary(resno);
+              Hydrolysis(da);
+              BuildInfo();
+              wline('-', MAXLEN);
+           }
+         | CALC DIST atoms
+           {  putchar('\n');
+              putchar('\n');
+              calc_dist(Aijkl[0], Aijkl[1]);
+              inx = 0;
+              wline('-', MAXLEN);
+           }
+         | CALC ANGLE atoms
+           {  putchar('\n');
+              putchar('\n');
+              calc_angle(Aijkl[0], Aijkl[1], Aijkl[2]);
+              inx = 0;
+              wline('-', MAXLEN);
+           }
+         | CALC TORSION atoms
+           {  putchar('\n');
+              putchar('\n');
+              calc_tors(Aijkl[0], Aijkl[1], Aijkl[2], Aijkl[3]);
+              inx = 0;
+              wline('-', MAXLEN);
+           }
+         | CALC DTAB
+           {  putchar('\n');
+              putchar('\n');
+              dist_tabel();
+              wline('-', MAXLEN);
+           }
+         | CALC MASS
+           {  putchar('\n');
+              putchar('\n');
+              calc_mass();
+              wline('-', MAXLEN);
+           }
+         | CALC RGYR
+           {  putchar('\n');
+              putchar('\n');
+              calc_rgyr();
+              wline('-', MAXLEN);
+           }
+         | CALC VOLUME
+           {  putchar('\n');
+              putchar('\n');
+              calc_vol();
+              wline('-', MAXLEN);
+           }
+         | COORD coordpars 
+           {  inx = 0;
+           }
+         | CREATE BOND atoms
+           {  putchar('\n');
+              putchar('\n');
+              add_bond(Aijkl[0],Aijkl[1]);
+              calc_dist(Aijkl[0], Aijkl[1]);
+              inx = 0;
+              wline('-', MAXLEN);
+           }
+         | DATE
+           {  putchar('\n');
+              putchar('\n');
+              pdate(tid);
+              wline('-', MAXLEN);
+           }
+         | DOUBLEHELIX dhxpars
+           {  putchar('\n');
+              putchar('\n');
+              doubleh(nstr,nreps,shift);
+              wline('-', MAXLEN);  
+           }
+         | END
+           {  printf("\n\n\tbye - bye\n\n");
+              return (0); 
+           }
+         | ENER enerpars
+           {  putchar('\n');
+              putchar('\n');
+              printener(deriv); 
+              deriv = 0;
+              wline('-', MAXLEN);
+           }
+         | GENERATE INTERNAL genpar
+           {  putchar('\n');
+              putchar('\n');
+              Generate(pargenopt); 
+              wline('-', MAXLEN);
+           }
+         | GENERATE SYMMETRY symelems STOP
+           {  putchar('\n');
+              wline('-', MAXLEN);  
+           }
+         | HELIX hxpars
+           {  putchar('\n');
+              putchar('\n');
+              calc_helix(optimize, nfold);
+              wline('-', MAXLEN);  
+           }
+         | INIT
+           {  putchar('\n');
+              putchar('\n');
+              printf("Initializing data structures......\n");
+              Initialize();
+              wline('-', MAXLEN);
+           }
+         | HELP helppar
+           {  putchar('\n');
+              putchar('\n');
+              phelp(yylval.cmd);
+              wline('-', MAXLEN);
+           }
+         | LABEL NAME
+           {  putchar('\n');
+              putchar('\n');
+              printf("Label: '%s' in line %d\n", yylval.string, lineno);
+              wline('-', MAXLEN);
+           }
+         | MINI minipars
+           {  putchar('\n');
+              putchar('\n');
+              Minimize(parspace,maxfun,maxit,enetol,grdtol,silent);
+              parspace = 0;
+              wline('-', MAXLEN);
+           }
+         | MODIFY TORSION atoms PHI '=' REAL
+           {  putchar('\n');
+              putchar('\n');
+              phiv = yylval.real;
+              Rotate(Aijkl[0], Aijkl[1], Aijkl[2], Aijkl[3], phiv);
+              inx = 0;
+              wline('-', MAXLEN);
+           }
+         | PRIMARY reslist STOP
+           {  putchar('\n'); 
+              putchar('\n'); 
+              res_list(resno);
+              wline('-', MAXLEN);
+           }
+         | READ CHARGES QSTRING
+           {  putchar('\n');
+              putchar('\n');
+              fname = strdup(yylval.string);
+              ReadCharges(fname);
+              free(fname);
+              wline('-', MAXLEN);
+           }
+         | READ COORD iopars
+           {  putchar('\n');
+              putchar('\n');
+              ReadCoord(parformat,fname,reference);
+              free(fname);
+              wline('-', MAXLEN);
+           }
+         | READ INTERNAL intpars
+           {  putchar('\n');
+              putchar('\n');
+              printf("Reading internal coordinates......\n");
+              wline('-', MAXLEN);
+           }
+         | READ PARAM
+           {  putchar('\n');
+              putchar('\n');
+              ReadParam();
+              wline('-', MAXLEN);
+           }
+         | RECORD recpars 
+           {  putchar('\n');
+              putchar('\n');
+              if (psino < 0) 
+                 phidriv(phino, phib, phie, phiinc,
+                         silent, recopt, fname);
+              else
+                 phipsidriv(phino, phib, phie, phiinc, 
+                            psino, psib, psie, psiinc,
+                            silent, recopt, fname);
+              free(fname);
+              wline('-', MAXLEN);
+           }
+         | SET DEBUG
+           {  putchar('\n');
+              putchar('\n');
+              debug = TRUE;
+              printf("Debugging mode on\n");
+              wline('-', MAXLEN);
+           }
+         | SET ID NAME
+           {  putchar('\n');
+              putchar('\n');
+              M.id = strdup(yylval.string);
+              printf("ID: >%s<\n", M.id);
+              wline('-', MAXLEN);
+           }
+         | SET RANSEED INTEGER
+           {  putchar('\n');
+              putchar('\n');
+              seed = -(yylval.integer);
+              printf("The random number generator has been initialized with");
+              printf(" a new seed (%d)\n", yylval.integer);
+              wline('-', MAXLEN);
+           }
+         | SET TITLE QSTRING
+           {  putchar('\n');
+              putchar('\n');
+              M.titel = strdup(yylval.string);
+              printf("TITLE: %s\n", M.titel);
+              wline('-', MAXLEN);
+           }
+         | STOP
+           {
+           }
+         | TIME
+           {  putchar('\n');
+              putchar('\n');
+              ptime(tid);
+              wline('-', MAXLEN);
+           }
+         | WRITE COORD iopars
+           {  putchar('\n');
+              putchar('\n');
+              WritCoord(parformat, fname, descarte); 
+              descarte = TRUE;
+              free(fname);
+              wline('-', MAXLEN);
+           }
+         | WRITE INTERNAL intpars
+           {  putchar('\n');
+              putchar('\n');
+              list_intcoor(intopt); 
+              wline('-', MAXLEN);
+           }
+         | WRITE PARAM
+           {  putchar('\n');
+              putchar('\n');
+              printf("\nWriting parameters ........\n"); 
+              wline('-', MAXLEN);
+           }
+         | NAME
+           {  putchar('\n');
+              putchar('\n');
+              yyerror("unknown command:"); 
+              wline('-', MAXLEN);
+           }
+         ;
+reslist  : 
+         |  reslist residue
+         ;
+residue  : term
+         | '<' id '>' connexion            /* chain prolongation */
+           { resno++;
+             expand(resno,fname,con_b,con_f,thev,phiv,psiv,omev,resno+1,status);
+             free(fname);
+           }
+         | '<' id '>'                      /* chain termination */
+           {  resno++;
+              expand(resno,fname,0,0,999.9,999.9,999.9,999.9,0,status);
+              free(fname);
+           }
+         | '<'                             /* start of side chain */
+           {  oldstatus=status;
+              status++;
+              /* if we are in a repeat sequence then save fconnect */
+              if ((repno > 0) AND (reptab[repno].fconnect==0))
+                 reptab[repno].fconnect = resno;
+           }
+         | '<' '#' conres '>' '>'          /* end of side chain */
+           {   
+              modify_con(resno,polyres,status);
+              status=oldstatus;
+           }
+         | '['                             /* start of repeat segment */
+           {  repno++;
+              reptab[repno].fconnect=0;
+              reptab[repno].last=0;
+              reptab[repno].rep=0;
+              reptab[repno].first = resno+1;
+           }
+         | ']' repeat connexion              /* end of repeat segment */
+           {  
+              reptab[repno].last = resno;
+              offset = (reptab[repno].last - reptab[repno].first + 1);
+
+              /* first modify the fconnect residue */
+              if (reptab[repno].fconnect==0)
+                reptab[repno].fconnect=resno;
+              modify_con(reptab[repno].fconnect,resno+1,status);
+
+             /* then set the appropiate parameters */
+             modify_val(reptab[repno].fconnect,con_b,con_f,thev,phiv,psiv,omev);
+
+              /* loop over number of repeats */
+              for (i=1; i<reptab[repno].rep; i++)
+                /* loop over offset */
+                for (j=1; j<=offset; j++)
+                { resno++;
+                  copy_res(reptab[repno].first-1+j,resno,i*offset);
+                }
+
+       /* if no sidechains to repeat segment connect to the last residue */
+
+              repno--;
+           }
+         ;
+id       : NAME
+           {  fname = strdup(yylval.string); }
+         ;
+conres   : INTEGER
+           {  polyres = yylval.integer; 
+           }
+         ;
+repeat   : INTEGER
+           {  reptab[repno].rep = yylval.integer; }
+         ;
+phi      : REAL
+           {  phiv = 999.9;
+              psiv = 999.9;
+              omev = 999.9;
+              phiv = yylval.real; }
+         ;
+psi      : REAL
+           {  psiv = yylval.real; }
+         ;
+ome      : REAL
+           {  omev = yylval.real; }
+         ;
+connexion: '(' back ':' forward ')'
+         | '(' back ':' forward ';' conval ')'
+         ;
+conval   : phi ';' psi
+         | phi ';' psi ';' ome
+         | QSTRING
+           {  phiv = 999.9;
+              psiv = 999.9;
+              omev = 999.9;
+              mapfile = strdup(yylval.string); 
+              getconval(mapfile,&phiv,&psiv,&omev);
+              free(mapfile);
+           }
+         ;
+back     : INTEGER
+           {  con_b = yylval.integer; }
+         ;
+forward  : INTEGER
+           {  con_f = yylval.integer; }
+         ;
+buildpar : NSETS '=' INTEGER
+           {  nsets  =  yylval.integer; }
+         | RGYR
+           { }
+         | SAVE
+           { }
+         | 
+         ;
+atoms    : /* no command line parameters */
+         | atoms atom
+         ;
+atom     : label resno
+           {  Aijkl[inx++] = getAno(no, lab); }
+         ;
+label    : NAME
+           {  strcpy(lab, yyval.string); }
+         ;
+resno    : INTEGER
+           {  no = yyval.integer; }
+         ;
+coordpars: /* no command line parameters */
+         | coordpars coordpar
+         ;
+coordpar : COPY
+           {  Coord_copy(); }
+         | ORIENT atoms
+           {  putchar('\n');
+              putchar('\n');
+              Coord_orient(Aijkl[0],Aijkl[1],Aijkl[2]);
+              wline('-', MAXLEN);
+           }
+         | RMS
+           {  putchar('\n');
+              putchar('\n');
+              Coord_rms(FALSE);
+              wline('-', MAXLEN);
+           }
+         | RMS MASS
+           {  putchar('\n');
+              putchar('\n');
+              Coord_rms(TRUE);
+              wline('-', MAXLEN);
+           }
+         | STAT
+           {  putchar('\n');
+              putchar('\n');
+              Coord_stat(); 
+              wline('-', MAXLEN);
+           }
+         ;
+enerpars : /* no command line parameters */
+         | enerpars enerpar
+         ;
+enerpar  : DERIV
+           {  deriv = 1; }
+         ;
+genpar   : {  pargenopt = 1; }
+         | ONE
+           {  pargenopt = 0; }
+         | ALL
+           {  pargenopt = 1; }
+         | ROTBOND
+           {  pargenopt = 11; }
+         ;
+dhxpars  : /* no command line parameters */
+         | dhxpars dhxpar
+         ;
+dhxpar   : NSTR '=' INTEGER
+           {  nstr = yylval.integer; }
+         | NREPS '=' INTEGER
+           {  nreps = yylval.integer; }
+         | SHIFT '=' REAL
+           {  shift = yylval.real; }
+         ;
+hxpars   : /* no command line parameters */
+         | hxpars hxpar
+         ;
+hxpar    : NFOLD '=' REAL
+           {  nfold = yylval.real; }
+         | NFOLD '=' INTEGER
+           {  nfold = (double) yylval.integer; }
+         | OPTIMIZE
+           {  optimize = TRUE; }
+         ;
+symelems : 
+         | symelems symelem
+         ;
+symelem  : initsym transfs sep transfs sep transfs ')'
+           {  if (rnat == 0)
+                 rnat = M.nat;
+              symneighbor(rnat, TM); 
+           }
+         | term
+         ;
+initsym  : '('
+           {  initmat(TM, 0.0); 
+              TM[3][3] = 1.0;
+              symno = 0;
+           }
+         ;
+transfs  : 
+         | transf transfs
+         ;
+transf   : mult 'x'
+           {  TM[symno][0] = xmult; }
+         | mult 'y'
+           {  TM[symno][1] = xmult; }
+         | mult 'z'
+           {  TM[symno][2] = xmult; }
+         | transl
+           {  TM[symno][3] = xtransl; }
+         ;
+mult     : {  xmult = 1.0; }
+         | REAL
+           {  xmult = yylval.real; }
+         | '+' REAL
+           {  xmult = yylval.real; }
+         | '+'
+           {  xmult = 1.0; }
+         | '-'
+           {  xmult = -1.0; }
+         ;
+transl   : REAL
+           {  xtransl = yylval.real; }
+         | '+' REAL
+           {  xtransl = yylval.real; }
+         ;
+sep      : ','
+           {  symno++; }
+         ;
+helppar  : /* no HELP subcommand parameter */
+         | BUILD
+           { }
+         | CALC
+           { }
+         | COORD
+           { }
+         | CREATE
+           { }
+         | DATE
+           { }
+         | DOUBLEHELIX
+           { }
+         | END
+           { }
+         | ENER
+           { }
+         | GENERATE
+           { }
+         | INIT
+           { }
+         | HELIX
+           { }
+         | HELP
+           { }
+         | LABEL
+           { }
+         | MINI
+           { }
+         | PRIMARY
+           { }
+         | READ
+           { }
+         | RECORD
+           { }
+         | MODIFY
+           { }
+         | SET
+           { }
+         | TIME
+           { }
+         | WRITE
+           { }
+         ;
+minipars : /* no command line parameters */
+         | minipars minipar
+         ;
+minipar  : DIHED
+           {  parspace = 1; }
+         | GRDTOL '=' REAL
+           {  grdtol =  yylval.real; }
+         | ENETOL '=' REAL
+           {  enetol =  yylval.real; }
+         | MAXIT '=' INTEGER
+           {  maxit  =  yylval.integer; }
+         | MAXFUN '=' INTEGER
+           {  maxfun =  yylval.integer; }
+         | NOISE
+           {  silent = FALSE; }
+         | SILENT
+           {  silent = TRUE; }
+         | NAME
+           { yyerror("unknown subcommand: "); }
+         ;
+iopars   : /* no command line parameters */
+         | iopars iopar
+         ;
+iopar    : parformat
+         | FRAC
+           {  descarte = FALSE; }
+         | REF
+           {  reference = TRUE; }
+         | QSTRING 
+           {  fname = strdup(yylval.string); }
+         | NAME
+           { yyerror("unknown subcommand: "); }
+         ; 
+parformat   : AMBER
+           { parformat = 0; }
+         | CHARMM
+           { parformat = 1; }
+         | CFF
+           { parformat = 2; }
+         | CSD
+           { parformat = 3; }
+         | DAT
+           { parformat = 4; }
+         | MM3
+           { parformat = 5; }
+         | MONO
+           { parformat = 6; }
+         | PDB
+           { parformat = 7; }
+         | PF
+           { parformat = 8; }
+         | PLOT 
+           { parformat = 9; }
+         | SYBYL 
+           { parformat = 10; }
+         | SPF 
+           { parformat = 11; }
+         | PIM 
+           { parformat = 12; }
+         | XYZ 
+           { parformat = 13; }
+         ;
+recpars  : /* no command line parameters */
+         | recpars recpar
+         ;
+recpar   : PHI '=' INTEGER
+           {  phino = yylval.integer; }
+         | PHIB '=' REAL
+           {  phib  = yylval.real; }
+         | PHIE '=' REAL
+           {  phie  = yylval.real; }
+         | PHIINC '=' REAL
+           {  phiinc= yylval.real; }
+         | PSI '=' INTEGER
+           {  psino = yylval.integer; }
+         | PSIB '=' REAL
+           {  psib  = yylval.real; }
+         | PSIE '=' REAL
+           {  psie  = yylval.real; }
+         | PSIINC '=' REAL
+           {  psiinc= yylval.real; }
+         | RECOPT '=' INTEGER
+           {  recopt = yylval.integer; }
+         | NOISE
+           {  silent = FALSE; }
+         | SILENT
+           {  silent = TRUE; }
+         | QSTRING 
+           {  fname = strdup(yylval.string); }
+         | NAME
+           { yyerror("unknown subcommand: "); }
+         ; 
+intpars  : { intopt = 1; } /* no command line parameters */
+         | intpars intpar
+         ;
+intpar   : ALL
+           { intopt = 2; }
+         | BOND
+           { intopt = 1; }
+         | NBOND
+           { intopt = 1; }
+         | ANGLE
+           { intopt = 1; }
+         | TORSION
+           { intopt = 1; }
+         | ROTBOND
+           { intopt = 0; }
+         ;
+term     : NL
+           {  lineno++;
+              if (lineno > 10000) lineno=1;
+              printf("\nPOLYS:%d > ", lineno);
+           }
+         ;
+%%
+

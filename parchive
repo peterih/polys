@@ -1,0 +1,3 @@
+rm -f polys*.tar.Z
+tar -cvf polys$1.tar *
+compress -v polys$1.tar
