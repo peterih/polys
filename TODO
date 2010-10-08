@@ -1,0 +1,7 @@
+fix pdb format
+	- The pdb format written by polys does not 
+          confirm to the standard. This confuses the
+          viewing programs. 
+
+fix timestamp
+    - current format is 192010
