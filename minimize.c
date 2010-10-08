@@ -8,13 +8,11 @@
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-**********************************************************************/
-void Minimize(int space, int maxfun, int maxit, double enetol,
+void
+Minimize(int space, int maxfun, int maxit, double enetol,
               double grdtol, BOOLEAN silent)
-
-{  register int  i;
+{
+   register int  i;
 
    if (space == 0)   /* cartesian space */ 
    {  if (!silent)
@@ -40,8 +38,5 @@ void Minimize(int space, int maxfun, int maxit, double enetol,
       }
       phimin(silent, maxfun, maxit, enetol, grdtol);
    }
-
 }  /* End of Minimize */	
-
-
 /* End of file */
