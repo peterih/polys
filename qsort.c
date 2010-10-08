@@ -5,12 +5,13 @@
 **********************************************************************/
 #include "defs.h"
 
-void Qsort(int low, int high, int ia[]) 
+void
+Qsort(int low, int high, int ia[]) 
+{  
+   int   i, j, midt, save;
 
-{  int   i, j, midt, save;
-
-   if (low < high)
-   {  i = low;
+   if (low < high) {
+      i = low;
       j = high;
       midt = ia[(i+j) / 2];
       do
@@ -25,5 +26,4 @@ void Qsort(int low, int high, int ia[])
       Qsort(low, j, ia);
       Qsort(i, high, ia);
    }   
-
 } /* End of Qsort */
