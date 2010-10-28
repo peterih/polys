@@ -1,50 +1,46 @@
-// Written by Soren Balling Engelsen, INRA-93, 94.
+/* Written by Soren Balling Engelsen, INRA-93, 94. */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
 
-/**********************************************************************
-	Returns the valency of atom A
-**********************************************************************/
-int Valency(atom A)
- 
-{  return (A.ztyp % 10);
+/* Returns the valency of atom A */
+int
+Valency(atom A)
+{
+   return (A.ztyp % 10);
+}
 
-}  /* End of Valency */
-
-/**********************************************************************
-	Calculates the distance between two points in cartesian space.
-**********************************************************************/
-double dist(Vector3 a, Vector3 b)
-
-{  double dx, dy, dz;
+/* Calculates the distance between two points in cartesian space. */
+double
+dist(Vector3 a, Vector3 b)
+{
+   double dx, dy, dz;
 
    dx = a.x - b.x;
    dy = a.y - b.y;
    dz = a.z - b.z;
    return(sqrt(dx*dx + dy*dy + dz*dz));
+}
 
-} /* End of dist */
-
-/**********************************************************************
-**********************************************************************/
-void add_bond(int i, int j)
-
-{  B[M.nbond].from=i, B[M.nbond].to=j;
+/* */
+void
+add_bond(int i, int j)
+{
+   B[M.nbond].from=i, B[M.nbond].to=j;
    M.nbond++;
+}
 
-} /* End of add_bond */
-
-/**********************************************************************
-	Generates bondtabel B[] and counts all bonds, nonbonds, close
-approach warnings and hydrogen bonds. The routine also checks that all
-valencies are filled.
-**********************************************************************/
-void gen_bondtab()
-
-{  register int i;
+/*
+ * Generates bondtabel B[] and counts all bonds, nonbonds, close
+ * approach warnings and hydrogen bonds. The routine also checks that
+ * all valencies are filled.
+ */
+void
+gen_bondtab()
+{
+   register int i;
    register int j;
    int      hb = 0;
    int      nnb = 0;
@@ -137,5 +133,4 @@ void gen_bondtab()
          }
       }
    }
-            
 }  /* End of gen_bondtab */

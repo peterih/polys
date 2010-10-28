@@ -9,8 +9,8 @@
 double
 brent(double ax, double bx, double cx, double (*f)(double),
       double tol, double *xmin)
-
-{  int iter;
+{
+   int iter;
    double a,b,d,etemp,fu,fv,fw,fx,p,q,r,tol1,tol2,u,v,w,x,xm;
    double e=0.0;
 

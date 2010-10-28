@@ -4,12 +4,12 @@
 #include "fileoper.h"
 
 BOOLEAN debug;
-/**********************************************************************
-	Print welcome header on output device.
-**********************************************************************/
+/*
+ * Print welcome header on output device.
+ */
 main(int argc, char **argv)
-
-{  char    *finame, *foname, str[80];
+{
+   char    *finame, *foname, str[80];
    int     i, j, idum;
    double  phiarr[1500], psiarr[1500], omearr[1500], earr[1500];  
    double  kT, T, A_0, A_1, Qsum;
@@ -56,7 +56,7 @@ main(int argc, char **argv)
       fileclose(finame,fp);
    }
 
-//// 2003 pih: *foname -> foname . Pointer comparison.
+/* 2003 pih: *foname -> foname . Pointer comparison. */
    if (foname != NULL)
    {  if ((fp = fileopen(foname, "wt")) != NULL)
       {  fprintf(fp, "%s\n", str);
@@ -70,4 +70,4 @@ main(int argc, char **argv)
       }
    }
 
-}  /* end of main */
+} /* end of main */

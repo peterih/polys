@@ -1,36 +1,32 @@
-/**********************************************************************
-  "calculate.c"
-
-  This file contains the source code for utility calculations
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This file contains the source code for utility calculations
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-   Calculates the distance:   i - j
-**********************************************************************/
-void calc_dist(int i, int j)
-
-{  double rij;
+/* Calculates the distance:   i - j */
+void
+calc_dist(int i, int j)
+{
+   double rij;
 
    rij = dist(A[i].pos, A[j].pos);
    printf("Interatomic distance:\n");
    printf("    %s [%d] -- %s [%d]\n", A[i].lab, i, A[j].lab, j);
    printf("          %.3lf\n", rij);
-} /* End of calc_dist */
+}
 
-/**********************************************************************
-   Calculates the angle:     i - j - k
-   the two distances:        i - j , j - k 
-**********************************************************************/
-void calc_angle(int i, int j, int k)
-
-{  double rij, rjk, aijk;
+/*
+ * Calculates the angle:     i - j - k
+ * the two distances:        i - j , j - k 
+ */
+void
+calc_angle(int i, int j, int k)
+{
+   double rij, rjk, aijk;
 
    rij = dist(A[i].pos, A[j].pos);
    rjk = dist(A[j].pos, A[k].pos);
@@ -40,17 +36,17 @@ void calc_angle(int i, int j, int k)
                A[i].lab, i, A[j].lab, j, A[k].lab, k);
    printf("             %.3lf        %.3lf\n", rij, rjk);
    printf("                  %.2lf\n", aijk);
+}
 
-} /* End of calc_angle */
-
-/**********************************************************************
-   Calculates the torsional angle:     i - j - k - l
-   the two angles:                     i - j - k ,  j - k -l
-   the three distances:                i- j , j - k, k - l 
-**********************************************************************/
-void calc_tors(int i, int j, int k, int l)
-
-{  double rij, rjk, rkl, aijk, ajkl, tijkl;
+/*
+ * Calculates the torsional angle:     i - j - k - l
+ * the two angles:                     i - j - k ,  j - k -l
+ * the three distances:                i- j , j - k, k - l 
+ */
+void
+calc_tors(int i, int j, int k, int l)
+{
+   double rij, rjk, rkl, aijk, ajkl, tijkl;
 
    rij = dist(A[i].pos, A[j].pos);
    rjk = dist(A[j].pos, A[k].pos);
@@ -64,15 +60,13 @@ void calc_tors(int i, int j, int k, int l)
    printf("             %.3lf        %.3lf        %.3lf\n", rij, rjk, rkl);
    printf("                  %.2lf       %.2lf\n", aijk, ajkl);
    printf("                         %.2lf\n", tijkl);
+}
 
-} /* End of calc_tors */
-
-/**********************************************************************
-   Prints a distance table on standard output.
-**********************************************************************/
-void dist_tabel()
-
-{  register int i;
+/* Prints a distance table on standard output. */
+void
+dist_tabel()
+{
+   register int i;
    register int j;
    double rij;
 
@@ -94,14 +88,13 @@ void dist_tabel()
    }
    putchar('\n');
    putchar('\n');
+}
 
-} /* End of dist_tabel */
-
-/**********************************************************************
-**********************************************************************/
-double atomass(int i)
-
-{  int    atnr;
+/* */
+double
+atomass(int i)
+{
+   int atnr;
 
    atnr=(int) (A[i].ztyp / 100);
    switch(atnr) 
@@ -125,13 +118,13 @@ double atomass(int i)
       case 18: return 39.948;   /* Ar */
       default: printf("BEWARE: Atomic Weight Errornously Reported\n");
    }
-} /* End of atomass */
+}
 
-/**********************************************************************
-**********************************************************************/
-void calc_mass()
-
-{  int    i, atnr;
+/* */
+void
+calc_mass()
+{
+   int    i, atnr;
    double molw;
 
    molw=0.0;
@@ -139,14 +132,13 @@ void calc_mass()
       molw += atomass(i);
 
    printf("\nMolecular Weight for %s = %10.3lf Daltons\n", M.id, molw);
+}
 
-}  /* End of calc_mass */
-
-/**********************************************************************
-**********************************************************************/
-void calc_rgyr()
-
-{  int    i;
+/* */
+void
+calc_rgyr()
+{
+   int    i;
    double cmx, cmy, cmz, rgyr, tmass, amass;
    double xx, yy, zz, r2, mr2i;
 
@@ -178,13 +170,13 @@ void calc_rgyr()
    rgyr = sqrt(mr2i/tmass);
    printf("\nRadius of gyration for %s = %10.3lf Angstrom\n", M.id, rgyr);
 
-}  /* End of calc_mass */
+}
 
-/**********************************************************************
-**********************************************************************/
-void calc_vol()
-
-{  int     i;
+/* */
+void
+calc_vol()
+{
+   int     i;
    double  dx, dy, dz, d2, r2, xi, yi, zi;
    double  gincr, gincr3, boxvol, allvol, molvol;
    Vector3 min, max, gp;
@@ -259,7 +251,4 @@ void calc_vol()
    printf("\nMolecular Volume %s = %10.3lf A^3\n", M.id, molvol);
    printf("\nEstimated Integration Error = %10.3lf per cent\n", allvol);
    printf("\nOccupied Volume Fraction = %10.3lf\n", molvol/boxvol);
-
-}  /* End of calc_vol */
-
-/* End of file */
+}
