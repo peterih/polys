@@ -1,26 +1,23 @@
-/**********************************************************************
-  "action.c"
-
-  Written by Soren Balling Engelsen, INRA-93, 94.
-**********************************************************************/
+/*  Written by Soren Balling Engelsen, INRA-93, 94. */
 #include <math.h>
 #include <stdio.h>
 #include "polys.h"
 
-/**********************************************************************
-	Actiontype determines which type of interaction exists between
-two atoms a1 and a2. Code for hydrogen bonds not included yet.
+/*
+ * Actiontype determines which type of interaction exists between
+ * two atoms a1 and a2. Code for hydrogen bonds not included yet.
+ *
+ * return value      interaction type
+ * ----------------------------------------
+ * -1                close approach warning
+ *  0                non-bonded
+ *  1                bonded
+ *  2                hydrogen bond and nonbonded
+ *
+ * BEWARE! It is not recommended to make any changes here without
+ * making elaborate tests.
+ */
 
-return value      interaction type
-----------------------------------------
--1                close approach warning
- 0                non-bonded
- 1                bonded
- 2                hydrogen bond and nonbonded
-
-BEWARE! It is not recommended to make any changes here without
-making elaborate tests.
-**********************************************************************/
 int
 actiontype(atom a, atom b, double *ab)
 

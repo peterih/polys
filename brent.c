@@ -6,9 +6,9 @@
 #define SIGN(a,b) ((b) > 0.0 ? fabs(a) : -fabs(a))
 #define SHFT(a,b,c,d) (a)=(b);(b)=(c);(c)=(d);
 
-
-double brent(double ax, double bx, double cx, double (*f)(double),
-             double tol, double *xmin)
+double
+brent(double ax, double bx, double cx, double (*f)(double),
+      double tol, double *xmin)
 
 {  int iter;
    double a,b,d,etemp,fu,fv,fw,fx,p,q,r,tol1,tol2,u,v,w,x,xm;
