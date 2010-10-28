@@ -1,9 +1,8 @@
-/*****************************************************************************
-	"defs.h" 
-	This file contains a number of convinient definitions of global 
-	constants and logical operators.
-	SBE93-INRA
-*****************************************************************************/
+/*
+ * This file contains a number of convinient definitions of global 
+ * constants and logical operators.
+ * SBE93-INRA
+ */
 
 /* FIRST some general convinient definitions */
 
@@ -88,4 +87,3 @@
 #define  MAXROT   20000
 #define  MAXOOP     200
 #endif
-/* End of file */

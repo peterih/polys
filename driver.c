@@ -1,35 +1,31 @@
-/**********************************************************************
-  "driver.c"
-
-  This module contains rutines to drive torsional angles through
-conformational ("phi-psi") space.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains rutines to drive torsional angles through
+ * conformational ("phi-psi") space.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdlib.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-   This rutine will find the network of connected atoms on each
-side of the rotatable bond "ai-ae". This is done by virtually deleting
-the "ai-ae" bond from the bond table. Then the bond table is passed
-once creating a connection level vector CONN[] which finally will
-contain *rotlevel for those atoms to be rotated.
-   If the specified bond was a part of a cyclic structure then no
-action is taken.
-**********************************************************************/
-int FindConn(int na, int nb, int ai, int ae, int *rotlevel)
-
-{  register int  i; 
+/*
+ * This rutine will find the network of connected atoms on each
+ * side of the rotatable bond "ai-ae". This is done by virtually deleting
+ * the "ai-ae" bond from the bond table. Then the bond table is passed
+ * once creating a connection level vector CONN[] which finally will
+ * contain *rotlevel for those atoms to be rotated.
+ * If the specified bond was a part of a cyclic structure then no
+ * action is taken.
+ */
+int
+FindConn(int na, int nb, int ai, int ae, int *rotlevel)
+{
+   register int  i; 
    register int  j;
    int      c_ai, c_ae, l_ai, l_ae, level, maxlevel;
    int      bf, bt;
 
    /* initialize connection level vector */
-
    for (i=0; i<na; i++)
       CONN[i]=0;
 
@@ -69,9 +65,11 @@ int FindConn(int na, int nb, int ai, int ae, int *rotlevel)
    l_ae=CONN[ae];
    c_ai=0;
    c_ae=0;
-   /* If the level of atoms "ai" and "ae" is the same then */
-   /* they are connected via another path ==> the bond is  */
-   /* a part of a cyclic structure.                        */
+   /*
+    * If the level of atoms "ai" and "ae" is the same then
+    * they are connected via another path ==> the bond is
+    * a part of a cyclic structure.
+    */
    if (l_ai == l_ae) 
    {  for (i=0; i<na; i++)
          CONN[i]=0;
@@ -95,14 +93,13 @@ int FindConn(int na, int nb, int ai, int ae, int *rotlevel)
       return(-(c_ae-1));
    }
    
-} /* End of FindConn */
+}
  
-
-/**********************************************************************
-**********************************************************************/
-void rotbond(Tors Pi, double torang)
-
-{  int        i, nrot, level;
+/* */
+void
+rotbond(Tors Pi, double torang)
+{
+   int        i, nrot, level;
    double     sign, angle, dangle, tstart; 
    Vector3    vec;
    Matrix     TM;
@@ -139,26 +136,26 @@ void rotbond(Tors Pi, double torang)
       }
    }
    trot += cput() - tstart;
-
-} /* End of rotbond */
+}
              
 
-/**********************************************************************
-   This rutine will drive to torsional angles through a specified
-part of conformational space.
-
-option 1:  rigid map (no cartesians saved)
-option 2:  rigid map (cartesians saved)
-option 3:  rigid map (cartesians saved and full energy evaluation)
-option 4:  relaxed map (no cartesians saved)
-option 5:  relaxed map (cartesians saved)
-option 6:  relaxed map (cartesians saved and full energy evaluation)
-**********************************************************************/
-void phipsidriv(int phinr, double sphi, double ephi, double incphi,
-                int psinr, double spsi, double epsi, double incpsi,
-                BOOLEAN silent, int option, char *fname)
-
-{  register int i;  
+/*
+ * This rutine will drive to torsional angles through a specified
+ * part of conformational space.
+ *
+ * option 1:  rigid map (no cartesians saved)
+ * option 2:  rigid map (cartesians saved)
+ * option 3:  rigid map (cartesians saved and full energy evaluation)
+ * option 4:  relaxed map (no cartesians saved)
+ * option 5:  relaxed map (cartesians saved)
+ * option 6:  relaxed map (cartesians saved and full energy evaluation)
+ */
+void
+phipsidriv(int phinr, double sphi, double ephi, double incphi,
+           int psinr, double spsi, double epsi, double incpsi,
+           BOOLEAN silent, int option, char *fname)
+{
+   register int i;  
    int          phicon, psicon;
    double       phiv, cphiv, rphi, Vpot;
    double       psiv, cpsiv, rpsi, hdist;
@@ -278,17 +275,17 @@ n");
       }
    }
    fileclose("PHIPSI.MAP", fp);
+}
 
-}  /* End of phipsidriv */
-
-/**********************************************************************
-   This rutine will drive one torsional angle through a specified
-part of conformational space.
-**********************************************************************/
-void phidriv(int phinr, double sphi, double ephi, double incphi,
-             BOOLEAN silent, int option, char *fname)
-
-{  register int i;  
+/*
+ * This rutine will drive one torsional angle through a specified
+ * part of conformational space.
+ */
+void
+phidriv(int phinr, double sphi, double ephi, double incphi,
+        BOOLEAN silent, int option, char *fname)
+{
+   register int i;  
    int          phicon;
    double       phiv, rphi, Vpot;
    double       hfc = 1500.0;
@@ -370,8 +367,4 @@ void phidriv(int phinr, double sphi, double ephi, double incphi,
       }
    }
    fileclose("PHI.MAP", fp);
-
-}  /* End of phidriv */
-
-
-/* End of file */
+}

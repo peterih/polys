@@ -1,22 +1,19 @@
-/**********************************************************************
-  "coord.c"
+/*
+ * This file contains the source code for doing coordinate manipulations
+ * in cartesian space.
 
-  This file contains the source code for doing coordinate manipulations
-in cartesian space.
-
-  Written by Soren Balling Engelsen, INRA-94.
-**********************************************************************/
+ * Written by Soren Balling Engelsen, INRA-94.
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-**********************************************************************/
-int getAno(int resnum, Label lab)
-
-{  int  i;
+/* */
+int
+getAno(int resnum, Label lab)
+{
+   int i;
    
    for (i=0; i<M.nat; i++)
       if (A[i].res == resnum)
@@ -24,26 +21,23 @@ int getAno(int resnum, Label lab)
             return (i);
     
    return (-1);
+}
 
-} /* End of getAno */
-
-/**********************************************************************
-**********************************************************************/
-void Coord_copy()
-
-{  int   i;
+/* */
+void
+Coord_copy()
+{
+   int i;
 
    for (i=0; (i<M.nat) AND (i<MAXATOMR); i++)
       Ar[i]  = A[i].pos;
+}
 
-} /* End of Coord_copy */
-
-
-/**********************************************************************
-**********************************************************************/
-void symneighbor(int nat, Matrix TM)
-
-{  int     i;
+/* */
+void
+symneighbor(int nat, Matrix TM)
+{
+   int i;
    Vector3 afrac;
 
    printf("\nAdding symmetry neighbor:\n");
@@ -55,34 +49,32 @@ void symneighbor(int nat, Matrix TM)
    }
    M.nat += nat;  
    printf("\nNumber of atoms in main set increased to: %d\n", M.nat);
+}
 
-} /* End of symneighbor */
-
-/**********************************************************************
-atomnumber no  to origo 
-atomnumber nx  to the X-axis
-atomnumber nxy to the XY-plane 
-**********************************************************************/
-void Coord_orient(no, nx, nxy)
-
+/*
+ * atomnumber no  to origo 
+ * atomnumber nx  to the X-axis
+ * atomnumber nxy to the XY-plane 
+ */
+void
+Coord_orient(no, nx, nxy)
 {
-  Orient(1, M.nres, no, nx, nxy);
-  printf("Coordinate set has been transformed:\n\n");
-  printf("At the origin:\n");
-  printf("\tAtom no. %3d: %-8s [%d]\n", no, A[no].lab, A[no].res);
-  printf("On the x-axis:\n");
-  printf("\tAtom no. %3d: %-8s [%d]\n", nx, A[nx].lab, A[nx].res);
-  printf("In the xy-plane:\n");
-  printf("\tAtom no. %3d: %-8s [%d]\n", nxy, A[nxy].lab, A[nxy].res);
+   Orient(1, M.nres, no, nx, nxy);
+   printf("Coordinate set has been transformed:\n\n");
+   printf("At the origin:\n");
+   printf("\tAtom no. %3d: %-8s [%d]\n", no, A[no].lab, A[no].res);
+   printf("On the x-axis:\n");
+   printf("\tAtom no. %3d: %-8s [%d]\n", nx, A[nx].lab, A[nx].res);
+   printf("In the xy-plane:\n");
+   printf("\tAtom no. %3d: %-8s [%d]\n", nxy, A[nxy].lab, A[nxy].res);
+}
 
-} /* End of Coord_orient */
-
-/**********************************************************************
-**********************************************************************/
-void Coord_rms(BOOLEAN heavy)
-
-{  int     i, count, bigi, smali;
-   double  dx, dy, dz, d, ds, dmin, dmax, dxs, dys, dzs, rms;
+/* */
+void
+Coord_rms(BOOLEAN heavy)
+{
+   int    i, count, bigi, smali;
+   double dx, dy, dz, d, ds, dmin, dmax, dxs, dys, dzs, rms;
 
    dxs = 0.0;
    dys = 0.0;
@@ -129,14 +121,13 @@ void Coord_rms(BOOLEAN heavy)
    printf("The rms difference in y-direction: %.4lf\n", dys);
    printf("The rms difference in z-direction: %.4lf\n", dzs);
    printf("\nThe rms difference:                %.4lf\n", rms);
+}
 
-} /* End of Coord_rms */
-
-/**********************************************************************
-**********************************************************************/
-void jacoby(Matrix A, Matrix B)
-
-{  int     i, j, maxi, maxj, iter, maxiter = 12;
+/**/
+void
+jacoby(Matrix A, Matrix B)
+{
+   int     i, j, maxi, maxj, iter, maxiter = 12;
    double  emax, ts, del, y, r, a, b, d, f1, fcos, fsin;
 
    initmat(B, 0.0);
@@ -230,14 +221,14 @@ C --- ENTER ROTATION IN EIGENVECTOR MATRIX
 */
 } /* End of jacoby */
 
-/**********************************************************************
-**********************************************************************/
-void Coord_stat()
-
-{  int     i;
-   double  xom, yom, zom, omw, am;
-   double  sxx, syy, szz, sxy, syz, szx, xi, yi, zi, xx, yy, zz, abc;
-   Matrix  INERTI, DIAG;
+/* */
+void
+Coord_stat()
+{
+   int    i;
+   double xom, yom, zom, omw, am;
+   double sxx, syy, szz, sxy, syz, szx, xi, yi, zi, xx, yy, zz, abc;
+   Matrix INERTI, DIAG;
 
    /* first calculate center of mass */
    xom = 0.0;
@@ -323,5 +314,3 @@ void Coord_stat()
 /*   matprint(DIAG);   */
 
 } /* End of Coord_stat */
-
-/* End of file */

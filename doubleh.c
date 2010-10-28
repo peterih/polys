@@ -1,39 +1,33 @@
-/**********************************************************************
-POLYS MODULE <doubleh.c>
-
-  This file contains the source code for helix duplications
-
-  Written by Milou Kouwijzer, INRA-95.
-  Last revision: S.B.E. 97
-**********************************************************************/
+/*
+ * This file contains the source code for helix duplications
+ * Written by Milou Kouwijzer, INRA-95.
+ * Last revision: S.B.E. 97
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-/**********************************************************************
-   Calculate the difference vector 
-**********************************************************************/
-void difvec(Vector3 a, Vector3 b, Vector3 *c)
-
-{  c->x = a.x - b.x;
+/* Calculate the difference vector */
+void
+difvec(Vector3 a, Vector3 b, Vector3 *c)
+{
+   c->x = a.x - b.x;
    c->y = a.y - b.y;
    c->z = a.z - b.z;
 
-} /* End of difvec */
+}
 
-/**********************************************************************
-
-   In this routine helices are duplicated to form double or 
-   triple helices.
-
-   The number of repeats in the single strand as well as the total
-   number of strands should be given
-
-**********************************************************************/
-void doubleh(int nstr, int nreps, double shift)
-
-{  int      i, j, nmc=0, nsc=0, ncrsc=0, nrps=0;
+/*
+ * In this routine helices are duplicated to form double or 
+ * triple helices.
+ * The number of repeats in the single strand as well as the total
+ * number of strands should be given
+ */
+void
+doubleh(int nstr, int nreps, double shift)
+{
+   int      i, j, nmc=0, nsc=0, ncrsc=0, nrps=0;
    int      rpr, sub_from;
    int      g2r, g2nr, offset=0;
    int      M1=0, M2, M3, M4;
@@ -287,7 +281,4 @@ void doubleh(int nstr, int nreps, double shift)
    }
    else
      printf("nstr = %d; no duplication of the single strand will be performed\n\n", nstr);
-
-} /* End of doubleh */
-
-/* End of file */
+}
