@@ -30,14 +30,14 @@ void read_cp(int nphi, int *ncon)
 
    nocon = 0;
    if ((fp = fileopen("CONSTRAIN", "rt")) != NULL)
-   {  getline(fp, line, MAXLEN);
+   {  get_line(fp, line, MAXLEN);
       printf("CONSTRAIN POTENTIAL -> %s\n", line);
-      getline(fp, line, MAXLEN);
+      get_line(fp, line, MAXLEN);
       sscanf(line, "%d", &nocon);
       putchar('\n');
 
       for (i=nphi; i<nphi+nocon; i++)
-      {  getline(fp, line, MAXLEN);
+      {  get_line(fp, line, MAXLEN);
          sscanf(line, "%d%lf%lf", &torno, &Kcon, &phicon);
          P[i] = P[torno]; 
          P[i].K1    = Kcon; 

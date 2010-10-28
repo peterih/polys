@@ -34,7 +34,7 @@ main()
    {  printf("PHIPSI map file %s opened for read-only access\n\n", fname);
 
       do 
-      {  nch = getline(fp, line, MAXLEN);
+      {  nch = get_line(fp, line, MAXLEN);
          if (line[0]=='-')
             if (line[1]=='-')
             

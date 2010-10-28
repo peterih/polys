@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include "polys.h"
 
-
 /**********************************************************************
 	Actiontype determines which type of interaction exists between
 two atoms a1 and a2. Code for hydrogen bonds not included yet.
@@ -22,7 +21,8 @@ return value      interaction type
 BEWARE! It is not recommended to make any changes here without
 making elaborate tests.
 **********************************************************************/
-int actiontype(atom a, atom b, double *ab)
+int
+actiontype(atom a, atom b, double *ab)
 
 #define MAXBDIST   1.81    /* max. bonded distance in topology search */
 #define MINBDIST   0.85    /* min. bonded distance in topology search */
@@ -82,6 +82,3 @@ int actiontype(atom a, atom b, double *ab)
    return 0;             /* non bond */
 
 } /* End of actiontype */
-
-
-/* End of file */

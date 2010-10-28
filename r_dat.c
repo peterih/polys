@@ -47,12 +47,12 @@ void read_DAT(char *fname)
       M.resid = getstring("Enter IUPAC id of residue: ");
 
       /* read titel */
-      nch = getline(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
       M.titel = strdup(line);
 
       /* read orthogonal transformations */
       orthogonal = TRUE;
-      nch = getline(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
       CommaSpace(line);
       nch = sscanf(line, "%lf%lf%lf%lf%lf%lf", 
              &CELL.a, &CELL.b, &CELL.c, &CELL.alpha, &CELL.beta, &CELL.gamma);
@@ -61,13 +61,13 @@ void read_DAT(char *fname)
          orthogonal = FALSE;
 
       /* read number of lines per atom */
-      nch = getline(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
       nch = sscanf(line, "%d", &nal);
 
       /* read the atomic information */
       i = 0;
       do
-      {  nch = getline(fp, line, MAXLEN);
+      {  nch = get_line(fp, line, MAXLEN);
          CommaSpace(line);
          nch = sscanf(line, "%s%lf%lf%lf%d%lf%d", 
                &A[i].lab, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 

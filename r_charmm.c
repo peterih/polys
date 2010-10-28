@@ -39,7 +39,7 @@ void read_CHARMM(char *fname)
 
       /* skip comment lines */
       do
-      { idum = getline(fp, line, MAXLEN);
+      { idum = get_line(fp, line, MAXLEN);
         printf("LINE: %s\n", line);
       } while (line[0] == '*');
 

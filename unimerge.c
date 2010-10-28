@@ -35,10 +35,10 @@ int main()
    if ((fp = fileopen(fname, "rt")) != NULL)
    {  printf("UNIRAS map file %s opened for read-only access\n\n", fname);
       printf("\n+---------+---------+---------+---------+\n");
-      nch = getline(fp, line, MAXLEN);
-      nch = getline(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
       do 
-      {  nch = getline(fp, line, MAXLEN);
+      {  nch = get_line(fp, line, MAXLEN);
          nch = sscanf(line, "%lf%lf%lf%lf", 
                                       &phi[no], &psi[no], &Eabs[no], &dummy);
          if (Eabs[no] < Emin)
@@ -67,10 +67,10 @@ int main()
        if ((fp = fileopen(fname, "rt")) != NULL)
        {  printf("UNIRAS map file %s opened for read-only access\n\n", fname);
           printf("\n+---------+---------+---------+---------+\n");
-          nch = getline(fp, line, MAXLEN);
-          nch = getline(fp, line, MAXLEN);
+          nch = get_line(fp, line, MAXLEN);
+          nch = get_line(fp, line, MAXLEN);
           for(i=0; i<no-1; i++)
-          {  nch = getline(fp, line, MAXLEN);
+          {  nch = get_line(fp, line, MAXLEN);
              nch = sscanf(line, "%lf%lf%lf%lf", &xphi, &xpsi, &xEabs, &dummy);
              if (xEabs < Eabs[i])
              {  Eabs[i] = xEabs;

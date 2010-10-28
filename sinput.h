@@ -15,7 +15,7 @@ union value          /* can hold a integer, a double or a pointer to a char */
 };
 
 int enter_name(char *prompt, char *name);
-int getline(FILE *fp, char *startptr, int nmax);
+int get_line(FILE *fp, char *startptr, int nmax);
 void putline(FILE *fp, char *startptr);
 BOOLEAN yesorno(char *prompt);
 int getinteger(char *prompt);

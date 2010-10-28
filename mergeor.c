@@ -41,7 +41,7 @@ main()
    {  printf("OR map file %s opened for read-only access\n\n", fname);
       printf("\n+---------+---------+---------+---------+\n");
       do 
-      {  nch = getline(fp, line, MAXLEN);
+      {  nch = get_line(fp, line, MAXLEN);
          nch = sscanf(line, "%lf%lf%lf%lf%lf%lf", 
               &phi[no], &psi[no], &Eabs[no], &dummy, &dummy, &Rot[no]);
 
@@ -75,7 +75,7 @@ main()
        {  printf("OR map file %s opened for read-only access\n\n", fname);
           printf("\n+---------+---------+---------+---------+\n");
           for(i=0; i<no-1; i++)
-          {  nch = getline(fp, line, MAXLEN);
+          {  nch = get_line(fp, line, MAXLEN);
              nch = sscanf(line, "%lf%lf%lf%lf%lf%lf", 
                    &xphi, &xpsi, &xEabs, &dummy, &dummy, &xRot);
 

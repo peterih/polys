@@ -35,7 +35,7 @@ main(int argc, char **argv)
    printf("OUTPUT FILE NAME = %s\n\n", foname);
 
    if ((fp = fileopen(finame, "rt")) != NULL)
-   {  idum = getline(fp, str, 80);
+   {  idum = get_line(fp, str, 80);
       printf("INFO: %s\n\n", str);
 
       i = 0;

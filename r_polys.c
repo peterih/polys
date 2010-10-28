@@ -38,16 +38,16 @@ void read_PF(char *fname, BOOLEAN ref)
 
       if (ref == FALSE)
       {  /* read residue ID: IUPAC */
-         idum = getline(fp, line, MAXLEN);
+         idum = get_line(fp, line, MAXLEN);
          M.resid = strdup(line);
 
          /* read titel */
-         idum = getline(fp, line, MAXLEN);
+         idum = get_line(fp, line, MAXLEN);
          M.titel = strdup(line);
       }
       else
-      {  idum = getline(fp, line, MAXLEN);
-         idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
+         idum = get_line(fp, line, MAXLEN);
          printf("Reading coordinates into the reference set\n");
       }
 
@@ -90,7 +90,7 @@ void read_PF(char *fname, BOOLEAN ref)
 
       /* read the atomic information */
       for ( i=0; i<nat; i++)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          if (ref == TRUE)
          {  sscanf(line, "%d%d%lf%lf%lf",
                          &idum, &idum, &Ar[i].x, &Ar[i].y, &Ar[i].z);
@@ -111,12 +111,12 @@ void read_PF(char *fname, BOOLEAN ref)
 
       /* read symmetry operations */
 /*      for (i=0; i<4; i++)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          sscanf(line, "%lf%lf%lf%lf",&TM0[i][0],&TM0[i][1],
                           &TM0[i][2],&TM0[i][3]);
       } 
       for (i=0; i<4; i++)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          sscanf(line, "%lf%lf%lf%lf",&TM1[i][0],&TM1[i][1],
                           &TM1[i][2],&TM1[i][3]);
       } 
@@ -124,7 +124,7 @@ void read_PF(char *fname, BOOLEAN ref)
       TM1[1][3] = TM1[1][3] * CELL.b;
       TM1[2][3] = TM1[2][3] * CELL.c;
       for (i=0; i<4; i++)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          sscanf(line, "%lf%lf%lf%lf",&TM2[i][0],&TM2[i][1],
                           &TM2[i][2],&TM2[i][3]);
       } 
@@ -132,7 +132,7 @@ void read_PF(char *fname, BOOLEAN ref)
       TM2[1][3] = TM2[1][3] * CELL.b;
       TM2[2][3] = TM2[2][3] * CELL.c;
       for (i=0; i<4; i++)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          sscanf(line, "%lf%lf%lf%lf",&TM3[i][0],&TM3[i][1],
                           &TM3[i][2],&TM3[i][3]);
       } 

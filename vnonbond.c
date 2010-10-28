@@ -70,9 +70,9 @@ void read_nbp(int nat, int nbond)
    strcpy(line,pardir);
    strcat(line,"/NBPARAM.PF");
    if ((fp = fileopen(line, "rt")) != NULL)
-   {  getline(fp, line, MAXLEN);
+   {  get_line(fp, line, MAXLEN);
       printf("NONBONDED POTENTIAL -> %s\n", line);
-      getline(fp, line, MAXLEN);
+      get_line(fp, line, MAXLEN);
       sscanf(line, "%d%d%lf%lf%lf%lf", 
                    &nopara, &nbtype, &dielec, &rcut, &sc14fv, &sc14fc);
       printf("DIELECTRIC CONSTANT     : %.2lf\n", dielec);
@@ -100,7 +100,7 @@ void read_nbp(int nat, int nbond)
       printf("=========================================\n");
 
       for (i=0; i<nopara; i++)
-      {  getline(fp, line, MAXLEN);  
+      {  get_line(fp, line, MAXLEN);  
          switch(nbtype)
          { case 0: /* LJ 12-6 Standard (E,r*) */
                    sscanf(line, "%d%lf%lf", &typ, &Emin, &r2);

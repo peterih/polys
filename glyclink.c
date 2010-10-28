@@ -96,11 +96,11 @@ void getconval(char *fname, double *phip, double *psip, double *omep)
    if (debug) printf("\nGETCONVAL: #RAND = %.6lf\n", pr);
 
    if ((fp = fileopen(fname, "rt")) != NULL)
-   {  idum = getline(fp, line, MAXLEN);
+   {  idum = get_line(fp, line, MAXLEN);
 
       oldpi=0.0;
       for (;(idum != -1);)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          idum = sscanf(line, "%lf%lf%lf%lf", &phi, &psi, &ome, &pi);
          if INRANGE(oldpi, pi, pr)
          {  *phip = phi;

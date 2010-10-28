@@ -39,10 +39,10 @@ void read_NMB(char *fname)
    strcat(line, ".MB"); 
    if ((fp = fileopen(line, "rb")) != NULL)
    {  /* read residue id */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       M.resid = strdup(line);
       /* read titel */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       /* read number of atoms */
       fscanf(fp, "%5d %5d\n", &nat, &nres);     /* number of atoms */
       fread((void *) (A+M.nat), sizeof(A[0]), nat, fp);
@@ -95,10 +95,10 @@ int read_MB(char *fname, BOOLEAN monob)
    }
 
    if ((fp = fileopen(line, "rt")) != NULL)
-   {  idum = getline(fp, line, MAXLEN);
+   {  idum = get_line(fp, line, MAXLEN);
       M.resid = strdup(line);
       /* read titel */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       /* read number of atoms */
       fscanf(fp, "%5d %5d\n", &nat, &nres);     /* number of atoms */
       for ( i=M.nat; i<(M.nat+nat); i++)

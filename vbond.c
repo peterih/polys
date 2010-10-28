@@ -61,9 +61,9 @@ void read_bp(int nbond)
    strcpy(line,pardir);
    strcat(line,"/BPARAM.PF");
    if ((fp = fileopen(line, "rt")) != NULL)
-   {  getline(fp, line, MAXLEN);
+   {  get_line(fp, line, MAXLEN);
       printf("BONDED POTENTIAL -> %s\n", line);
-      getline(fp, line, MAXLEN);
+      get_line(fp, line, MAXLEN);
       sscanf(line, "%d%d", &nopara, &peftype);
 
       switch(peftype)
@@ -82,7 +82,7 @@ void read_bp(int nbond)
 
       for (i=0; i<nopara; i++)
       {  alpha = 0.0;
-         getline(fp, line, MAXLEN);
+         get_line(fp, line, MAXLEN);
          switch(peftype)
          {  case 2: sscanf(line, "%d%d%lf%lf%lf", &it, &jt, &Kb, &alpha, &l0);
                     break;

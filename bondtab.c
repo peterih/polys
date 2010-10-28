@@ -1,8 +1,4 @@
-/**********************************************************************
-  "bondtab.c"
-
-  Written by Soren Balling Engelsen, INRA-93, 94.
-**********************************************************************/
+// Written by Soren Balling Engelsen, INRA-93, 94.
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
@@ -143,5 +139,3 @@ void gen_bondtab()
    }
             
 }  /* End of gen_bondtab */
-
-/* End of file */

@@ -63,9 +63,9 @@ void read_ap(int ntheta)
    strcpy(line,pardir);
    strcat(line,"/APARAM.PF");
    if ((fp = fileopen(line, "rt")) != NULL)
-   {  getline(fp, line, MAXLEN);
+   {  get_line(fp, line, MAXLEN);
       printf("ANGLE POTENTIAL -> %s\n", line);
-      getline(fp, line, MAXLEN);
+      get_line(fp, line, MAXLEN);
       sscanf(line, "%d%d", &nopara, &peftype);
 
       switch(peftype)
@@ -81,7 +81,7 @@ void read_ap(int ntheta)
       putchar('\n');
 
       for (i=0; i<nopara; i++)
-      {  getline(fp, line, MAXLEN);
+      {  get_line(fp, line, MAXLEN);
          sscanf(line, "%d%d%d%lf%lf", &it, &jt, &kt, &Ktheta, &t0);
          aicode = acode(it, jt, kt);
          for (j=0; j< ntheta; j++)

@@ -113,7 +113,7 @@ void ReadCharges(char *fname)
    {  printf("PARTIAL CHARGE file %s opened for read-only access\n",fname);
 
       /* read comments */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
 
       /* read number of charges */
       fscanf(fp, "%d\n", &nchg);
@@ -128,7 +128,7 @@ void ReadCharges(char *fname)
       {  sumchg = 0.0;
          for (i=0; i<nchg; i++)
          {  oldchg = A[i].chg;
-            idum = getline(fp, line, MAXLEN);
+            idum = get_line(fp, line, MAXLEN);
             sscanf(line, "%lf", &A[i].chg);
             sumchg += A[i].chg;
          }

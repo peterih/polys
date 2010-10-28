@@ -35,10 +35,10 @@ main()
    fname = getstring("Write name on UNIRAS map file: ");
    if ((fp = fileopen(fname, "rt")) != NULL)
    {  printf("UNIRAS map file %s opened for read-only access\n\n", fname);
-      nch = getline(fp, line, MAXLEN);
-      nch = getline(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
+      nch = get_line(fp, line, MAXLEN);
       do 
-      {  nch=getline(fp, line, MAXLEN);
+      {  nch=get_line(fp, line, MAXLEN);
          nch=sscanf(line,"%lf%lf%lf%lf",&phi[no],&psi[no],&Eabs[no],&Erel[no]);
          if ((Eabs[no] < Emin) AND (nch !=-1))
          {  Emin = Eabs[no];

@@ -58,9 +58,9 @@ void read_tp(int nphi)
    strcpy(line,pardir);
    strcat(line,"/TPARAM.PF");
    if ((fp = fileopen(line, "rt")) != NULL)
-   {  getline(fp, line, MAXLEN);
+   {  get_line(fp, line, MAXLEN);
       printf("TORSION POTENTIAL -> %s\n", line);
-      getline(fp, line, MAXLEN);
+      get_line(fp, line, MAXLEN);
       sscanf(line, "%d%d", &nopara, &peftype);
 
       switch(peftype)
@@ -78,7 +78,7 @@ void read_tp(int nphi)
       putchar('\n');
 
       for (i=0; i<nopara; i++)
-      {  getline(fp, line, MAXLEN);
+      {  get_line(fp, line, MAXLEN);
          switch(peftype)
          { case 1: /* Simple pitzer */
                    sscanf(line, "%d%d%d%d%lf%d", 

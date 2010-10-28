@@ -39,17 +39,17 @@ void read_SYBYL(char *fname)
 
       /* find @<TRIPOS>MOLECULE */
       while (line[0] != '@')
-        idum = getline(fp, line, MAXLEN);
+        idum = get_line(fp, line, MAXLEN);
 
       /* get titel and number of atoms */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       M.titel = strdup(line);
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       idum = sscanf(line,"%5d", &nat);
  
       /* find @<TRIPOS>ATOM */
       while (line[0] != '@')
-        idum = getline(fp, line, MAXLEN);
+        idum = get_line(fp, line, MAXLEN);
 
       printf("Number of atoms in residue %s[%d] = %d\n",M.resid,M.nres,nat);
 
@@ -61,7 +61,7 @@ void read_SYBYL(char *fname)
       }   
 
       for ( i=0; i<nat; i++)
-      {  idum = getline(fp, line, MAXLEN);
+      {  idum = get_line(fp, line, MAXLEN);
          sscanf(line, "%d %s %lf %lf %lf %s %d %s %lf",
            &idum, &A[i].lab, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
            &styp, &A[i].res, &dumtyp, &A[i].chg);

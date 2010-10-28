@@ -41,9 +41,9 @@ main()
    fname = getstring("Write name on polys coordinate file: ");
    if ((fp = fileopen(fname, "rt")) != NULL)
    {  printf("POLYS coordinate file %s opened for read-only access\n\n", fname);
-      nch = getline(fp, line1, MAXLEN);  /* ID */
-      nch = getline(fp, line2, MAXLEN);  /* title */
-      nch = getline(fp, line3, MAXLEN);  /* crystal */
+      nch = get_line(fp, line1, MAXLEN);  /* ID */
+      nch = get_line(fp, line2, MAXLEN);  /* title */
+      nch = get_line(fp, line3, MAXLEN);  /* crystal */
       fscanf(fp, "%d", &nat);
       printf("NAT: %d\n", nat);
       for (i=0; i<nat; i++)

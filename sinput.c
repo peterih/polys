@@ -1,6 +1,4 @@
 /**********************************************************************
-  "sinput.c"
-
   This module contain basic I/O rutines for interacting with the 
 user and with files.
 
@@ -19,7 +17,7 @@ extern BOOLEAN debug;
 	Routine to read a line from standard input 'stdin' or from a 
 file 'fp'.
 **********************************************************************/
-int getline(FILE *fp, char *startptr, int max)
+int get_line(FILE *fp, char *startptr, int max)
 
 {  register int c;
    register char *ptr = startptr;
@@ -33,7 +31,7 @@ int getline(FILE *fp, char *startptr, int max)
    if (debug) printf("GETLINE: %s\n", startptr);
 
    return (c == EOF) ? -1 : ptr - startptr;
-}  /* End of getline */
+}  /* End of get_line */
 
 
 /**********************************************************************
@@ -101,7 +99,7 @@ enum error getvalue(char *prompt, enum itype type, union value *up)
    char *cp;
   
    printf("%s", prompt);
-   if (getline(stdin, line, MAXLEN) == -1)
+   if (get_line(stdin, line, MAXLEN) == -1)
       return NOINPUT;
    switch(type)
    {  case INTEGER: if (sscanf(line, "%d", &(up->i)) != 1)

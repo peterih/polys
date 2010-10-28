@@ -37,17 +37,17 @@ void read_MM3(char *fname)
    {  printf("MM3 coordinate file %s opened for read-only access\n",fname);
 
       /* get title and number of atoms from line 1* */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       idum = sscanf(line,"%60c%1d%4d", &titel1, &method, &nat);
       idum = sscanf(titel1, "%s", &titel2);
       M.titel = strdup(titel2);
 
       /* if pi system */
       if (method==1)
-         idum = getline(fp, line, MAXLEN);
+         idum = get_line(fp, line, MAXLEN);
 
       /* get number of lines with connctivity from line 2* */
-      idum = getline(fp, line, MAXLEN);
+      idum = get_line(fp, line, MAXLEN);
       idum = sscanf(line, "%1d%4d%22c%5d", &kfixtyp,&ncon,&titel1,&nattch);
       nls = ncon + (int) nattch/8;
 /* Old criterion did not work properly!
@@ -60,7 +60,7 @@ void read_MM3(char *fname)
       printf("Number of lines to skip = %d + %d/8 = %d\n", ncon, nattch, nls); 
 
       for ( i=0; i<nls; i++)
-         idum = getline(fp, line, MAXLEN);
+         idum = get_line(fp, line, MAXLEN);
 
       for ( i=0; i<nat; i++)
       {  fscanf(fp, "%lf%lf%lf %c %2d%s",
