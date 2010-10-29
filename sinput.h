@@ -1,14 +1,13 @@
-/**********************************************************************
-	"sinput.h" Header file for 
-SBE93-INRA
-**********************************************************************/
+/*
+ * SBE93-INRA
+ */
 #include <stdio.h>
 #include "defs.h"
 
 enum itype {INTEGER, REAL, STRING};
 enum error {NOERROR, NOINPUT, NOSPACE, BADNUMBER, BADTYPE};
 
-union value          /* can hold a integer, a double or a pointer to a char */
+union value /* can hold a integer, a double or a pointer to a char */
 {  int    i;
    double d;
    char   *s;
@@ -22,5 +21,3 @@ int getinteger(char *prompt);
 double getreal(char *prompt);
 char *getstring(char *prompt);
 void wline(char ctyp, unsigned short width);
-
-/* End of file */

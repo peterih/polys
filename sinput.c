@@ -1,9 +1,8 @@
-/**********************************************************************
-  This module contain basic I/O rutines for interacting with the 
-user and with files.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contain basic I/O rutines for interacting with the 
+ * user and with files.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
@@ -13,13 +12,11 @@ user and with files.
 
 extern BOOLEAN debug;
 
-/**********************************************************************
-	Routine to read a line from standard input 'stdin' or from a 
-file 'fp'.
-**********************************************************************/
-int get_line(FILE *fp, char *startptr, int max)
-
-{  register int c;
+/* Routine to read a line from stdin or from a file 'fp' */
+int
+get_line(FILE *fp, char *startptr, int max)
+{
+   register int c;
    register char *ptr = startptr;
    register char *endptr = startptr + max - 1;
 
@@ -31,31 +28,29 @@ int get_line(FILE *fp, char *startptr, int max)
    if (debug) printf("GETLINE: %s\n", startptr);
 
    return (c == EOF) ? -1 : ptr - startptr;
-}  /* End of get_line */
+}
 
 
-/**********************************************************************
-	Routine to write a line to standard output 'stdout' or to a 
-file 'fp'.
-**********************************************************************/
-void putline(FILE *fp, char *startptr)
-
-{  register char *ptr = startptr;
+/* Routine to write a line to 'stdout' or to a file 'fp' */
+void
+putline(FILE *fp, char *startptr)
+{
+   register char *ptr = startptr;
 
    for (; *ptr != '\0'; ptr++)
       putc(*ptr, fp);
    putc('\n', fp);
 
-}  /* End of putline */
+}
 
-
-/**********************************************************************
-        Routine to place a 'prompt' on screen and get a 'name' (ex.
-session ID or molecular ID ).
-**********************************************************************/
-int enter_name(char *prompt, char *name)
-
-{  int c;
+/* 
+ * Routine to place a 'prompt' on screen and get a 'name' (ex.
+ * session ID or molecular ID ).
+ */
+int
+enter_name(char *prompt, char *name)
+{
+   int c;
    char *endptr;     /* points to the last possible character */
    char *startptr;   /* points to the first character */
 
@@ -71,31 +66,29 @@ int enter_name(char *prompt, char *name)
                        (name - startptr), startptr);
 
    return (c == EOF) ? -1 : name - startptr;
-}  /* End of enter_name */
+}
 
-
-/**********************************************************************
-	Function that requests a single character input after
-printing a prompt on the screen.
-**********************************************************************/
-BOOLEAN yesorno(char *prompt)
-
-{  int c;
+/*
+ * Function that requests a single character input after
+ * printing a prompt on the screen.
+ */
+BOOLEAN
+yesorno(char *prompt)
+{
+   int c;
    
    printf("\n%s: ", prompt);
    while ((c = getchar()) != 'Y' AND c != 'N')
       putchar('\a');
    return(c == 'Y');
 
-}  /* End of yesorno */
+}
 
-
-/**********************************************************************
-	Function that reads a value from the user.
-**********************************************************************/
-enum error getvalue(char *prompt, enum itype type, union value *up)
-
-{  char line[MAXLEN + 1];
+/* Function that reads a value from the user */
+enum error
+getvalue(char *prompt, enum itype type, union value *up)
+{
+   char line[MAXLEN + 1];
    char *cp;
   
    printf("%s", prompt);
@@ -113,17 +106,15 @@ enum error getvalue(char *prompt, enum itype type, union value *up)
                     break;
       default:      return BADTYPE;
    }
+
    return NOERROR;     /* succes */
+}
 
-}  /* End of getvalue */
-
- 
-/**********************************************************************
-	Function that print error on stdout.
-**********************************************************************/
-void printerror(enum error code)
-
-{  switch(code)
+/* Function that print error on stdout */
+void
+printerror(enum error code)
+{
+   switch(code)
    {  case NOINPUT:   putline(stdout, "Empty input line.");
                       break;
       case NOSPACE:   putline(stdout, "Out of storage space.");
@@ -135,72 +126,63 @@ void printerror(enum error code)
       default:        putline(stdout, "Unknown error.");
                       break;
    }
-}  /* End of printerror */ 
+}
 
-
-/**********************************************************************
-	Function that will prompt for and take an INTEGER from stdin.
-**********************************************************************/
-int getinteger(char *prompt)
-
-{  union value x;
+/* Function that will prompt for and take an INTEGER from stdin */
+int
+getinteger(char *prompt)
+{
+   union value x;
    enum error e;
 
    while ((e = getvalue(prompt, INTEGER, &x)) != NOERROR)
       printerror(e);
    putchar('\n');
+
    return x.i;
-
-}  /* End of getinteger */
+}
  
-
-/**********************************************************************
-	Function that will prompt for and take an DOUBLE from stdin.
-**********************************************************************/
-double getreal(char *prompt)
-
-{  union value x;
+/* Function that will prompt for and take an DOUBLE from stdin */
+double
+getreal(char *prompt)
+{
+   union value x;
    enum error e;
 
    while ((e = getvalue(prompt, REAL, &x)) != NOERROR)
       printerror(e);
    putchar('\n');
-   return x.d;
 
-}  /* End of getreal */
+   return x.d;
+}
  
 
-/**********************************************************************
-	Function that will prompt for and take an STRING from stdin.
-**********************************************************************/
-char *getstring(char *prompt)
-
-{  union value x;
+/* Function that will prompt for and take an STRING from stdin */
+char
+*getstring(char *prompt)
+{
+   union value x;
    enum error e;
 
    while ((e = getvalue(prompt, STRING, &x)) != NOERROR)
       printerror(e);
    putchar('\n');
+
    return x.s;
+}
 
-}  /* End of getstring */
-
- 
-/**********************************************************************
-  This simple routine will print a line of 'width' characters on standard
-output followed by an empty line.
-
-wline('\n',0) shifts one lines
-wline('\n',n) shifts n+1 lines
-**********************************************************************/
-void wline(char ctyp, unsigned short width)
-
-{  int    i;
+/*
+ * This simple routine will print a line of 'width' characters on standard
+ * output followed by an empty line.
+ *
+ * wline('\n',0) shifts one lines
+ * wline('\n',n) shifts n+1 lines
+ */
+void
+wline(char ctyp, unsigned short width)
+{
+   int    i;
 
    for ( i = 0; i < width; i++) 
       putchar(ctyp);
-
-} /* End of wline */
-
-
-/* End of file */
+}
