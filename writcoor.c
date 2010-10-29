@@ -4,6 +4,7 @@
  * Written by Soren Balling Engelsen, INRA-93.
  * Last revision: S.B.E. 1997
  */
+#include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
