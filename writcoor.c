@@ -659,10 +659,10 @@ write_SYBYL(char *fname)
    fprintf(fp, "#\tName:\t\t\t%s\n", M.titel);
    fprintf(fp, "#\tCreating user name:\t%s\n", UserName);
    dtime(&yy,&mm,&dd,&hh,&min,&ss);
-   fprintf(fp, "#\tCreation time:\t\t%d:%02d on %d-%d-19%d\n\n",
+   fprintf(fp, "#\tCreation time:\t\t%d:%02d on %d-%d-%d\n\n",
                                      hh,min,    dd,mm,  yy);
    fprintf(fp, "#\tModifying user name:\t%s\n", UserName);
-   fprintf(fp, "#\tModification time:\t%d:%02d on %d-%d-19%d\n\n",
+   fprintf(fp, "#\tModification time:\t%d:%02d on %d-%d-%d\n\n",
                                          hh,min,    dd,mm,  yy);
 
    fprintf(fp, "@<TRIPOS>MOLECULE\n");
@@ -737,10 +737,10 @@ write_PIM(char *fname)
    fprintf(fp, "#\tName:\t\t\t%s\n", M.titel);
    fprintf(fp, "#\tCreating user name:\t%s\n", UserName);
    dtime(&yy,&mm,&dd,&hh,&min,&ss);
-   fprintf(fp, "#\tCreation time:\t\t%d:%02d on %d-%d-19%d\n\n",
+   fprintf(fp, "#\tCreation time:\t\t%d:%02d on %d-%d-%d\n\n",
                                      hh,min,    dd,mm,  yy);
    fprintf(fp, "#\tModifying user name:\t%s\n", UserName);
-   fprintf(fp, "#\tModification time:\t%d:%02d on %d-%d-19%d\n\n",
+   fprintf(fp, "#\tModification time:\t%d:%02d on %d-%d-%d\n\n",
                                          hh,min,    dd,mm,  yy);
 
    fprintf(fp, "@<TRIPOS>MOLECULE\n");
