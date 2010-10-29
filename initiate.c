@@ -81,27 +81,27 @@ void Initialize(void)
       printf("INIT:\tTOL      : %.20f\n", TOL);
       printf("INIT:\tRODTOL   : %.20f\n\n", RODTOL);
       printf("INIT: SIZE OF DATASTRUCTURES\n");
-      printf("INIT:\tchar  : %d\n", sizeof(char));
-      printf("INIT:\tshort : %d\n", sizeof(short));
-      printf("INIT:\tint   : %d\n", sizeof(int));
-      printf("INIT:\tlong  : %d\n", sizeof(long));
-      printf("INIT:\tfloat : %d\n", sizeof(float));
-      printf("INIT:\tdouble: %d\n", sizeof(double));
-      printf("INIT:\tA[1]  : %d\n", sizeof(A[1]));
-      printf("INIT:\tA[]   : %d\n", sizeof(A));
-      printf("INIT:\tRes[1]: %d\n", sizeof(Res[1]));
-      printf("INIT:\tRes[] : %d\n", sizeof(Res));
-      printf("INIT:\tB[1]  : %d\n", sizeof(B[1]));
-      printf("INIT:\tB[]   : %d\n", sizeof(B));
-      printf("INIT:\tT[1]  : %d\n", sizeof(T[1]));
-      printf("INIT:\tT[]   : %d\n", sizeof(T));
-      printf("INIT:\tP[1]  : %d\n", sizeof(P[1]));
-      printf("INIT:\tP[]   : %d\n", sizeof(P));
-      printf("INIT:\tRT[1] : %d\n", sizeof(RT[1]));
-      printf("INIT:\tRT[]  : %d\n", sizeof(RT));
-      printf("INIT:\tO[1]  : %d\n", sizeof(O[1]));
-      printf("INIT:\tO[]   : %d\n", sizeof(O));
-      printf("INIT:\tM     : %d\n\n", sizeof(M));
+      printf("INIT:\tchar  : %ld\n", sizeof(char));
+      printf("INIT:\tshort : %ld\n", sizeof(short));
+      printf("INIT:\tint   : %ld\n", sizeof(int));
+      printf("INIT:\tlong  : %ld\n", sizeof(long));
+      printf("INIT:\tfloat : %ld\n", sizeof(float));
+      printf("INIT:\tdouble: %ld\n", sizeof(double));
+      printf("INIT:\tA[1]  : %ld\n", sizeof(A[1]));
+      printf("INIT:\tA[]   : %ld\n", sizeof(A));
+      printf("INIT:\tRes[1]: %ld\n", sizeof(Res[1]));
+      printf("INIT:\tRes[] : %ld\n", sizeof(Res));
+      printf("INIT:\tB[1]  : %ld\n", sizeof(B[1]));
+      printf("INIT:\tB[]   : %ld\n", sizeof(B));
+      printf("INIT:\tT[1]  : %ld\n", sizeof(T[1]));
+      printf("INIT:\tT[]   : %ld\n", sizeof(T));
+      printf("INIT:\tP[1]  : %ld\n", sizeof(P[1]));
+      printf("INIT:\tP[]   : %ld\n", sizeof(P));
+      printf("INIT:\tRT[1] : %ld\n", sizeof(RT[1]));
+      printf("INIT:\tRT[]  : %ld\n", sizeof(RT));
+      printf("INIT:\tO[1]  : %ld\n", sizeof(O[1]));
+      printf("INIT:\tO[]   : %ld\n", sizeof(O));
+      printf("INIT:\tM     : %ld\n\n", sizeof(M));
    }
 } /* End of initialize */
 
