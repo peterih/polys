@@ -255,7 +255,7 @@ Vphi(int nphi)
                   dV  = K1*2.0*(96.0*sqw*sqw*w - 96.0*sqw*w + 18.0*w);
                   break;
          default: 
-                  printf("Special %-fold torsional potential not supported\n",
+                  printf("Special %d-fold torsional potential not supported\n",
                           P[i].fold);
                   V  += 0.0;
                   dV  = 0.0;
