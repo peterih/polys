@@ -1,29 +1,26 @@
-/**********************************************************************
-  "Vcon.c"
-
-  This file contains the subroutines for calculation of the harmonic 
-torsional constrain potential as well as its derivatives vrt. 
-cartesians (F).
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This file contains the subroutines for calculation of the harmonic 
+ * torsional constrain potential as well as its derivatives vrt. 
+ * cartesians (F).
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-    Subroutine which will read in parameters and place them on top of
-the torsional angle array (P).
-The phase parameter is used as the constrain value.
-The recommended constrain force constant is 500 kcal/mol.
-         Ai - Aj - Ak - Al 
-**********************************************************************/
-void read_cp(int nphi, int *ncon)
-
-{  FILE   *fp;
+/*
+ * Subroutine which will read in parameters and place them on top of
+ * the torsional angle array (P).
+ * The phase parameter is used as the constrain value.
+ * The recommended constrain force constant is 500 kcal/mol.
+ * Ai - Aj - Ak - Al 
+ */
+void
+read_cp(int nphi, int *ncon)
+{
+   FILE   *fp;
    int    i, torno, nocon;
    double Kcon, phicon, phi;
    char   line[MAXLEN];
@@ -61,15 +58,13 @@ void read_cp(int nphi, int *ncon)
    }
    printf("%d torsional constraints have been included\n\n", nocon);
    *ncon = nocon;
-
 } /* End of read_cp */
  
-
-/**********************************************************************
-**********************************************************************/
-double Vcon(int nphi, int ncon)
-
-{  register int i;  
+/* */
+double
+Vcon(int nphi, int ncon)
+{
+   register int i;  
    BOOLEAN  deriv;
    int      ai, aj, ak, al;
    double   phi, phicon, phidif, pdsq, Kcon, w, V, dV;
@@ -204,8 +199,4 @@ double Vcon(int nphi, int ncon)
    }
 
    return (V);
-
-}  /* End of Vcons */
-
-
-/* End of file */
+} /* End of Vcons */

@@ -1,11 +1,8 @@
-/**********************************************************************
-  "Vtheta.c"
-
-  This file contains the subroutines for calculation of valence angle
-potential energy as well as its derivatives vrt. cartesians (F).
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This file contains the subroutines for calculation of valence angle
+ * potential energy as well as its derivatives vrt. cartesians (F).
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -14,13 +11,14 @@ potential energy as well as its derivatives vrt. cartesians (F).
 
 static int peftype;
 
-/**********************************************************************
-    Function which creates a unique code for each type of valence angle.
-         Ai - Aj - Ak 
-**********************************************************************/
-double anglecode(Angl Ti)
-
-{  int  it, jt, kt;
+/*
+ * Function which creates a unique code for each type of valence angle.
+ * Ai - Aj - Ak 
+ */
+double
+anglecode(Angl Ti)
+{
+   int  it, jt, kt;
 
    it = A[Ti.from].ztyp;
    jt = A[Ti.over].ztyp;
@@ -30,38 +28,38 @@ double anglecode(Angl Ti)
    else
      return (it + jt * MAXTINT + kt * MAXTINT * MAXTINT); 
 
-} /* End of anglecode */
+}
 
-/**********************************************************************
-    Function which creates a unique code for each type of valence angle.
-         Ai - Aj - Ak 
-**********************************************************************/
-double acode(int it, int jt, int kt)
-
+/*
+ * Function which creates a unique code for each type of valence angle.
+ * Ai - Aj - Ak 
+ */
+double
+acode(int it, int jt, int kt)
 {
    if (kt > it)
      return (kt + jt * MAXTINT + it * MAXTINT * MAXTINT);
    else
      return (it + jt * MAXTINT + kt * MAXTINT * MAXTINT); 
+}
 
-} /* End of acode */
-
-/**********************************************************************
-    Subroutine which will read in parameters and place then in the 
-valence angle array (T). The routine avoids and extra parameter array.
-         Ai - Aj - Ak 
-**********************************************************************/
-void read_ap(int ntheta)
-
-{  FILE   *fp;
+/*
+ * Subroutine which will read in parameters and place then in the 
+ * valence angle array (T). The routine avoids and extra parameter array.
+ * Ai - Aj - Ak 
+ */
+void
+read_ap(int ntheta)
+{
+   FILE   *fp;
    int    i, j, nopara, it, jt, kt;
    int    count = 0;
    double aicode, ajcode, Ktheta, t0;
    char   line[MAXLEN];
    char   *pardir = getenv("PARAM_DIR");
 
-   strcpy(line,pardir);
-   strcat(line,"/APARAM.PF");
+   strcpy(line, pardir);
+   strcat(line, "/APARAM.PF");
    if ((fp = fileopen(line, "rt")) != NULL)
    {  get_line(fp, line, MAXLEN);
       printf("ANGLE POTENTIAL -> %s\n", line);
@@ -109,11 +107,11 @@ void read_ap(int ntheta)
 
 } /* End of read_ap */
  
-/**********************************************************************
-**********************************************************************/
-double Vtheta(int ntheta)
-
-{  register int i;  
+/* */
+double
+Vtheta(int ntheta)
+{
+   register int i;  
    int      ai, aj, ak;
    double   tstart;
    double   theta, w, RIJsq, RKJsq, lRIJ, lRKJ, tt, V, dV, dtdw;
@@ -185,8 +183,4 @@ double Vtheta(int ntheta)
    
    tv += cput() - tstart;
    return (V/2);
-
-}  /* End of Vtheta */
-
-
-/* End of file */
+} /* End of Vtheta */

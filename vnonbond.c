@@ -1,12 +1,9 @@
 /**********************************************************************
-  "Vnonbond.c"
-
-  This module contains the source code for calculation of nonbonded
-energy as well as its derivatives vrt. cartesians (F). The function
-includes spherical cutoff (rcut) and minimum imaging in a cubic box.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+ * This module contains the source code for calculation of nonbonded
+ * energy as well as its derivatives vrt. cartesians (F). The function
+ * includes spherical cutoff (rcut) and minimum imaging in a cubic box.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdlib.h>
 #include <math.h>
 #include <strings.h>
@@ -14,19 +11,19 @@ includes spherical cutoff (rcut) and minimum imaging in a cubic box.
 #include "extern.h"
 
 static int nopara;    /* number of nonbonded parameters */
-static int nbtype;   /* type of nonbonded potential */
+static int nbtype;    /* type of nonbonded potential */
 static double dielec; /* the dielectric constant */
 static double rcut;   /* the spherical cutoff */
 
-
-/**********************************************************************
-   This rutine will neutralize overall charge on molecular system.
-THis rutine needs revision to support more than on molecule.
-**********************************************************************/
-void neutralize(int nat)
-
-{  int     i, j, nch;
-   double  chgsum, correchg;
+/*
+ * This rutine will neutralize overall charge on molecular system.
+ * This rutine needs revision to support more than on molecule.
+ */
+void
+neutralize(int nat)
+{
+   int    i, j, nch;
+   double chgsum, correchg;
 
    chgsum = 0.0;
    for (i=0; i<nat; i++)
@@ -42,25 +39,24 @@ void neutralize(int nat)
       printf("WARNING: Charges specified in input file ");
       printf("has been overwritten\n"); 
    }
-
-} /* End of neutralize */
-
+}
 
 /**********************************************************************
-   This routine will read nonbonded parameters from the file
-'PARAM_DIR/NBPARAM.PF' into the global array NBP[].
-   First it will read some control parameters from the file.
-----------------------------------------------------------------
-nopara      : number of parameters to be read (you can have more in the file)
-nbtype      : type of nonbonded potential
-dielec      : dielectric constant
-rcut        : spherical cutoff distance
-sc14fv      : 14 scaling factor for van der Waals interactions
-sc14fc      : 14 scaling factor for electrostatic interactions
-**********************************************************************/
-void read_nbp(int nat, int nbond)
-
-{  FILE   *fp;
+ * This routine will read nonbonded parameters from the file
+ * 'PARAM_DIR/NBPARAM.PF' into the global array NBP[].
+ * First it will read some control parameters from the file.
+ * ----------------------------------------------------------------
+ * nopara : number of parameters to be read (you can have more in the file)
+ * nbtype : type of nonbonded potential
+ * dielec : dielectric constant
+ * rcut   : spherical cutoff distance
+ * sc14fv : 14 scaling factor for van der Waals interactions
+ * sc14fc : 14 scaling factor for electrostatic interactions
+ */
+void
+read_nbp(int nat, int nbond)
+{
+   FILE   *fp;
    int    i, typ;
    double Emin, charge, r2, rm, rm6;
    double Aij, Bij, Cij, Eij;
@@ -154,22 +150,20 @@ void read_nbp(int nat, int nbond)
       fileclose("NBPARAM.PF", fp);
       neutralize(nat);
    }
-
 } /* End of read_nbp */
 
-
-/**********************************************************************
-   This routine gets nonbonded pair parameters in a suitable form from
-the nonbonded parameter array NBP. This rutine is needed for non-
-standard Lennard-Jones parameters. NBTYPE == 3 (Amber).
-**********************************************************************/
-void get_nbp(int typi, int typj, 
-             double *Aij, double *Bij, double *Cij)
-
-{  register int      i;
+/*
+ * This routine gets nonbonded pair parameters in a suitable form from
+ * the nonbonded parameter array NBP. This rutine is needed for non-
+ * standard Lennard-Jones parameters. NBTYPE == 3 (Amber).
+ */
+void
+get_nbp(int typi, int typj, 
+        double *Aij, double *Bij, double *Cij)
+{
+   register int      i;
    double   r, r3, r6, r12, Emin;
    double   PAi, PAj, PCi, PCj;
-
    
    PAi = NBP[typi].PA;
    PAj = NBP[typj].PA;
@@ -183,47 +177,43 @@ void get_nbp(int typi, int typj,
    *Aij = Emin*r12;
    *Bij = 0.0;
    *Cij = 2.0*Emin*r6;
-/*   printf("%3d - %3d   %.9lf   %.9lf\n", typi, typj, *Aij, *Cij);  */
+/*   printf("%3d - %3d   %.9lf   %.9lf\n", typi, typj, *Aij, *Cij); */
+}
 
-} /* End of get_nbp */
-
-
-/**********************************************************************
-**********************************************************************/
-double ANINT(double value)
-
-{  double  number;
+/* */
+double
+ANINT(double value)
+{
+   double  number;
 
    number = ceil(value);
    if ((value-number) > 0.5) 
       number = number + 1.0; 
    return number;
+}
 
-} /* End of ANINT */
-
-
-/**********************************************************************
-    Transform from cartesian coordinates to cylindrical coordinates.
-**********************************************************************/
-void Cylindrical(Vector3 a1, Vector3 a2, 
-                 double *r1, double *l1, double *pi,
-                 double *r2, double *l2, double *pj)
-
+/*
+ * Transform from cartesian coordinates to cylindrical coordinates.
+ */
+void
+Cylindrical(Vector3 a1, Vector3 a2, 
+            double *r1, double *l1, double *pi,
+            double *r2, double *l2, double *pj)
 {
 
-} /* End of cylindrical */
+}
 
-
-/**********************************************************************
-   This routine calculates the nonbonded potential. It is prepared
-for "minimum image convention" and molecular dynamics.
-derivtyp    0:  no derivatives
-derivtyp    1:  cartesian derivatives
-derivtyp    2:  dihedral derivatives
-**********************************************************************/
-double Vnonbond(int derivtyp, int nat, double *Vvdw, double *Vc)
-
-{  register int i;
+/*
+ * This routine calculates the nonbonded potential. It is prepared
+ * for "minimum image convention" and molecular dynamics.
+ * derivtyp    0:  no derivatives
+ * derivtyp    1:  cartesian derivatives
+ * derivtyp    2:  dihedral derivatives
+ */
+double
+Vnonbond(int derivtyp, int nat, double *Vvdw, double *Vc)
+{
+   register int i;
    register int j;  
    register int k;  
    int      level;
@@ -663,8 +653,4 @@ double Vnonbond(int derivtyp, int nat, double *Vvdw, double *Vc)
    *Vc   = Vq;
    tnb += cput() - tstart;
    return VS;
-
 }  /* End of Vnonbond */
-
-
-/* End of file */

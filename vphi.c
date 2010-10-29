@@ -1,11 +1,8 @@
-/**********************************************************************
-  "Vphi.c"
-
-  This file contains the subroutines for calculation of torsional angle
-potential energy as well as its derivatives vrt. cartesians (F).
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This file contains the subroutines for calculation of torsional angle
+ * potential energy as well as its derivatives vrt. cartesians (F).
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -14,13 +11,14 @@ potential energy as well as its derivatives vrt. cartesians (F).
 
 static int peftype;
 
-/**********************************************************************
-Function which compares to torsion types to see weather they fits.
-         Ai - Aj - Ak  - Al
-**********************************************************************/
-BOOLEAN torcomp(int it, int jt, int kt, int lt, Tors Pi)
-
-{  int   tf, to1, to2, tt;
+/*
+ * Function which compares to torsion types to see weather they fits.
+ * Ai - Aj - Ak  - Al
+ */
+BOOLEAN
+torcomp(int it, int jt, int kt, int lt, Tors Pi)
+{
+   int   tf, to1, to2, tt;
 
    tf  = A[Pi.from].ztyp;
    to1 = A[Pi.over1].ztyp;
@@ -37,18 +35,17 @@ BOOLEAN torcomp(int it, int jt, int kt, int lt, Tors Pi)
          if ((tf == lt) OR (lt == 9999))
            return (TRUE);
    return (FALSE);
+}
 
-} /* End of torcomp */
-
-
-/**********************************************************************
-    Subroutine which will read in parameters and place them in the 
-torsional angle array (P). The routine avoids an extra parameter array.
-         Ai - Aj - Ak - Al 
-**********************************************************************/
-void read_tp(int nphi)
-
-{  FILE   *fp;
+/*
+ * Subroutine which will read in parameters and place them in the 
+ * torsional angle array (P). The routine avoids an extra parameter array.
+ * Ai - Aj - Ak - Al 
+ */
+void
+read_tp(int nphi)
+{
+   FILE   *fp;
    int    i, j, nopara, it, jt, kt, lt;
    int    fold, count = 0;
    double K1, p1, K2, p2, K3, p3;
@@ -134,15 +131,14 @@ void read_tp(int nphi)
                    A[P[j].over1].ztyp, A[P[j].over2].ztyp, A[P[j].to].ztyp);
       printf("WARNING: MISSING TORSION PARAMETERS\n\n");
    }
-
 } /* End of read_tp */
  
 
-/**********************************************************************
-**********************************************************************/
-double Vphi(int nphi)
-
-{  register int i;  
+/* */
+double
+Vphi(int nphi)
+{
+   register int i;  
    int      ai, aj, ak, al;
    double   tstart;
    double   K1, p1, K2, p2, K3, p3;
@@ -308,8 +304,4 @@ double Vphi(int nphi)
 
    tt += cput() - tstart;
    return (V);
-
 }  /* End of Vphi */
-
-
-/* End of file */
