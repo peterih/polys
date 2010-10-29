@@ -1,10 +1,7 @@
-/*****************************************************************************
-"typs.h"
-
-                GLOBAL DATATYPE DECLARATIONS
-
-SBE93-INRA
-*****************************************************************************/
+/*
+ * GLOBAL DATATYPE DECLARATIONS
+ * SBE93-INRA
+ */
 #include <stdio.h>
 
 typedef double Matrix[4][4];
@@ -92,5 +89,3 @@ typedef struct
 typedef struct
 {  double   PA, PB, PC;
 }  Nbap;
-
-/* End of file */

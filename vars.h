@@ -1,10 +1,7 @@
-/*****************************************************************************
-   "vars.h"
-
-                GLOBAL VARIABLE DECLARATIONS 
-
-SBE93-INRA
-*****************************************************************************/
+/*
+ * GLOBAL VARIABLE DECLARATIONS 
+ * SBE93-INRA
+ */
 BOOLEAN  debug = FALSE;  /* Boolean control variables */
 BOOLEAN  plot = FALSE;
 BOOLEAN  print = FALSE;
@@ -70,7 +67,6 @@ int        DA[MAXATOM];      /* hydrolysis vector, see 'da' */
 Nbap       NBP[MAXTYPE];
 
 /* Help message */
-
 static char *help_message[] = {
 "where options include:",
 "    -display host:dpy            X server to use",
@@ -84,6 +80,3 @@ static char *help_message[] = {
 "    -u username                  name of user",
 "    -m molname                   associated name of molecule/session",
 NULL};
-
-
-/* End of file */

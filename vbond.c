@@ -1,11 +1,8 @@
-/**********************************************************************
-  "Vbonds.c"
-
-  This file contains the subroutines for calculation of covalent bonded
-energy as well as its derivatives vrt. cartesians (F).
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This file contains the subroutines for calculation of covalent bonded
+ * energy as well as its derivatives vrt. cartesians (F).
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -14,13 +11,14 @@ energy as well as its derivatives vrt. cartesians (F).
 
 static int peftype;   /* type of bonded potential */
 
-/**********************************************************************
-    Function which creates a unique code for each type of covalent bond.
-       Ai - Aj
-**********************************************************************/
-double bondcode(Bond Bi)
-
-{  int  it, jt;
+/*
+ * Function which creates a unique code for each type of covalent bond.
+ * Ai - Aj
+ */
+double
+bondcode(Bond Bi)
+{
+   int  it, jt;
 
    it = A[Bi.from].ztyp;
    jt = A[Bi.to].ztyp;
@@ -28,30 +26,27 @@ double bondcode(Bond Bi)
      return (it + jt * MAXTINT);
    else
      return (jt + it * MAXTINT); 
+}
 
-} /* End of bondcode */
-
-
-/**********************************************************************
-    Function which creates a unique code for each type of covalent bond.
-       Ai - Aj
-**********************************************************************/
-double paircode(int it, int jt)
-
+/*
+ * Function which creates a unique code for each type of covalent bond.
+ * Ai - Aj
+ */
+double
+paircode(int it, int jt)
 {
    if (it > jt)
      return (it + jt * MAXTINT);
    else
      return (jt + it * MAXTINT); 
 
-} /* End of paircode */
+}
 
-
-/**********************************************************************
-**********************************************************************/
-void read_bp(int nbond)
-
-{  FILE   *fp;
+/* */
+void
+read_bp(int nbond)
+{
+   FILE   *fp;
    int    i, j, nopara, it, jt;
    int    count = 0;
    double bicode, bjcode, Kb, alpha, l0;
@@ -110,15 +105,14 @@ void read_bp(int nbond)
             printf("%d  %d - %d \n", j , A[B[j].from].ztyp, A[B[j].to].ztyp);
       printf("WARNING: MISSING BOND PARAMETERS\n\n");
    }
-
 } /* End of read_bp */
  
 
-/**********************************************************************
-**********************************************************************/
-double Vbond(int nbond)
-
-{  register int i;  
+/* */
+double
+Vbond(int nbond)
+{
+   register int i;  
    register int j;  
    int      ai, aj;
    double   tstart;
@@ -162,9 +156,6 @@ double Vbond(int nbond)
    } 
    
    tbo += cput() - tstart;
+
    return (V);
-
-}  /* End of Vbond */
-
-
-/* End of file */
+} /* End of Vbond */

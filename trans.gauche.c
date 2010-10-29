@@ -65,7 +65,7 @@ main(int argc, char **argv)
       earr[j] = A_1;
    }
 
-//// 2003 pih: *foname -> foname . Pointer comparison.
+   /* 2003 pih: *foname -> foname . Pointer comparison */
    if (foname != NULL)
    {  if ((fp = fileopen(foname, "wt")) != NULL)
       {  fprintf(fp, "%s\n", str);
@@ -94,5 +94,4 @@ main(int argc, char **argv)
          fileclose(foname,fp);
       }
    }
-
 }  /* end of main */

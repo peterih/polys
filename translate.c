@@ -1,10 +1,6 @@
-/**********************************************************************
-   "translate.c"
-
-  This program .....
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <math.h>
 #include <string.h>
 #include "defs.h"
@@ -18,10 +14,11 @@ BOOLEAN debug;
 **********************************************************************/
 #define    MAXA   1500
 
-//// 20030117 pih: removed 'void' declaration of main.
+/* 20030117 pih: removed 'void' declaration of main */
+int
 main()
-
-{  register int i;
+{
+   register int i;
    FILE   *fp;
    char   line1[80];
    char   line2[80];
@@ -109,9 +106,6 @@ main()
                         A[i].chg, A[i].ztyp, A[i].lab);
    }
    fileclose(fname, fp);
-//// 20030117 pih: added a 'return' statement in case of correct termination.
+// 20030117 pih: added a 'return' statement in case of correct termination.
    return 0; 
 } /* End of main */
-
-
-/* End of file */
