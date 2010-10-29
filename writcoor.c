@@ -12,17 +12,17 @@
 #include "extern.h"
 #include "fileoper.h"
  
-
-/**********************************************************************
-        Write MONOBANK (binary) coordinate file
-        =======================================
-
-Write cartesian coordinates for the molecule in polys ".x" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-**********************************************************************/
-void write_NMB(char *fname)
-
-{  FILE *fp;
+/*
+ *      Write MONOBANK (binary) coordinate file
+ *      =======================================
+ *
+ * Write cartesian coordinates for the molecule in polys ".x" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ */
+void
+write_NMB(char *fname)
+{
+   FILE *fp;
    int   i;
 
    if (fname != NULL) 
@@ -35,19 +35,19 @@ void write_NMB(char *fname)
       fileclose(fname, fp);
       printf("%s succesfully stored in MONOBANK file \"%s\"\n", M.id, fname);
    }
+}
 
-}  /* End of write_NMB */
-
-/**********************************************************************
-        Write MONOBANK (ASCII) coordinate file
-        ======================================
-
-Write cartesian coordinates for the molecule in polys ".x" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-**********************************************************************/
-void write_MB(char *fname)
-
-{  FILE *fp;
+/*
+ *      Write MONOBANK (ASCII) coordinate file
+ *      ======================================
+ *
+ * Write cartesian coordinates for the molecule in polys ".x" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ */
+void
+write_MB(char *fname)
+{
+   FILE *fp;
    int   i;
 
    if (fname != NULL)
@@ -67,20 +67,19 @@ void write_MB(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
+}
 
-
-}  /* End of write_MB */
-
-/**********************************************************************
-        Write POLYS format coordinate file
-        ==================================
-
-Write cartesian coordinates for the molecule in polys ".x" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-**********************************************************************/
-void write_PF(char *fname, BOOLEAN descarte)
-
-{  FILE     *fp;
+/*
+ *      Write POLYS format coordinate file
+ *      ==================================
+ *
+ * Write cartesian coordinates for the molecule in polys ".x" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ */
+void
+write_PF(char *fname, BOOLEAN descarte)
+{
+   FILE     *fp;
    BOOLEAN  newline=TRUE;
    int      i, j, k;
    Vector3  av;
@@ -140,16 +139,13 @@ void write_PF(char *fname, BOOLEAN descarte)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
+} /* End of write_PF */
 
-}  /* End of write_PF */
-
-/**********************************************************************
-        Writes CFF coordinate files.
-        ============================
-**********************************************************************/
-void write_CFF(char *fname)
-
-{  register int i;
+/* Writes CFF coordinate files */
+void
+write_CFF(char *fname)
+{
+   register int i;
    int      atyp, btype;
    char     styp[4];
    FILE     *fp;
@@ -177,24 +173,24 @@ void write_CFF(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
+}
 
-} /* End of write_CFF */
-
-/**********************************************************************
-        Writes DAT format coordinate files.
-        =====================================
-
-   Write cartesian coordinates for the molecule in CRYSTAL ".dat" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-
-1 LINE:  title
-2 LINE:  orthogonal transformations
-3 LINE:  lines per atom
-* LINE:  A[i].lab, A[i].pos.x, A[i].pos.y, A[i].pos.z, type, A[i].chg, res
-**********************************************************************/
-void write_DAT(char *fname, BOOLEAN descarte)
-
-{  register int i;
+/*
+ *      Writes DAT format coordinate files.
+ *      =====================================
+ *
+ * Write cartesian coordinates for the molecule in CRYSTAL ".dat" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ *
+ * 1 LINE:  title
+ * 2 LINE:  orthogonal transformations
+ * 3 LINE:  lines per atom
+ * LINE:  A[i].lab, A[i].pos.x, A[i].pos.y, A[i].pos.z, type, A[i].chg, res
+ */
+void
+write_DAT(char *fname, BOOLEAN descarte)
+{
+   register int i;
    int      atyp;
    Vector3  av;
    FILE     *fp;
@@ -255,18 +251,18 @@ void write_DAT(char *fname, BOOLEAN descarte)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_DAT */
 
-/**********************************************************************
-        Writes CHARMM format coordinate files.
-        =======================================
-   Write cartesian coordinates for the molecule in CHARMM ".CRD" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-**********************************************************************/
-void write_CHARMM(char *fname)
-
-{  register int i;
+/*
+ *      Writes CHARMM format coordinate files.
+ *      =======================================
+ * Write cartesian coordinates for the molecule in CHARMM ".CRD" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ */
+void
+write_CHARMM(char *fname)
+{
+   register int i;
    int      yy, mm, dd, hh, min, ss;
    char     styp[4];
    FILE     *fp;
@@ -298,28 +294,28 @@ void write_CHARMM(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_CHARMM */
 
-/**********************************************************************
-  The MM3 input topology need cycles in its connected lists.
-  This recursive function finds a new ring connection (previous-ai) 
-from the array cycat[][0] to progress the closure of the ring. 
-  The new ring atom (ai) is checked for covalent bond to the initial 
-ring atom (first) - if so the ring is closed and the function 
-exited.
-  BEWARE the search for ring closure is terminated if it has not been
-found within 16 atoms (which is also the limit of the MM3 connected 
-lists).
-  BEWARE this function is most likely to fail with systems with double 
-rings sharing one or more atoms, however the other connected lists should
-be error free and just some manual adjustment is needed to form the
-ring closures (bDManPyr, aDAnGalp, cyclo dextrin ....).
-**********************************************************************/
-int rec_ring(int cycat[700][2], int connmm3[51][17], int ncon, int count,
-             int first, int previous)
-
-{  int    ia, ncount;
+/*
+ * The MM3 input topology need cycles in its connected lists.
+ * This recursive function finds a new ring connection (previous-ai) 
+ * from the array cycat[][0] to progress the closure of the ring. 
+ * The new ring atom (ai) is checked for covalent bond to the initial 
+ * ring atom (first) - if so the ring is closed and the function 
+ * exited.
+ * BEWARE the search for ring closure is terminated if it has not been
+ * found within 16 atoms (which is also the limit of the MM3 connected 
+ * lists).
+ * BEWARE this function is most likely to fail with systems with double 
+ * rings sharing one or more atoms, however the other connected lists should
+ * be error free and just some manual adjustment is needed to form the
+ *ring closures (bDManPyr, aDAnGalp, cyclo dextrin ....).
+ */
+int
+rec_ring(int cycat[700][2], int connmm3[51][17], int ncon, int count,
+         int first, int previous)
+{
+   int    ia, ncount;
    double dij;
 
    if (count > 16)
@@ -352,23 +348,23 @@ int rec_ring(int cycat[700][2], int connmm3[51][17], int ncon, int count,
    printf("WARNING: POLYS could not find ring closure\n");
    printf("WARNING:\n");
    return (count);
-
 } /* End of rec_ring */
 
-/**********************************************************************
-  The MM3 input topology need connected lists of chain atoms (more than
-one bond).
-  This recursive function finds the next connection in the (previous-ia) 
-from the array cycat[][1] to progress the chain until it is terminated
-by a terminal atom.
-  The recursive search for terminal atoms is terminated if it has not 
-been found within 16 atoms (which is also the limit of the MM3 connected
-lists), the chain will thus be divided into two or more chains.
-**********************************************************************/
-int rec_list(int cycat[700][2], int connmm3[51][17], 
-             int ncon, int count, int previous)
-
-{  int    ia, ncount;
+/*
+ * The MM3 input topology need connected lists of chain atoms (more than
+ * one bond).
+ * This recursive function finds the next connection in the (previous-ia) 
+ * from the array cycat[][1] to progress the chain until it is terminated
+ * by a terminal atom.
+ * The recursive search for terminal atoms is terminated if it has not 
+ * been found within 16 atoms (which is also the limit of the MM3 connected
+ * lists), the chain will thus be divided into two or more chains.
+ */
+int
+rec_list(int cycat[700][2], int connmm3[51][17], 
+         int ncon, int count, int previous)
+{
+   int    ia, ncount;
    double dij; 
 
    if (count > 16)
@@ -393,28 +389,28 @@ int rec_list(int cycat[700][2], int connmm3[51][17],
       }
    }
    return (count);
-
 } /* End of rec_list */
 
-/**********************************************************************
-        Writes MM3 format coordinate files.
-        =====================================
-   Write cartesian coordinates for the molecule in MM3 ".MM3" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-
-1* LINE:  (6A10,I1,I4,I2,I1,2I2,I3,F5.0) Name card
-2* LINE:  (I1,I4,5X,F10.5,9I5,5X,2I5)    Lists and options
-5* LINE:  (3F10.5, I5)                   Coordinates
-           X coordinate (%10.5lf)
-           Y coordinate (%10.5lf)
-           Z coordinate (%10.5lf)
-           atom type letter (%c)           Imberty
-           atom type (%5d)
-           atom label (%s)                 Imberty
-**********************************************************************/
-void write_MM3(char *fname)
-
-{  register int i, j;
+/*
+ *      Writes MM3 format coordinate files.
+ *      =====================================
+ * Write cartesian coordinates for the molecule in MM3 ".MM3" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ *
+ * 1* LINE:  (6A10,I1,I4,I2,I1,2I2,I3,F5.0) Name card
+ * 2* LINE:  (I1,I4,5X,F10.5,9I5,5X,2I5)    Lists and options
+ * 5* LINE:  (3F10.5, I5)                   Coordinates
+ *         X coordinate (%10.5lf)
+ *         Y coordinate (%10.5lf)
+ *         Z coordinate (%10.5lf)
+ *         atom type letter (%c)           Imberty
+ *         atom type (%5d)
+ *         atom label (%s)                 Imberty
+ */
+void
+write_MM3(char *fname)
+{
+   register int i, j;
    int      i1, i2;
    int      cycle, level, count, ncount;
    int      yy, mm, dd, hh, min, ss;
@@ -597,57 +593,57 @@ void write_MM3(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_MM3 */
 
-/**********************************************************************
-        Writes SYBYL/PIM format coordinate files.
-        =========================================
-   Write cartesian coordinates for the molecule in SYBYL ".mol2" format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-
---------------------------------------------------
-Elements   SYBYL/PIM        dat      polys
---------------------------------------------------
-Carbon    sp3 =  C.3/C.C     1         604
-Carbon    sp3 =  C.3/C.A     1         614 (a-anomeric)
-Carbon    sp3 =  C.3/C/B     1         614 (b-anomeric)
-Carbon    sp2 =  C.2         1         603
-Carbon    sp  =  C.1         1         602
-Carbon    ar  =  C.ar        1         623
---------------------------------------------------
-Oxygen    sp3 =  O.3         2         802 (hydroxyl)
-Oxygen    sp3 =  O.3         2         822 (carboxyl-O)
-Oxygen    sp3 =  O.3/O.A     4         812 (a-anomeric)
-Oxygen    sp3 =  O.3/O.B     4         812 (b-anomeric)
-Oxygen    sp3 =  O.3/O.R     4         812 (sugar ring-O)
-Oxygen    sp2 =  O.2         4         801
---------------------------------------------------
-Hydrogen      =  H/H.C       3         101
-Hydrogen      =  H          -3         111
-Hydrogen      =  H           3         121
---------------------------------------------------
-Nitrogen  sp3 =  N.3         5         703
-Nitrogen  sp2 =  N.2         5         713
-Nitrogen  sp  =  N.1         5         702
-Nitrogen  ar  =  N.ar        5         723
-Nitrogen  amid=  N.am        5         703
-Nitrogen  plan=  N.pl3       5         723
-Nitrogen  pos =  N.4         5         704
---------------------------------------------------
-Sulfur    sp3 =  S.3         6        1602
-Sulfur    sp2 =  S.2         6        1601
-Sulfur    sp3 =  S.O        18        1604
-Sulfur    sp3 =  S.O2        6        1603
---------------------------------------------------
-Phosphour sp3 =  P.3         ?        1504
---------------------------------------------------
-Dummy         =  Du          ?           9
---------------------------------------------------
-**********************************************************************/
-void write_SYBYL(char *fname)
-
-{  register int i;
+/*
+ *      Writes SYBYL/PIM format coordinate files.
+ *      =========================================
+ * Write cartesian coordinates for the molecule in SYBYL ".mol2" format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ *
+ * --------------------------------------------------
+ * Elements   SYBYL/PIM        dat      polys
+ * --------------------------------------------------
+ * Carbon    sp3 =  C.3/C.C     1         604
+ * Carbon    sp3 =  C.3/C.A     1         614 (a-anomeric)
+ * Carbon    sp3 =  C.3/C/B     1         614 (b-anomeric)
+ * Carbon    sp2 =  C.2         1         603
+ * Carbon    sp  =  C.1         1         602
+ * Carbon    ar  =  C.ar        1         623
+ * --------------------------------------------------
+ * Oxygen    sp3 =  O.3         2         802 (hydroxyl)
+ * Oxygen    sp3 =  O.3         2         822 (carboxyl-O)
+ * Oxygen    sp3 =  O.3/O.A     4         812 (a-anomeric)
+ * Oxygen    sp3 =  O.3/O.B     4         812 (b-anomeric)
+ * Oxygen    sp3 =  O.3/O.R     4         812 (sugar ring-O)
+ * Oxygen    sp2 =  O.2         4         801
+ * --------------------------------------------------
+ * Hydrogen      =  H/H.C       3         101
+ * Hydrogen      =  H          -3         111
+ * Hydrogen      =  H           3         121
+ * --------------------------------------------------
+ * Nitrogen  sp3 =  N.3         5         703
+ * Nitrogen  sp2 =  N.2         5         713
+ * Nitrogen  sp  =  N.1         5         702
+ * Nitrogen  ar  =  N.ar        5         723
+ * Nitrogen  amid=  N.am        5         703
+ * Nitrogen  plan=  N.pl3       5         723
+ * Nitrogen  pos =  N.4         5         704
+ * --------------------------------------------------
+ * Sulfur    sp3 =  S.3         6        1602
+ * Sulfur    sp2 =  S.2         6        1601
+ * Sulfur    sp3 =  S.O        18        1604
+ * Sulfur    sp3 =  S.O2        6        1603
+ * --------------------------------------------------
+ * Phosphour sp3 =  P.3         ?        1504
+ * --------------------------------------------------
+ * Dummy         =  Du          ?           9
+ *--------------------------------------------------
+ */
+void
+write_SYBYL(char *fname)
+{
+   register int i;
    int      atyp, btype;
    int      yy, mm, dd, hh, min, ss;
    char     styp[4];
@@ -719,14 +715,13 @@ void write_SYBYL(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_SYBYL */
 
-void write_PIM(char *fname)
-/**********************************************************************
-**********************************************************************/
-
-{  register int i;
+/* */
+void
+write_PIM(char *fname)
+{
+   register int i;
    int      atyp, btype;
    int      yy, mm, dd, hh, min, ss;
    char     styp[4];
@@ -805,17 +800,13 @@ void write_PIM(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_PIM */
 
-
-/**********************************************************************
-        Writes TINKER XYZ format coordinate files.
-        =========================================
-**********************************************************************/
-void write_XYZ(char *fname)
-
-{  register int i,j;
+/* Writes TINKER XYZ format coordinate files */
+void
+write_XYZ(char *fname)
+{
+   register int i,j;
    int      attype;
    int      yy, mm, dd, hh, min, ss;
    FILE     *fp;
@@ -859,7 +850,7 @@ void write_XYZ(char *fname)
                     printf("WARNING:\n");
                     break;
       }
-      /* Peter find en loesning  paa udskrivning af %s-3 label */
+      /* Peter find en loesning paa udskrivning af %s-3 label */
       fprintf(fp, "%6d  %c%c%c%12.6f%12.6f%12.6f%6d",
               i+1, A[i].lab[0], A[i].lab[1], A[i].lab[2],
                    A[i].pos.x, A[i].pos.y, A[i].pos.z, attype);
@@ -882,21 +873,20 @@ void write_XYZ(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_XYZ */
 
-
-/**********************************************************************
-         Writes SPF format coordinate files.
-        =======================================
-   Write cartesian coordinates for the molecule in ".spf" format, to 
-be used with the programs PLUTON and PLATON by Anthony L. Spek 
-(A.L. Spek, Acta Cryst. A46 (1990) C34).
-If *fname is NULL pointer the coordinates will be written to "stdout".
-**********************************************************************/
-void write_SPF(char *fname)
-
-{  register int i;
+/*
+ *       Writes SPF format coordinate files.
+ *      =======================================
+ * Write cartesian coordinates for the molecule in ".spf" format, to 
+ * be used with the programs PLUTON and PLATON by Anthony L. Spek 
+ * (A.L. Spek, Acta Cryst. A46 (1990) C34).
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ */
+void
+write_SPF(char *fname)
+{
+   register int i;
    int      n, nh=0, nc=0, nn=0, no=0;
    FILE     *fp;
    
@@ -954,19 +944,19 @@ void write_SPF(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_SPF */
 
-/**********************************************************************
-          Writes PDB format coordinate files.
-        =========================================
-   Write cartesian coordinates for the molecule in PDB format.
-If *fname is NULL pointer the coordinates will be written to "stdout".
-
-MTL 27.01.98 quick and dirty PDB output (good enough for RASMOL)
-**********************************************************************/
-void write_PDB(char *fname){
-
+/*
+ *        Writes PDB format coordinate files.
+ *      =========================================
+ * Write cartesian coordinates for the molecule in PDB format.
+ * If *fname is NULL pointer the coordinates will be written to "stdout".
+ *
+ * MTL 27.01.98 quick and dirty PDB output (good enough for RASMOL)
+ */
+void
+write_PDB(char *fname)
+{
   int	i;
   int	atyp, btype;
   int	yy, mm, dd, hh, min, ss;
@@ -1036,17 +1026,13 @@ printf("hello mum%d\n",M.nat);
     fileclose(fname, fp);
     printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
   }
-
 } /* end of write_PDB() */
 
-
-/**********************************************************************
-        Writes POLYS plot files.
-        =====================================
-**********************************************************************/
-void write_PLOT(char *fname)
-
-{  register int i;
+/* Writes POLYS plot files */
+void
+write_PLOT(char *fname)
+{
+   register int i;
    int      atyp, btype;
    char     styp[4];
    FILE     *fp;
@@ -1079,18 +1065,14 @@ void write_PLOT(char *fname)
    {  fileclose(fname, fp);
       printf("Data for %s succesfully stored in file \"%s\"\n", M.id, fname);
    }
-
 } /* End of write_PLOT */
 
 
-/**********************************************************************
-   Guides the output rutines.
-   PDB and CFF formats have not been programmed yet and will 
-default to PF format.
-**********************************************************************/
-void WritCoord(int format, char *fname, BOOLEAN descarte)
-
-{  /* first remove the quotes from the file name */
+/* Guides the output rutines */
+void
+WritCoord(int format, char *fname, BOOLEAN descarte)
+{
+   /* first remove the quotes from the file name */
    if (fname != NULL)
       DelQuotes(fname);
 
@@ -1137,9 +1119,5 @@ void WritCoord(int format, char *fname, BOOLEAN descarte)
                    break;
       case 13    : printf("TINKER Format\n");
                    write_XYZ(fname); 
-
    }
-
-} /* End of WritCoord */
-
-/* End of file */
+}
