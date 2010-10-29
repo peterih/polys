@@ -5,6 +5,7 @@
  * Written by Soren Balling Engelsen, INRA-93.
  */
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <strings.h>
 #include "polys.h"
