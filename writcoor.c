@@ -148,7 +148,7 @@ write_CFF(char *fname)
 {
    register int i;
    int      atyp, btype;
-   char     styp[4];
+   char     styp[5];
    FILE     *fp;
    
    if (fname != NULL) 
@@ -265,7 +265,7 @@ write_CHARMM(char *fname)
 {
    register int i;
    int      yy, mm, dd, hh, min, ss;
-   char     styp[4];
+   char     styp[5];
    FILE     *fp;
    
    if (fname != NULL) 
@@ -647,7 +647,7 @@ write_SYBYL(char *fname)
    register int i;
    int      atyp, btype;
    int      yy, mm, dd, hh, min, ss;
-   char     styp[4];
+   char     styp[5];
    FILE     *fp;
    
    if (fname != NULL) 
@@ -725,7 +725,7 @@ write_PIM(char *fname)
    register int i;
    int      atyp, btype;
    int      yy, mm, dd, hh, min, ss;
-   char     styp[4];
+   char     styp[5];
    FILE     *fp;
 
    if (fname != NULL)
@@ -1035,7 +1035,7 @@ write_PLOT(char *fname)
 {
    register int i;
    int      atyp, btype;
-   char     styp[4];
+   char     styp[5];
    FILE     *fp;
    
    if (fname != NULL) 
