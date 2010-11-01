@@ -17,8 +17,8 @@
 **********************************************************************/
 void read_PDB(char *fname)
 {  FILE    *fp;
-   char    cdum, line[100], dumtyp[4], cmd[6];
-   int     i, nat=0, idum, unused ;
+   char    cdum, line[100], dumtyp[4], cmd[6], *unused ;
+   int     i, nat=0, idum ;
    BOOLEAN orthogonal;
    double  fdum;
 
