@@ -24,7 +24,7 @@ main(int argc, char **argv)
    }
 
    if (argc == 4)
-      sscanf(argv[3], "%f", &T);
+      sscanf(argv[3], "%lf", &T);
    else
       T  = 298.0;
    printf("TEMPERATURE = %.2f\n\n", T);
