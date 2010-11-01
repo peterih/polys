@@ -104,7 +104,7 @@ int read_MB(char *fname, BOOLEAN monob)
       for ( i=M.nat; i<(M.nat+nat); i++)
       {  unused = fscanf(fp, "%5d%d%lf%lf%lf%lf%d%s",
                   &idum, &A[i].res, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
-                  &A[i].chg, &A[i].ztyp, &A[i].lab);
+                  &A[i].chg, &A[i].ztyp, A[i].lab);
          A[i].res += (M.nres-1);
       }
       M.nres+=nres;
