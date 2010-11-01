@@ -19,7 +19,7 @@ main(int argc, char **argv)
    printf("PROGRAM = %s\n\n", argv[0]);
 
    if (argc < 3)
-   {  printf("\nUsage:\n");
+   {  printf("\n%s\n", "Usage:");
       printf("\nUsage: %s <input> <output> <temp>\n");
       printf("\nUsage:\n");
       exit(0);
