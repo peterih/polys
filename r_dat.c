@@ -70,7 +70,7 @@ void read_DAT(char *fname)
       {  nch = get_line(fp, line, MAXLEN);
          CommaSpace(line);
          nch = sscanf(line, "%s%lf%lf%lf%d%lf%d", 
-               &A[i].lab, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
+               A[i].lab, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
                &A[i].ztyp, &A[i].chg, &A[i].res);
          printf("[%3d][%3d] TYP [%3d] %s\n",
                  i, A[i].res, A[i].ztyp, A[i].lab);  

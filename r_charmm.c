@@ -57,8 +57,8 @@ void read_CHARMM(char *fname)
 
       for ( i=0; i<nat; i++)
       {  unused = fscanf(fp, "%d%d%s%s%lf%lf%lf%s%d%lf",
-                &idum, &A[i].res, &resname, &A[i].lab, &A[i].pos.x, 
-                &A[i].pos.y, &A[i].pos.z, &resname, &idum, &A[i].chg);
+                &idum, &A[i].res, resname, A[i].lab, &A[i].pos.x, 
+                &A[i].pos.y, &A[i].pos.z, resname, &idum, &A[i].chg);
          /* CHARMM coordinate files does not contain atomtype   */
          /* information - lets try to estimate atom types       */
          switch (A[i].lab[0])
