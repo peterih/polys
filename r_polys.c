@@ -98,7 +98,7 @@ void read_PF(char *fname, BOOLEAN ref)
          else
          {  sscanf(line, "%5d%d%lf%lf%lf%lf%d%s",
                        &idum,&A[i].res,&A[i].pos.x,&A[i].pos.y,&A[i].pos.z, 
-                       &A[i].chg,&A[i].ztyp,&A[i].lab);
+                       &A[i].chg,&A[i].ztyp,A[i].lab);
             M.nat++;
          }
       }

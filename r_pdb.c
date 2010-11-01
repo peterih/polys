@@ -70,7 +70,7 @@ void read_PDB(char *fname)
 
          if (strncmp("ATOM  ", line, 6)==0)
          {  sscanf(line, "%6s%d%*c%c%s%*9c%d%8lf%8lf%8lf%6lf%6lf\n", 
-                          &cmd, &idum, &cdum, &A[nat].lab, &A[nat].res,
+                          cmd, &idum, &cdum, A[nat].lab, &A[nat].res,
                           &A[nat].pos.x, &A[nat].pos.y, &A[nat].pos.z,
                           &fdum, &fdum);
             nat++;
@@ -78,7 +78,7 @@ void read_PDB(char *fname)
 
          if (strncmp("HETATM", line, 6)==0)
          {  sscanf(line, "%6s%d%*c%c%s%*9c%d%8lf%8lf%8lf%6lf%6lf\n", 
-                          &cmd, &idum, &cdum, &A[nat].lab, &A[nat].res,
+                          cmd, &idum, &cdum, A[nat].lab, &A[nat].res,
                           &A[nat].pos.x, &A[nat].pos.y, &A[nat].pos.z,
                           &fdum, &fdum);
             nat++;
