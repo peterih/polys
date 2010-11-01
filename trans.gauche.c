@@ -20,8 +20,8 @@ main(int argc, char **argv)
 
    if (argc < 3)
    {  printf("\n%s\n", "Usage:");
-      printf("\nUsage: %s <input> <output> <temp>\n");
-      printf("\nUsage:\n");
+      printf("\nUsage: %s <input> <output> <temp>\n", "Executable");
+      printf("\n%s\n", "Usage:");
       exit(0);
    }
 
