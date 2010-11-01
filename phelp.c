@@ -5,6 +5,7 @@
 
   Written by Soren Balling Engelsen, INRA-95.
 **********************************************************************/
+#include <stdio.h>
 #include <string.h>
 #include "polypars.tab.h"
  

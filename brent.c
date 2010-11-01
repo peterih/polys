@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdio.h>
 
 #define ITMAX 100
 #define CGOLD 0.3819660
