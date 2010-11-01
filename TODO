@@ -5,3 +5,7 @@ fix pdb format
 
 fix timestamp
     - current format is 192010
+
+handle unused return values
+    - for now I stored them in an 'int unused;' variable, but this
+      return value should be checked.
