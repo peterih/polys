@@ -7,6 +7,7 @@ number between 0 and 1.
 
   Written by Soren Balling Engelsen, INRA-93.
 **********************************************************************/
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "defs.h"
