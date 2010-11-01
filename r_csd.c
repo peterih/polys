@@ -48,6 +48,7 @@ void read_CSD(char *csd_id, BOOLEAN ref)
    int     sform = 1;
    int     i, k, s, l, longueur, sup, lignes, centre, nbre, liaisons, NSAT;
    char    spacegrp, record[100], chaine[11], connect[800], fname[15];
+   char  *unused ;
 
    /* open database file */
    if ((fp = fileopen("CSD.DAT", "rt")) != NULL)
@@ -56,7 +57,7 @@ void read_CSD(char *csd_id, BOOLEAN ref)
       strcpy(chaine, csd_id);
       /* find the specified CSD id */
       do 
-      { fgets(record, 100, fp);
+      { unused = fgets(record, 100, fp);
          if (feof(fp)) 
         { printf("\n\nCSD entry %s not found!\n\n", csd_id);
           goto fin;
@@ -108,7 +109,7 @@ void read_CSD(char *csd_id, BOOLEAN ref)
       liaisons = atoi(chaine);
 
       /************** Enregistrement 2 ******************************/ 
-      fgets(record, 100, fp);
+      unused = fgets(record, 100, fp);
 
       strncpy(chaine, record, 6);
       CELL.a = (double) atof(chaine); 
@@ -158,21 +159,21 @@ void read_CSD(char *csd_id, BOOLEAN ref)
 
       /************** Enregistrement 3 ******************************/ 
       for (l=0; l<lignes; l++)
-      fgets(record, 100, fp);
+      unused = fgets(record, 100, fp);
 
       /************** Enregistrement 4 ******************************/ 
       for(i=0; i<(nbre/6 + 1); i++)
-      { fgets(record, 100, fp);
+      { unused = fgets(record, 100, fp);
         strncat(liste, record, 75);
       }
 
       /************** Enregistrement 5 ******************************/ 
-      fgets(record, 100, fp);
+      unused = fgets(record, 100, fp);
 
       /************** Enregistrement 6 ******************************/ 
       i = 0; 
       while (i < M.nat)
-      { fgets(record, 100, fp);
+      { unused = fgets(record, 100, fp);
         for (k=0; k<=2; k++)
         { if ((i+1) > M.nat) break; 
           strncpy(A[i].lab, record + 27*k, 5);
@@ -222,7 +223,7 @@ void read_CSD(char *csd_id, BOOLEAN ref)
       /************** Enregistrement 7 ******************************/ 
       longueur = M.nat < 100 ? 2 : 3;
       for(i=0; i<(liaisons/(82/longueur) + 1); i++)
-      { fgets(record, 100, fp);
+      { unused = fgets(record, 100, fp);
         strncat(connect, record, 84 - 2*longueur);
       }
       for (k=1; k<(M.nat+1); k++)
