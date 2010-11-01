@@ -47,7 +47,7 @@ void read_CSD(char *csd_id, BOOLEAN ref)
 {  FILE    *fp;
    int     sform = 1;
    int     i, k, s, l, longueur, sup, lignes, centre, nbre, liaisons, NSAT;
-   char    spacegrp, record[100], chaine[10], connect[800], fname[15];
+   char    spacegrp, record[100], chaine[11], connect[800], fname[15];
 
    /* open database file */
    if ((fp = fileopen("CSD.DAT", "rt")) != NULL)
