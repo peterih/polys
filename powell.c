@@ -36,8 +36,7 @@ void powell(BOOLEAN option, double *p, double **xi, int ndim,
    for (j=1;j<=ndim;j++) 
       pt[j]=p[j];
    switch (option)
-   {  case -1 : printf("Iteration no. %d [%2d]  Epot = %.7lf kcal/mol",
-                       "  dE = %.7lf\n",0, nfun, (*fret), fabs(fp-(*fret)));
+   {  case -1 : printf("Iteration no. %d [%2d]  Epot = %.7lf kcal/mol  dE = %.7lf\n",0, nfun, (*fret), fabs(fp-(*fret)));
       case  0 : break;
       case  1 : printf("Iteration no. %d [%2d]  dN2 = %.7lf\n",0,nfun,(*fret));
                 print = TRUE;
@@ -63,8 +62,7 @@ void powell(BOOLEAN option, double *p, double **xi, int ndim,
          }
       }
       switch (option)
-      {  case -1 : printf("Iteration no. %d [%2d]  Epot = %.7lf kcal/mol",
-                      "  dE = %.7lf\n",(*iter),nfun,(*fret),fabs(fp-(*fret)));
+      {  case -1 : printf("Iteration no. %d [%2d]  Epot = %.7lf kcal/mol  dE = %.7lf\n",(*iter),nfun,(*fret),fabs(fp-(*fret)));
          case  0 : break;
          case  1 : printf("Iteration no. %d [%2d]  dN2 = %.7lf\n",(*iter),
                            nfun,(*fret));
