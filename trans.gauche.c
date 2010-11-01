@@ -43,7 +43,7 @@ main(int argc, char **argv)
 
       i = 0;
       do
-      {  idum = fscanf(fp, "%s%lf%lf", &dum, &phiarr[i], &earr[i]);
+      {  idum = fscanf(fp, "%s%lf%lf", dum, &phiarr[i], &earr[i]);
          if (earr[i] < Emin)
             Emin = earr[i];
          i++;
