@@ -32,7 +32,7 @@ void read_NMB(char *fname)
 
 {  FILE    *fp;
    char    line[MAXLEN+1] = "mono/";
-   int     i, idum, nat, nres;
+   int     i, idum, nat, nres, unused ;
 
    /* expand filename */
    strcat(line, fname); 
@@ -44,8 +44,8 @@ void read_NMB(char *fname)
       /* read titel */
       idum = get_line(fp, line, MAXLEN);
       /* read number of atoms */
-      fscanf(fp, "%5d %5d\n", &nat, &nres);     /* number of atoms */
-      fread((void *) (A+M.nat), sizeof(A[0]), nat, fp);
+      unused = fscanf(fp, "%5d %5d\n", &nat, &nres); /* number of atoms */
+      unused = fread((void *) (A+M.nat), sizeof(A[0]), nat, fp);
       fileclose(fname, fp);
       M.nres++;
       M.nat += nat;
@@ -79,7 +79,7 @@ int read_MB(char *fname, BOOLEAN monob)
 
 {  FILE    *fp;
    char    line[MAXLEN+1];
-   int     i, idum, nat, nres;
+   int     i, idum, nat, nres, unused;
    char    *pardir = getenv("MONOBANK_DIR");
 
    if (monob==TRUE)    /* expand filename */
@@ -100,11 +100,11 @@ int read_MB(char *fname, BOOLEAN monob)
       /* read titel */
       idum = get_line(fp, line, MAXLEN);
       /* read number of atoms */
-      fscanf(fp, "%5d %5d\n", &nat, &nres);     /* number of atoms */
+      unused = fscanf(fp, "%5d %5d\n", &nat, &nres); /* number of atoms */
       for ( i=M.nat; i<(M.nat+nat); i++)
-      {  fscanf(fp, "%5d%d%lf%lf%lf%lf%d%s",
-                &idum, &A[i].res, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
-                &A[i].chg, &A[i].ztyp, &A[i].lab);
+      {  unused = fscanf(fp, "%5d%d%lf%lf%lf%lf%d%s",
+                  &idum, &A[i].res, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
+                  &A[i].chg, &A[i].ztyp, &A[i].lab);
          A[i].res += (M.nres-1);
       }
       M.nres+=nres;

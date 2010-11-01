@@ -31,6 +31,7 @@ void read_MM3(char *fname)
    char    line[MAXLEN+1], titel1[MAXLEN+1], titel2[MAXLEN+1];
    char    cha;
    int     i, idum, method, nat, kfixtyp, ncon, nattch, nls, attyp;
+   int    unused ;
    double  attch;
 
    if ((fp = fileopen(fname, "rt")) != NULL)
@@ -63,7 +64,7 @@ void read_MM3(char *fname)
          idum = get_line(fp, line, MAXLEN);
 
       for ( i=0; i<nat; i++)
-      {  fscanf(fp, "%lf%lf%lf %c %2d%s",
+      {  unused = fscanf(fp, "%lf%lf%lf %c %2d%s",
                                                                                                                                                                                                                                                                                                      &A[i].pos.x,&A[i].pos.y,&A[i].pos.z,&cha,&attyp,&A[i].lab);
 
          switch (attyp)

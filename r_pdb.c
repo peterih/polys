@@ -18,7 +18,7 @@
 void read_PDB(char *fname)
 {  FILE    *fp;
    char    cdum, line[100], dumtyp[4], cmd[6];
-   int     i, nat=0, idum;
+   int     i, nat=0, idum, unused ;
    BOOLEAN orthogonal;
    double  fdum;
 
@@ -27,7 +27,7 @@ void read_PDB(char *fname)
 
       do
       {  /* get new line from input stream */
-         fgets(line, 100, fp);
+         unused = fgets(line, 100, fp);
 
          if (strncmp("HEADER", line, 6)==0)
          {  printf("%s\n", line);

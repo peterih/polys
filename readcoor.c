@@ -103,7 +103,7 @@ void ReadCharges(char *fname)
 
 {  FILE    *fp;
    char    line[MAXLEN+1];
-   int     i, idum, nchg;
+   int     i, idum, nchg, unused;
    double  oldchg, sumchg;
 
    /* first remove the quotes from the file name */
@@ -116,7 +116,7 @@ void ReadCharges(char *fname)
       idum = get_line(fp, line, MAXLEN);
 
       /* read number of charges */
-      fscanf(fp, "%d\n", &nchg);
+      unused = fscanf(fp, "%d\n", &nchg);
 
       if (nchg != M.nat)
       {  printf("WARNING:\n");

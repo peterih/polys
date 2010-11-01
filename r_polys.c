@@ -30,7 +30,7 @@ void read_PF(char *fname, BOOLEAN ref)
 
 {  FILE    *fp;
    char    line[MAXLEN+1];
-   int     i, idum, nat, nbond, nsymop;
+   int     i, idum, nat, nbond, nsymop, unused ;
    BOOLEAN orthogonal;
 
    if ((fp = fileopen(fname, "rt")) != NULL)
@@ -60,7 +60,7 @@ void read_PF(char *fname, BOOLEAN ref)
          orthogonal = FALSE;
 
       /* read number of atoms */
-      fscanf(fp, "%5d%5d%5d\n", &nat,&nbond,&nsymop);
+      unused = fscanf(fp, "%5d%5d%5d\n", &nat,&nbond,&nsymop);
 
       if (ref == TRUE)
       {  if (nat != M.nat) 
@@ -105,7 +105,7 @@ void read_PF(char *fname, BOOLEAN ref)
 
       /* read the bond information */
       for (i=0; i<nbond; i++)
-      {  fscanf(fp, "%5d%5d", &B[i].from, &B[i].to);   
+      {  unused = fscanf(fp, "%5d%5d", &B[i].from, &B[i].to);   
          M.nbond++;
       }
 

@@ -32,7 +32,7 @@ void read_CHARMM(char *fname)
 {  FILE    *fp;
    char    line[MAXLEN+1];
    char    resname[4];
-   int     i, idum, nat;
+   int     i, idum, nat, unused ;
 
    if ((fp = fileopen(fname, "rt")) != NULL)
    {  printf("CHARMM coordinate file %s opened for read-only access\n",fname);
@@ -56,7 +56,7 @@ void read_CHARMM(char *fname)
       }   
 
       for ( i=0; i<nat; i++)
-      {  fscanf(fp, "%d%d%s%s%lf%lf%lf%s%d%lf",
+      {  unused = fscanf(fp, "%d%d%s%s%lf%lf%lf%s%d%lf",
                 &idum, &A[i].res, &resname, &A[i].lab, &A[i].pos.x, 
                 &A[i].pos.y, &A[i].pos.z, &resname, &idum, &A[i].chg);
          /* CHARMM coordinate files does not contain atomtype   */
