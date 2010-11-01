@@ -24,7 +24,7 @@ main()
    char   line2[80];
    char   line3[80];
    char   *fname;
-   int    nch, idum, nat, nres, ntrans;
+   int    nch, idum, nat, nres, ntrans, unused;
    double xmin, xmax, xav, xtr; 
    double ymin, ymax, yav, ytr; 
    double zmin, zmax, zav, ztr; 
@@ -41,10 +41,10 @@ main()
       nch = get_line(fp, line1, MAXLEN);  /* ID */
       nch = get_line(fp, line2, MAXLEN);  /* title */
       nch = get_line(fp, line3, MAXLEN);  /* crystal */
-      fscanf(fp, "%d", &nat);
+      unused = fscanf(fp, "%d", &nat);
       printf("NAT: %d\n", nat);
       for (i=0; i<nat; i++)
-      {  fscanf(fp, "%5d%d%lf%lf%lf%lf%d%s",
+      { unused = fscanf(fp, "%5d%d%lf%lf%lf%lf%d%s",
                 &idum, &A[i].res, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z,
                 &A[i].chg, &A[i].ztyp, &A[i].lab);
          if (A[i].pos.x < xmin)
