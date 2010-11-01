@@ -6,6 +6,7 @@
   Written by Soren Balling Engelsen, INRA-95.
 **********************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
