@@ -62,7 +62,7 @@ enter_name(char *prompt, char *name)
          *name++ = c;
    *name = '\0';
    
-   if (debug) printf("ENTER_NAME: [%d] %s\n\n",
+   if (debug) printf("ENTER_NAME: [%li] %s\n\n",
                        (name - startptr), startptr);
 
    return (c == EOF) ? -1 : name - startptr;
