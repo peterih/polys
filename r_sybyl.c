@@ -63,8 +63,8 @@ void read_SYBYL(char *fname)
       for ( i=0; i<nat; i++)
       {  idum = get_line(fp, line, MAXLEN);
          sscanf(line, "%d %s %lf %lf %lf %s %d %s %lf",
-           &idum, &A[i].lab, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
-           &styp, &A[i].res, &dumtyp, &A[i].chg);
+           &idum, A[i].lab, &A[i].pos.x, &A[i].pos.y, &A[i].pos.z, 
+           styp, &A[i].res, dumtyp, &A[i].chg);
          printf("%-10d %10s %10.5lf %10.5lf %10.5lf\n",
                 i, A[i].lab, A[i].pos.x, A[i].pos.y, A[i].pos.z);
 
