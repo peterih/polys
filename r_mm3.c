@@ -39,8 +39,8 @@ void read_MM3(char *fname)
 
       /* get title and number of atoms from line 1* */
       idum = get_line(fp, line, MAXLEN);
-      idum = sscanf(line,"%60c%1d%4d", &titel1, &method, &nat);
-      idum = sscanf(titel1, "%s", &titel2);
+      idum = sscanf(line,"%60c%1d%4d", titel1, &method, &nat);
+      idum = sscanf(titel1, "%s", titel2);
       M.titel = strdup(titel2);
 
       /* if pi system */
@@ -49,7 +49,7 @@ void read_MM3(char *fname)
 
       /* get number of lines with connctivity from line 2* */
       idum = get_line(fp, line, MAXLEN);
-      idum = sscanf(line, "%1d%4d%22c%5d", &kfixtyp,&ncon,&titel1,&nattch);
+      idum = sscanf(line, "%1d%4d%22c%5d", &kfixtyp,&ncon,titel1,&nattch);
       nls = ncon + (int) nattch/8;
 /* Old criterion did not work properly!
       if ((fmod(nattch, 8.0)) > 0.0) 
@@ -65,7 +65,7 @@ void read_MM3(char *fname)
 
       for ( i=0; i<nat; i++)
       {  unused = fscanf(fp, "%lf%lf%lf %c %2d%s",
-                                                                                                                                                                                                                                                                                                     &A[i].pos.x,&A[i].pos.y,&A[i].pos.z,&cha,&attyp,&A[i].lab);
+                  &A[i].pos.x,&A[i].pos.y,&A[i].pos.z,&cha,&attyp,A[i].lab);
 
          switch (attyp)
          {  case  1: A[i].ztyp =  604; break;    /* sp3 */
