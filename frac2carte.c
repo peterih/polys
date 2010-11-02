@@ -1,17 +1,15 @@
-/**********************************************************************
-  "frac2carte.c"
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-/**********************************************************************
-**********************************************************************/
-void frac2carte(Crystal UC, BOOLEAN ref)
-
-{  int      i;
+/* */
+void
+frac2carte(Crystal UC, BOOLEAN ref)
+{
+   int      i;
    double   ang, vol, cosang[3], sinang[3];
    Vector3  av, avo, avfrac, avcart;
 
@@ -20,7 +18,6 @@ void frac2carte(Crystal UC, BOOLEAN ref)
            UC.a, UC.b, UC.c);
    printf("alpha = %7.4lf  beta = %7.4lf  gamma = %7.4lf\n\n",
            UC.alpha, UC.beta, UC.gamma);
-
 
    ang = DEGtoRAD*UC.alpha;
    cosang[0] = cos(ang);
@@ -89,7 +86,4 @@ void frac2carte(Crystal UC, BOOLEAN ref)
            avfrac.x,     avfrac.y,     avfrac.z);
    printf("<x> = %7.5lf  <y> = %7.5lf  <z> = %7.5lf\n\n",
            avcart.x,     avcart.y,     avcart.z);
-
-} /* End of frac2carte */
-
-/* End of file */
+}
