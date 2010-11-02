@@ -1,19 +1,13 @@
-/**********************************************************************
-  "filoper.c"
-
-  This module contains source code for generalised file-operations.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains source code for generalised file-operations.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include "fileoper.h"
 
-
-/**********************************************************************
-	Generalized routine for opening of files.
-**********************************************************************/
+/* Generalized routine for opening of files */
 FILE *fileopen(char *name, char *mode)
-
-{  FILE *fp = fopen(name, mode);   /* open the file */
+{
+   FILE *fp = fopen(name, mode);   /* open the file */
 
    if (fp == NULL)
    {  fprintf(stderr, "Can't open %s for ", name);
@@ -29,17 +23,12 @@ FILE *fileopen(char *name, char *mode)
       }
    }
    return fp;
-}  /* End of fileopen */
+}
 
-
-/**********************************************************************
-	Generalized routine for closing of files.
-**********************************************************************/
-void fileclose(char *name, FILE *fp)
-
-{  if (fp != NULL && fclose(fp) == EOF)
+/* Generalized routine for closing of files */
+void
+fileclose(char *name, FILE *fp)
+{
+   if (fp != NULL && fclose(fp) == EOF)
       fprintf(stderr, "Error closing %s\n", name);
-}  /* End of fileclose */
-
-
-/* End of file */
+}
