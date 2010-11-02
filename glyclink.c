@@ -1,28 +1,24 @@
-/**********************************************************************
-POLYS MODULE <glyclink.c>
-
-  This module contains the source code for generating the glycosidic 
-linkage between two segments of the progressing polysaccharide chain.
-
-  Written by Soren Balling Engelsen, INRA-93.
-  Last revision: S.B.E. 1997
-**********************************************************************/
+/*
+ * This module contains the source code for generating the glycosidic 
+ * linkage between two segments of the progressing polysaccharide chain.
+ * Written by Soren Balling Engelsen, INRA-93. Last revision: S.B.E. 1997
+ */
 #include <stdlib.h>
 #include <sys/types.h>
 #include <string.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-    This routine finds and return the atom index by comparing the 
-label "lab" with A[].lab. The rutine is thus Label specific. The rutine
-search backwards since the polymer is most likely to be prolonged from
-the previous residue.
-**********************************************************************/
-int AtomIndex(int resnr, char *lab) 
-
-{  int i;
+/*
+ * This routine finds and return the atom index by comparing the 
+ * label "lab" with A[].lab. The rutine is thus Label specific. The rutine
+ * search backwards since the polymer is most likely to be prolonged from
+ * the previous residue.
+ */
+int
+AtomIndex(int resnr, char *lab) 
+{
+   int i;
 
    for (i=M.nat-1; i>=0; i--)
       if (A[i].res == resnr)
@@ -31,40 +27,39 @@ int AtomIndex(int resnr, char *lab)
    printf("FindAIndex: Unable to find atom %8s[%3d]\n", lab, resnr);
    printf("FindAIndex: Last Atom %8s[%3d]\n", A[M.nat-1].lab, A[M.nat-1].res);
    exit(0);
- 
-} /* End of AtomIndex */
+}
 
-
-/**********************************************************************
-    This routine deletes the atom with the index 'no' from the atom
-array A[]. All atom indicies above 'no' is shiftet minus one.
-**********************************************************************/
-void DelAtom(int no) 
-
-{  register int i;
+/*
+ * This routine deletes the atom with the index 'no' from the atom
+ * array A[]. All atom indicies above 'no' is shiftet minus one.
+ */
+void
+DelAtom(int no) 
+{
+   register int i;
 
    if (debug)
       printf("DELATOM: Deleting atom #%d\n", no);
    for (i=no+1; i<M.nat; i++)
       A[i-1] = A[i];
    M.nat--;
- 
-} /* End of DelAtom */
+}
 
-/**********************************************************************
-    This routine deletes the Hydrolysis DA array at the end of the day.
-The sorting and reverse deletion of the DA array is necessary in order 
-to memorize the correct numbers. The variable nwa is the number of
-"water" atoms to be deleted (usually the whole array - da).
-**********************************************************************/
-void Hydrolysis(int nwa) 
+/*
+ * This routine deletes the Hydrolysis DA array at the end of the day.
+ * The sorting and reverse deletion of the DA array is necessary in order 
+ * to memorize the correct numbers. The variable nwa is the number of
+ * "water" atoms to be deleted (usually the whole array - da).
+ */
+void
+Hydrolysis(int nwa) 
+{
+   register int i, j;
 
-{  register int i,j;
-
-   if (nwa>0)
-   {  Qsort(da-nwa,da-1,DA);
-      for (i=da-1; i>=da-nwa; i--)
-      {  /* printf("Deleting atom: %d - %s\n", DA[i], A[DA[i]].lab); */
+   if (nwa>0) {
+      Qsort(da-nwa,da-1,DA);
+      for (i=da-1; i>=da-nwa; i--) {
+         /* printf("Deleting atom: %d - %s\n", DA[i], A[DA[i]].lab); */
          DelAtom(DA[i]);
          /* remember to shift other atomnumbers higher than DA[i] */
          for (j=0; j<da-nwa; j++)
@@ -73,19 +68,17 @@ void Hydrolysis(int nwa)
       }
       da-=nwa;
    }
- 
-} /* End of Hydrolysis */
+}
 
 
-/**********************************************************************
-**********************************************************************/
-void getconval(char *fname, double *phip, double *psip, double *omep)
-
-{  FILE    *fp;
+/* */
+void
+getconval(char *fname, double *phip, double *psip, double *omep)
+{
+   FILE    *fp;
    char    line[MAXLEN+1];
    int     idum = (-1);
    double  pr, pi, oldpi, phi, psi, ome;
-
 
    *phip = 999.9;
    *psip = 999.9;
@@ -95,15 +88,15 @@ void getconval(char *fname, double *phip, double *psip, double *omep)
    pr = get_random(&seed); 
    if (debug) printf("\nGETCONVAL: #RAND = %.6lf\n", pr);
 
-   if ((fp = fileopen(fname, "rt")) != NULL)
-   {  idum = get_line(fp, line, MAXLEN);
+   if ((fp = fileopen(fname, "rt")) != NULL) {
+      idum = get_line(fp, line, MAXLEN);
 
       oldpi=0.0;
-      for (;(idum != -1);)
-      {  idum = get_line(fp, line, MAXLEN);
+      for (;(idum != -1);) {
+         idum = get_line(fp, line, MAXLEN);
          idum = sscanf(line, "%lf%lf%lf%lf", &phi, &psi, &ome, &pi);
-         if INRANGE(oldpi, pi, pr)
-         {  *phip = phi;
+         if INRANGE(oldpi, pi, pr) {
+            *phip = phi;
             *psip = psi;
             *omep = ome;
             break;
@@ -112,8 +105,8 @@ void getconval(char *fname, double *phip, double *psip, double *omep)
       }
       fileclose(fname, fp);
    }
-   else
-   {  printf("\n");
+   else {
+      printf("\n");
       printf("Could not find linkage information in file: %s\n", fname);
       printf("\n");
       exit(0);
@@ -121,54 +114,54 @@ void getconval(char *fname, double *phip, double *psip, double *omep)
 
 } /* End of getconval */
 
-/**********************************************************************
-**********************************************************************/
-void TransfSeg(int res1, int res2, Matrix TM)
-
-{  int      i;
+/* */
+void
+TransfSeg(int res1, int res2, Matrix TM)
+{
+   int      i;
    Vector3 av;
 
    for ( i=0; ((i<M.nat) AND (A[i].res<=res2)); i++)
-      if (A[i].res >= res1)
-      {   av = A[i].pos;
+      if (A[i].res >= res1) {
+          av = A[i].pos;
           TransfV(av, TM, &A[i].pos);
       }
 
-} /* End of Transform */
+}
 
-/**********************************************************************
-   This rutine connects two saccharide segments by a glycosidic
-linkage. Both segments must have been read into the atom array before 
-this rutine is called. Hydrolysis must be done afterwards due to the
-generality of the rutine, but indicies of all atoms affected is stored 
-in a one-dimensional vector DA[] for later deletion.
-----------------------------------------------------------
-red1    : first residue on the reducing segment
-redres  : reducing residue to connect
-red2    : last residue on the reducing segment
-nred1   : first residue on the non-reducing segment
-nredres : non-reducing residue to connect
-nred1   : last residue on the non-reducing segment
-redmax  :  
-redcon  : no. of connection hydroxyl group on reducing residue
-nredcon : no. of connection hydroxyl group on non-reducing residue
-phi     : value of the desired phi angle
-psi     : value of the desired psi angle
-omega   : value of the desired ome angle
-----------------------------------------------------------
-**********************************************************************/
-void GlycLink(int red1, int redres, int red2, 
-              int nred1, int nredres, int nred2,
-              int redmax, int redcon, int nredcon, 
-              double phi, double psi, double omega)
-
-{  int     i, HOr, On, HOn, Ar, COr, Or, COn, An, An2, HR, HS;
+/*
+ * This rutine connects two saccharide segments by a glycosidic
+ * linkage. Both segments must have been read into the atom array before 
+ * this rutine is called. Hydrolysis must be done afterwards due to the
+ * generality of the rutine, but indicies of all atoms affected is stored 
+ * in a one-dimensional vector DA[] for later deletion.
+ * ----
+ * red1    : first residue on the reducing segment
+ * redres  : reducing residue to connect
+ * red2    : last residue on the reducing segment
+ * nred1   : first residue on the non-reducing segment
+ * nredres : non-reducing residue to connect
+ * nred1   : last residue on the non-reducing segment
+ * redmax  :  
+ * redcon  : no. of connection hydroxyl group on reducing residue
+ * nredcon : no. of connection hydroxyl group on non-reducing residue
+ * phi     : value of the desired phi angle
+ * psi     : value of the desired psi angle
+ * omega   : value of the desired ome angle
+ */
+void
+GlycLink(int red1, int redres, int red2, 
+         int nred1, int nredres, int nred2,
+         int redmax, int redcon, int nredcon, 
+         double phi, double psi, double omega)
+{
+   int     i, HOr, On, HOn, Ar, COr, Or, COn, An, An2, HR, HS;
    double  tau, ang_b, ang_a;
    Vector3 vec, vecHR, vecHS;
    Matrix  TM;
 
-   if (debug)
-   {  printf("GLYCLINK: red1  = %d  redres  = %d  red2  = %d  ", 
+   if (debug) {
+      printf("GLYCLINK: red1  = %d  redres  = %d  red2  = %d  ", 
                                 red1,         redres,     red2);
       if (Res[redres].ringtype==2)
         printf("cetofuranose\n");
@@ -319,9 +312,7 @@ void GlycLink(int red1, int redres, int red2,
    tran3(A[On].pos.x, A[On].pos.y, A[On].pos.z, TM);
    TransfSeg(nred1,nred2,TM);
 
-   /*************************************************************/ 
    /* rotate nonreducing part to adjust COr-Or-COn angle to tau */
-   /*************************************************************/ 
    ang_b = angval(A[COr].pos, A[Or].pos, A[COn].pos);
    rot3(2, (tau - ang_b)*DEGtoRAD, TM);
    TransfSeg(nred1, nred2, TM); 
@@ -330,9 +321,7 @@ void GlycLink(int red1, int redres, int red2,
    if (debug) 
      printf("GLYCLINK: TAU: %8.2lf   -->   %8.2lf\n", ang_b, ang_a);
    
-   /*************************************************************/ 
-   /* adjust phi-torsional angle -  PHI:   Ap - COp - Op - COm  */
-   /*************************************************************/ 
+   /* adjust phi-torsional angle -  PHI:   Ap - COp - Op - COm */
    ang_b = torval(A[Ar].pos, A[COr].pos, A[Or].pos, A[COn].pos);
    vec.x = A[COr].pos.x - A[Or].pos.x;
    vec.y = A[COr].pos.y - A[Or].pos.y;
@@ -343,9 +332,7 @@ void GlycLink(int red1, int redres, int red2,
    if (debug) 
      printf("GLYCLINK: PHI: %8.2lf   -->   %8.2lf\n", ang_b, ang_a);
     
-   /*************************************************************/ 
-   /* adjust psi-torsional angle -  PSI:  COr - Or - COn - An   */
-   /*************************************************************/ 
+   /* adjust psi-torsional angle -  PSI:  COr - Or - COn - An */
    ang_b = torval(A[COr].pos, A[Or].pos, A[COn].pos, A[An].pos);
    vec.x = A[Or].pos.x - A[COn].pos.x;
    vec.y = A[Or].pos.y - A[COn].pos.y;
@@ -356,10 +343,10 @@ void GlycLink(int red1, int redres, int red2,
    if (debug) 
      printf("GLYCLINK: PSI: %8.2lf   -->   %8.2lf\n", ang_b, ang_a);
     
-   /*************************************************************/ 
-   /* if 1-5, 1-6 or 2-8 linkage adjust omega-torsional angle   */
-   /*       OMEGA:  Or - COn - An - An2                         */
-   /*************************************************************/ 
+   /*
+    * if 1-5, 1-6 or 2-8 linkage adjust omega-torsional angle
+    *       OMEGA:  Or - COn - An - An2
+    */
    if ((nredcon >= 5) AND (Res[nredres].ringtype<7))
    {  ang_b = torval(A[Or].pos, A[COn].pos, A[An].pos, A[An2].pos);
       vec.x = A[COn].pos.x - A[An].pos.x;
@@ -391,19 +378,19 @@ void GlycLink(int red1, int redres, int red2,
 
 }  /* End of GlycLink */
 
-/**********************************************************************
-   This rutine repeats a segment one time by a simple copy procedure.
-   The segment to be repeated must have been read into the atom array
-   before the rutine is called. 
-----------------------------------------------------------
-rep     : the number of repeats
-bres    : the first residue of the repeat segment
-eres    : the last residue of the repeat segment
-----------------------------------------------------------
-**********************************************************************/
-void RepeatStruc(int rep, int bres, int eres)
-
-{  int  i, j, newat, offres;
+/*
+ * This rutine repeats a segment one time by a simple copy procedure.
+ * The segment to be repeated must have been read into the atom array
+ * before the rutine is called. 
+ * ----
+ * rep     : the number of repeats
+ * bres    : the first residue of the repeat segment
+ * eres    : the last residue of the repeat segment
+ */
+void
+RepeatStruc(int rep, int bres, int eres)
+{
+   int  i, j, newat, offres;
    BOOLEAN   first;
 
    printf("Repeating unit %d of the chain between ", rep);
@@ -441,17 +428,13 @@ void RepeatStruc(int rep, int bres, int eres)
    M.nat += newat;
    printf("Nnat = %d\n", M.nat);
    printf("Nnres = %d\n", M.nres);
-
 }  /* End of RepeatStruc */
 
-/**********************************************************************
-**********************************************************************/
-void BuildInfo()
-
-{  printf("\n\tThe builded polysaccharide %s contains:\n", M.titel);
+/* */
+void
+BuildInfo()
+{
+   printf("\n\tThe builded polysaccharide %s contains:\n", M.titel);
    printf("\n\t%5d residues and\n", M.nres-1);
    printf("\t%5d atoms\n", M.nat);
-
-}  /* End of BuildInfo */
-
-/* End of file */
+}
