@@ -585,9 +585,8 @@ transf   : mult 'x'
          | transl
            {  TM[symno][3] = xtransl; }
          ;
-mult     : {  xmult = 1.0; }
-         | REAL
-           {  xmult = yylval.real; }
+mult     : REAL
+           {  xmult = 1.0; }
          | '+' REAL
            {  xmult = yylval.real; }
          | '+'

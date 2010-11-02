@@ -25,7 +25,7 @@ CFLAGS=		-O
 # CFLAGS=		-g -fullwarn -prototypes
 
 PXLIBS=		-L/usr/X11R6/lib/ -lX11 -lm -lbsd
-PMLIBS=		-lm -ll
+PMLIBS=		-lm -lfl
 POLYSDIR=	~/polys
 
 POLYS=		polys
