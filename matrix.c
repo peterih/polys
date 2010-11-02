@@ -1,85 +1,70 @@
-/**********************************************************************
-  "matrix.c"
-
-  This module contains functions for matrix manipulations for three 
-dimensional modelling.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains functions for matrix manipulations for three 
+ * dimensional modelling.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 
-/**********************************************************************
-     FIRST SOME BASIC VECTOR RUTINES
-**********************************************************************/
+/* The length of a 3D vector */
+double
+length(Vector3 a)
+{
+   return (sqrt(a.x*a.x + a.y*a.y + a.z*a.z)); 
+}
 
-/**********************************************************************
-     The length of a 3D vector
-**********************************************************************/
-double length(Vector3 a)
+/* The dot product of two 3D vectors */
+double
+dotprod(Vector3 a, Vector3 b)
+{
+   return (a.x*b.x + a.y*b.y + a.z*b.z); 
+}
 
-{  return (sqrt(a.x*a.x + a.y*a.y + a.z*a.z)); 
-}  /* End of length */
-
-
-/**********************************************************************
-     The vector dot product of two 3D vectors
-**********************************************************************/
-double dotprod(Vector3 a, Vector3 b)
-
-{  return (a.x*b.x + a.y*b.y + a.z*b.z); 
-}  /* End of dotprod */
-
-
-/**********************************************************************
-     The vector cross product of two 3D vectors
-**********************************************************************/
+/* The cross product of two 3D vectors */
 void crossprod(Vector3 a, Vector3 b, Vector3 *c)
-
-{  c->x = a.y*b.z - b.y*a.z;
+{
+   c->x = a.y*b.z - b.y*a.z;
    c->y = a.z*b.x - b.z*a.x;
    c->z = a.x*b.y - b.x*a.y; 
-}  /* End of crossprod */
+}
 
-/**********************************************************************
-     Normalize a 3D vector
-**********************************************************************/
-double normalize(Vector3 *a)
-
-{  double l;
+/* Normalize a 3D vector */
+double
+normalize(Vector3 *a)
+{
+   double l;
 
    l = sqrt(a->x*a->x + a->y*a->y + a->z*a->z); 
    a->x /= l;
    a->y /= l;
    a->z /= l;  
    return (l);
+}
 
-}  /* End of normalize */
-
-/**********************************************************************
-     Initialize a four by four matrix
-**********************************************************************/
-void initmat(Matrix A, double value)
-
-{  double *ptr = &A[0][0];
+/* Initialize a four by four matrix */
+void
+initmat(Matrix A, double value)
+{
+   double *ptr = &A[0][0];
    double *endptr = &A[3][3];
 
    for (; ptr <= endptr; *ptr++ = value)
    ;
-}  /* End of initmat */
+}
 
-/**********************************************************************
-     Calculate the translation matrix 'A'. Origin will be translated by
-the vector '(tx,ty,tz)'.
-Input:
-	tx, ty, tz		translation in axis directions
-Output:
-	*A			the translation matrix
-**********************************************************************/
-void tran3(double tx, double ty, double tz, Matrix A)
-
-{  register int i;
+/*
+ * Calculate the translation matrix 'A'. Origin will be translated by
+ * the vector '(tx,ty,tz)'.
+ * Input:
+ *   tx, ty, tz		translation in axis directions
+ * Output:
+ *   *A			the translation matrix
+ */
+void
+tran3(double tx, double ty, double tz, Matrix A)
+{
+   register int i;
    register int j;
 
    for ( i=0; i<4; i++) 
@@ -90,19 +75,20 @@ void tran3(double tx, double ty, double tz, Matrix A)
    A[0][3]=-tx;
    A[1][3]=-ty;
    A[2][3]=-tz;
-}  /* End of tran3 */
+}
 
-/**********************************************************************
-     Calculate the scaling matrix 'A' given the scaling vector 
-'(sx,sy,sz)'. One unit on the x-axis becomes 'sx' units etc.
-Input:
-	sx, sy, sz		scaling factors
-Output:
-	*A			the scaling matrix
-**********************************************************************/
-void scale3(double sx, double sy, double sz, Matrix A)
-
-{  register int i;
+/*
+ * Calculate the scaling matrix 'A' given the scaling vector 
+ * '(sx,sy,sz)'. One unit on the x-axis becomes 'sx' units etc.
+ * Input:
+ *   sx, sy, sz		scaling factors
+ * Output:
+ *   *A			the scaling matrix
+ */
+void
+scale3(double sx, double sy, double sz, Matrix A)
+{
+   register int i;
    register int j;
 
    for ( i=0; i<4; i++)
@@ -112,24 +98,24 @@ void scale3(double sx, double sy, double sz, Matrix A)
    A[1][1]=sy;
    A[2][2]=sz;
    A[3][3]=1.0;
-}  /* End of scale3 */
+}
 
-/**********************************************************************
-    Calculate the rotation matrix 'A'. The axis are rotated anti-
-clockwise through an angle 'theta' radians about an axis specified by 
-'axis'.
-Input:
-	axis=0			x-axis
-	axis=1			y-axis
-	axis=2			z-axis
-	theta			angle to rotate
-
-Output
-	*A			rotation matrix
-**********************************************************************/
-void rot3(int axis, double theta, Matrix A)
-
-{  register int i;
+/*
+ * Calculate the rotation matrix 'A'. The axis are rotated anti-
+ * clockwise through an angle 'theta' radians about an axis specified by 
+ * 'axis'.
+ * Input:
+ *   axis=0			x-axis
+ *   axis=1			y-axis
+ *   axis=2			z-axis
+ *   theta			angle to rotate
+ * Output
+ *   *A			rotation matrix
+ */
+void
+rot3(int axis, double theta, Matrix A)
+{
+   register int i;
    register int j;
    int a1, a2;
    double c, s;
@@ -146,19 +132,20 @@ void rot3(int axis, double theta, Matrix A)
    A[a1][a1] = A[a2][a2] = c;
    A[a1][a2] = s;
    A[a2][a1] = -s;
-}  /* End of rot3 */
+}
 
-/**********************************************************************
-   Calculate the matrix product 'C' of two matrices 'A' and 'B'.
-Input:
-	A			multiplicand (left operand)
-	B			multiplier (right operand)
-Output:
-	*C			result matrix
-**********************************************************************/
-void mult3(Matrix A, Matrix B, Matrix C)
-
-{  register int i;
+/*
+ * Calculate the matrix product 'C' of two matrices 'A' and 'B'.
+ * Input:
+ *   A			multiplicand (left operand)
+ *   B			multiplier (right operand)
+ * Output:
+ *   *C			result matrix
+ */
+void
+mult3(Matrix A, Matrix B, Matrix C)
+{
+   register int i;
    register int j;
    register int k;
    double   ab;
@@ -170,14 +157,13 @@ void mult3(Matrix A, Matrix B, Matrix C)
             ab = ab + A[i][k]*B[k][j];
          C[i][j] = ab;
       }
-}  /* End of mult3 */ 
+}
 
-/**********************************************************************
-    Print out the manipulation matrix.
-**********************************************************************/
-void matprint(Matrix A)
-
-{  int i, j;
+/* Print out the manipulation matrix */
+void
+matprint(Matrix A)
+{
+   int i, j;
 
    printf("\n");
    for ( i=0; i<4; i++)
@@ -186,14 +172,13 @@ void matprint(Matrix A)
       printf("\n");
    }
    printf("\n");
-}  /* End of matprint */
+}
 
-/**********************************************************************
-    Returns the 'angle' whose tangent is 'y/x'.
-**********************************************************************/
-double angle(double x, double y)
-
-{  if (fabs(x) < EPSILON)
+/* Returns the 'angle' whose tangent is 'y/x' */
+double
+angle(double x, double y)
+{
+   if (fabs(x) < EPSILON)
       if (fabs(y) < EPSILON)
          return (0.0);
       else if (y > 0.0)
@@ -202,16 +187,17 @@ double angle(double x, double y)
    else if (x < 0.0)
            return (atan(y/x)+M_PI);
         else return (atan(y/x));
-}  /* End of angle */
+}
             
-/**********************************************************************
-    Calculates the matrix 'A' representing the rotation of axes
-through an angle 'phi' about a general line with base 'b' and 
-direction 'd'.
-**********************************************************************/
-void genrot(double phi, Vector3 b, Vector3 d, Matrix A)
-
-{  Matrix   F, G, H, W, FI, GI, HI, S, T;
+/*
+ * Calculates the matrix 'A' representing the rotation of axes
+ * through an angle 'phi' about a general line with base 'b' and 
+ * direction 'd'.
+ */
+void
+genrot(double phi, Vector3 b, Vector3 d, Matrix A)
+{
+   Matrix   F, G, H, W, FI, GI, HI, S, T;
    double  beta, theta, v;
 
    tran3(b.x, b.y, b.z, F);
@@ -230,36 +216,34 @@ void genrot(double phi, Vector3 b, Vector3 d, Matrix A)
    mult3(HI, S, T);
    mult3(GI, T, S);
    mult3(FI, S, A);
-}  /* End of genrot */
+}
 
-/**********************************************************************
-**********************************************************************/
-void TransfV(Vector3 v, Matrix TM, Vector3 *w)
-
-{  w->x = TM[0][0]*v.x + TM[0][1]*v.y + TM[0][2]*v.z + TM[0][3];
+/* */
+void
+TransfV(Vector3 v, Matrix TM, Vector3 *w)
+{
+   w->x = TM[0][0]*v.x + TM[0][1]*v.y + TM[0][2]*v.z + TM[0][3];
    w->y = TM[1][0]*v.x + TM[1][1]*v.y + TM[1][2]*v.z + TM[1][3];
    w->z = TM[2][0]*v.x + TM[2][1]*v.y + TM[2][2]*v.z + TM[2][3];
-} /* End of TransfV */
+}
 
-/**********************************************************************
-**********************************************************************/
-void TransfAV(atom A[], int ai, int ao, Matrix TM)
-
-{  int      i;
+/* */
+void
+TransfAV(atom A[], int ai, int ao, Matrix TM)
+{
+   int      i;
    Vector3 av;
 
    for (i=ai; i<ao; i++)
    {   av = A[i].pos;
        TransfV(av, TM, &A[i].pos);
    };
+}
 
-} /* End of Transform */
-
-/**********************************************************************
-**********************************************************************/
+/* */
 void InvMat3x3(Matrix A)
-
-{  int      i, i1, i2, j, j1, j2;
+{
+   int      i, i1, i2, j, j1, j2;
    double   det, adj;
    Matrix   AINV;
  
@@ -287,14 +271,13 @@ void InvMat3x3(Matrix A)
    for (i=0; i<3; i++)
       for (j=0; j<3;j++)
          A[i][j] = AINV[i][j];
+}
 
-} /* End of InvMat3x3 */
-
-/**********************************************************************
-**********************************************************************/
-void InvMat(Matrix M)
-
-{  int      i, j, *indx;
+/* */
+void
+InvMat(Matrix M)
+{
+   int      i, j, *indx;
    double   det, *col, **Mi, **Mo;
 
    indx = ivector(1,3);
@@ -318,7 +301,4 @@ void InvMat(Matrix M)
    free_dmatrix(Mi,1,3,1,3);
    free_ivector(indx,1,3);
    free_dvector(col,1,3);
-
-} /* End of InvMat */
-
-/* End of file */
+}
