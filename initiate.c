@@ -1,21 +1,16 @@
-/**********************************************************************
-   "Init.c"
-
-   This module contains the subroutine "main" to program polys.
-
-   Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the subroutine "main" to program polys.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include "defs.h"
 #include "typs.h"
 #include "extern.h"
 
-
-/**********************************************************************
-	Initializes global data variables.
-**********************************************************************/
-void Initialize(void)
-
-{  int   i;
+/* Initializes global data variables */
+void
+Initialize(void)
+{
+   int   i;
  
    /* timer variables */
    tbo = 0.0;
@@ -103,7 +98,4 @@ void Initialize(void)
       printf("INIT:\tO[]   : %ld\n", sizeof(O));
       printf("INIT:\tM     : %ld\n\n", sizeof(M));
    }
-} /* End of initialize */
-
-
-/* End of file */
+}

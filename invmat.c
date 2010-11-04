@@ -1,14 +1,13 @@
-/**********************************************************************
-**********************************************************************/
 #include <math.h>
 #include "polys.h"
 
 #define TINY 1.0e-20;
-/**********************************************************************
-**********************************************************************/
-void ludcmp(double **a, int n, int *indx, double *d)
 
-{  int     i,imax,j,k;
+/* */
+void
+ludcmp(double **a, int n, int *indx, double *d)
+{
+   int     i,imax,j,k;
    double  big,dum,sum,temp;
    double  *vv;
 
@@ -64,16 +63,14 @@ void ludcmp(double **a, int n, int *indx, double *d)
       }
    }
    free_dvector(vv,1,n);
-
-} /* End of ludcmp */
+}
 #undef TINY
 
-
-void lubksb(double **a, int n, int *indx, double b[])
-/**********************************************************************
-**********************************************************************/
-
-{  int    i, ii=0, ip, j;
+/* */
+void
+lubksb(double **a, int n, int *indx, double b[])
+{
+   int    i, ii=0, ip, j;
    double sum;
 
    for (i=1;i<=n;i++) 
@@ -94,5 +91,4 @@ void lubksb(double **a, int n, int *indx, double b[])
          sum -= a[i][j]*b[j];
       b[i]=sum/a[i][i];
    }
-
-} /* End of lubksb */
+}

@@ -1,27 +1,24 @@
-/**********************************************************************
-  "intcoord.c"
-
-  This file contains the source code for transformations of cartesian 
-coordinates into internal coordinates.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This file contains the source code for transformations of cartesian 
+ * coordinates into internal coordinates.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-   Function angval calculates the angle between the points a-b-c in 
-cartesian space. Using the formula. 
-                           rabúrbc
-      cos(theta) = PI - -------------
-                         |rab|ú|rbc|
-**********************************************************************/
-double angval(Vector3 a, Vector3 b, Vector3 c)
-
-{  Vector3  vab, vbc;
+/*
+ * Function angval calculates the angle between the points a-b-c in 
+ * cartesian space. Using the formula. 
+ *                         rabúrbc
+ *    cos(theta) = PI - -------------
+ *                       |rab|ú|rbc|
+ */
+double
+angval(Vector3 a, Vector3 b, Vector3 c)
+{
+   Vector3  vab, vbc;
    double   theta;
 
    /* get the two bond vectors */
@@ -41,20 +38,19 @@ double angval(Vector3 a, Vector3 b, Vector3 c)
       theta = -theta;
    theta = 180.0 - acos(theta)*RADtoDEG;
    return theta;
+}
 
-} /* End of angval */
-
-
-/**********************************************************************
-	Generates angletabel T[] and counts the number of 1-3 inter-
-actions in the molecule. This tabel should be used for force fields 
-which needs to ignore geminal nonbonded interactions.
-**********************************************************************/
-void gen_angletab()
-
-{  register int bi;
+/*
+ * Generates angletabel T[] and counts the number of 1-3 inter-
+ * actions in the molecule. This tabel should be used for force fields 
+ * which needs to ignore geminal nonbonded interactions.
+ */
+void
+gen_angletab()
+{
+   register int bi;
    register int bj;
-   int      ano;
+   int          ano;
 
    printf("Generating angle tabel for %s\n\n", M.id);
  
@@ -85,20 +81,19 @@ void gen_angletab()
    M.ntheta = ano;
 
    printf("  Number of valence angles            : %7d\n\n", M.ntheta);
+}
 
-}  /* End of gen_angletab */
-
-
-/**********************************************************************
-   Function torval calculates the torsional angle between the points 
-a-b-c-d in cartesian space. Using the formula. 
-                       (rab x rbc)ú(rbc x rcd)
-      cos(phi) = PI - -------------------------
-                             |rab|ú|rbc|
-**********************************************************************/
-double torval(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
-
-{  Vector3  vab, vbc, vcd, vabc, vbcd, vabcd;
+/*
+ * Function torval calculates the torsional angle between the points 
+ * a-b-c-d in cartesian space. Using the formula. 
+ *                     (rab x rbc)ú(rbc x rcd)
+ *    cos(phi) = PI - -------------------------
+ *                           |rab|ú|rbc|
+ */
+double
+torval(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
+{
+   Vector3  vab, vbc, vcd, vabc, vbcd, vabcd;
    double   phi, labc, lbcd;
 
    /* get the three bond vectors */
@@ -134,30 +129,28 @@ double torval(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
    if (dotprod(vabcd, vbc) > 0.0)
       phi = -phi;
    return phi;
-  
-} /* End of torval */
+}
 
-/**********************************************************************
-   Updates the torsional angle tabel P[].
-**********************************************************************/
-static void new_tor(int a, int b, int c, int d, int *tnr) 
-
-{  P[*tnr].from  = a;
+/* Updates the torsional angle tabel P[] */
+static void
+new_tor(int a, int b, int c, int d, int *tnr) 
+{
+   P[*tnr].from  = a;
    P[*tnr].over1 = b;
    P[*tnr].over2 = c;
    P[*tnr].to    = d;
    (*tnr)++;
-} /* End of new_tor */   
+}
 
-
-/**********************************************************************
-	Generates tabel of torsional angles P[] and counts the number
-of 1-4 interactions in the molecule. This tabel should be used for force 
-fields which needs to scale 1-4 nonbonded interactions.
-**********************************************************************/
-void gen_tortab()
-
-{  register int bi;
+/*
+ * Generates tabel of torsional angles P[] and counts the number
+ * of 1-4 interactions in the molecule. This tabel should be used for force 
+ * fields which needs to scale 1-4 nonbonded interactions.
+ */
+void
+gen_tortab()
+{
+   register int bi;
    register int bj; 
    register int bk; 
    int      tno;
@@ -200,15 +193,13 @@ void gen_tortab()
 
    M.nphi = tno;
    printf("  Number of torsional angles          : %7d\n\n", M.nphi);
+}
 
-} /* End of gen_tortab */
-
-
-/**********************************************************************
-**********************************************************************/
-void Add_Element(int *count, int expt, int exa, int index[], int TA[]) 
-
-{  BOOLEAN new;
+/* */
+void
+Add_Element(int *count, int expt, int exa, int index[], int TA[]) 
+{
+   BOOLEAN new;
    int     n;
 
    new = TRUE;
@@ -222,17 +213,16 @@ void Add_Element(int *count, int expt, int exa, int index[], int TA[])
       index[expt+1] = index[expt+1]+1;
       (*count)++;
    }
+}
 
-} /* End of Add_Element */
-
-
-/**********************************************************************
-   Generates a tabel of the complementary maengde to the nonbonded 
-interactions.
-**********************************************************************/
-void gen_nonbond() 
-
-{  register int i;
+/*
+ * Generates a tabel of the complementary maengde to the nonbonded 
+ * interactions.
+ */
+void
+gen_nonbond() 
+{
+   register int i;
    register int j;
    int          nex = 0;
    int          n14 = 0;
@@ -267,19 +257,18 @@ void gen_nonbond()
 
    printf("  Number of nonbonded exclusions      : %7d\n", nex);
    printf("  Number of 1-4 nonbonded interactions: %7d\n\n", n14);
- 
-} /* End of gen_nonbond */
+}
 
-
-/**********************************************************************
-   Creates a list of all internal coordinates on standard output.
-option 0:    only rotatable bonds
-option 1:    all except nonbonded exclusions
-option 2:    all
-**********************************************************************/
-void list_intcoor(int option)
-
-{  register int i;
+/*
+ * Creates a list of all internal coordinates on standard output.
+ * option 0:    only rotatable bonds
+ * option 1:    all except nonbonded exclusions
+ * option 2:    all
+ */
+void
+list_intcoor(int option)
+{
+   register int i;
    int    n, m;
    double l, theta, phi;
 
@@ -362,8 +351,4 @@ void list_intcoor(int option)
          }
    }      
    printf("\n\n");
-
-} /* End of list_intcoor */
-
-
-/* End of file */
+}

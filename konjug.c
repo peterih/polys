@@ -1,48 +1,43 @@
-/**********************************************************************
-  "konjug.c"
-
-  This module contains the source for a conjugate gradients algorithm.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the source for a conjugate gradients algorithm.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <malloc.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-double funk(double x[], double df[])
-/**********************************************************************
-**********************************************************************/
-
-{  register int  i;
+/* */
+double
+funk(double x[], double df[])
+{
+   register int  i;
    double        Vpot;
 
-   for (i=0; i<M.nat; i++)
-   {  A[i].pos.x = x[3*i+1];
+   for (i=0; i<M.nat; i++) {
+      A[i].pos.x = x[3*i+1];
       A[i].pos.y = x[3*i+2];
       A[i].pos.z = x[3*i+3];
    }
    Vpot = potener(0);
-   for (i=0; i<M.nat; i++)
-   {  df[3*i+1] = -F[i].x;
+   for (i=0; i<M.nat; i++) {
+      df[3*i+1] = -F[i].x;
       df[3*i+2] = -F[i].y;
       df[3*i+3] = -F[i].z;
    }
    
    return Vpot;
- 
-}  /* End of funk */
+}
 
 
 #define FREEALL free_dvector(fm,1,n);free_dvector(h,1,n);free_dvector(g,1,n);
-/**********************************************************************
-**********************************************************************/
-void konjug(BOOLEAN silent, int n, double p[], int itmax, double ftol, 
-            int *iter, double *fret, double (*funk)())
-
-{  register int  j;
+/* */
+void
+konjug(BOOLEAN silent, int n, double p[], int itmax, double ftol, 
+       int *iter, double *fret, double (*funk)())
+{
+   register int  j;
    int      its, flag;
    double   gg, gam, fp, dgg, eps, la, lh;
    double   *g, *h, *fm;
@@ -132,16 +127,13 @@ void konjug(BOOLEAN silent, int n, double p[], int itmax, double ftol,
 
    }
    printf("\nCONJUG: Maximum number of iterations exceeded\n");
-
-} /* End of konjug */
+}
 #undef FREEALL
 
-
-/**********************************************************************
-**********************************************************************/
+/* */
 void cartemini(BOOLEAN silent, int itmax, double ftol)
-
-{  register int  i;
+{
+   register int  i;
    int      ndim, iter;
    double   fret, *p, rmsg;
 
@@ -170,7 +162,4 @@ void cartemini(BOOLEAN silent, int itmax, double ftol)
    printf("CONJUG: RMS-gradient at solution: %14.7lf\n\n", rmsg);
    free_dvector(p, 1, ndim);
 
-}  /* End of cartemini */	
-
-
-/* End of file */
+}

@@ -1,37 +1,28 @@
-/**********************************************************************
-  "helix.c"
-
-  This file contains the source code for helix calculations
-
-  Written by Soren Balling Engelsen, INRA-95.
-**********************************************************************/
+/*
+ * This file contains the source code for helix calculations
+ * Written by Soren Balling Engelsen, INRA-95.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-   Calculate the normalized difference vector 
-**********************************************************************/
+/* Calculate the normalized difference vector */
 void uvec(Vector3 a, Vector3 b, Vector3 *c)
-
-{  double  norm;
+{
+   double  norm;
 
    c->x = a.x - b.x;
    c->y = a.y - b.y;
    c->z = a.z - b.z;
    norm = normalize(&(*c));
+}
 
-} /* End of uvec */
-
-/**********************************************************************
-	Calculate the angle: b-a-c
-**********************************************************************/
+/* Calculate the angle: b-a-c */
 double delta(Vector3 a, Vector3 b, Vector3 c)
-
-{  double   csth, snth;
+{
+   double   csth, snth;
    Vector3  e, f;
 
    uvec(a,b,&e);
@@ -44,14 +35,13 @@ double delta(Vector3 a, Vector3 b, Vector3 c)
      return ( 90.0 );
    if (csth > 0.0)
      return ( atan(snth/csth)*RADtoDEG );
+}
 
-} /* End of delta */
-
-/**********************************************************************
-**********************************************************************/
-void mxrot(Vector3 v1, double phi, Matrix Q)
-
-{  double  a, sf, b, c, d, aa, bb, cc, dd, ab, ac, ad, bc, cd, bd;
+/* */
+void
+mxrot(Vector3 v1, double phi, Matrix Q)
+{
+   double  a, sf, b, c, d, aa, bb, cc, dd, ab, ac, ad, bc, cd, bd;
 
    a  = cos(phi);
    sf = sin(phi);
@@ -77,14 +67,13 @@ void mxrot(Vector3 v1, double phi, Matrix Q)
    Q[0][2] = 2.0 * (bd + ac);
    Q[1][2] = 2.0 * (cd - ab);
    Q[2][1] = 2.0 * (cd + ab);
+}
 
-} /* End of mxrot */
-
-/**********************************************************************
-**********************************************************************/
-void convert(Vector3 ai[], int natom, int norg, int nx, int nxy, Vector3 ac[])
-
-{  int       i;
+/* */
+void
+convert(Vector3 ai[], int natom, int norg, int nx, int nxy, Vector3 ac[])
+{
+   int       i;
    double    norm, a, b, c;
    Vector3   a1, b1, a2, a3;
 
@@ -111,15 +100,14 @@ void convert(Vector3 ai[], int natom, int norg, int nx, int nxy, Vector3 ac[])
       ac[i].y = -a;
       ac[i].z = -c;
    }
-   
-} /* End of convert */
+}
 
-/**********************************************************************
-**********************************************************************/
-void second(Vector3 ai[], double tau, int natom, int n1, int n2, 
-            int n3, int n4, Vector3 ao[])
-
-{  int       i, j;
+/* */
+void
+second(Vector3 ai[], double tau, int natom, int n1, int n2, 
+       int n3, int n4, Vector3 ao[])
+{
+   int       i, j;
    double    del1, del2, d, snk, csk, dc, snw, csw;
    Vector3   bb;
    Matrix    s, t;
@@ -158,24 +146,24 @@ void second(Vector3 ai[], double tau, int natom, int n1, int n2,
      bb.y += d;
      TransfV(bb, t, &ao[i]);
    }
+}
 
-} /* End of second */
-
-/**********************************************************************
-   Ex.  1->4 linkage:
-
-   0  ->   O(1)  ->  norg
-   1  ->   C(1)  ->  nxy
-   2  ->   C(4)  ->  nxyz
-   3  ->   O(4)  ->  ny
-   4  ->   O(5)  ->  nh
-   5  ->   C(5)2 ->  nhpr
-**********************************************************************/
-void eneh(int norg, int nxy, int nxyz, int ny, int nh, int nhpr,
-          double ang1, double ang2, double tau, 
-          double *na, double *n, double *h, double *doo)
-
-{  int     i, j, k;
+/*
+ * Ex.  1->4 linkage:
+ *
+ * 0  ->   O(1)  ->  norg
+ * 1  ->   C(1)  ->  nxy
+ * 2  ->   C(4)  ->  nxyz
+ * 3  ->   O(4)  ->  ny
+ * 4  ->   O(5)  ->  nh
+ * 5  ->   C(5)2 ->  nhpr
+ */
+void
+eneh(int norg, int nxy, int nxyz, int ny, int nh, int nhpr,
+     double ang1, double ang2, double tau, 
+     double *na, double *n, double *h, double *doo)
+{
+   int     i, j, k;
    double  del1, del2, d, snw, csw, snk, csk;
    double  dphi, dpsi, phi, phi1, anf1, anf2, ffi, fi;
    double  csth, snth, delt;
@@ -277,28 +265,26 @@ void eneh(int norg, int nxy, int nxyz, int ny, int nh, int nhpr,
    *h = eh.y*d;
    *doo = d;
    nfun++;
-   
-} /* End of eneh */
+}
 
-/**********************************************************************
-   Some global static variables needed to make calc_dn2 a function 
-   of only p[]
-**********************************************************************/
+/*
+ * Some global static variables needed to make calc_dn2 a function 
+ * of only p[]
+ */
 #define MAXDF  12
 static  int    maxrtv, RTI[MAXDF];
 static  int    A1, A2, A3, A4, A5, A6;
 static  double no;
 
-/**********************************************************************
-	Calculate the helical parameters as a function of RTV[]
-
-	This function will return the value of:
-
-	no + (rpt - no)*(rpt - no)
-**********************************************************************/
-double calc_dn2(double *p)
-
-{  int     i;  
+/*
+ * Calculate the helical parameters as a function of RTV[]
+ * This function will return the value of:
+ *     no + (rpt - no)*(rpt - no)
+ */
+double
+calc_dn2(double *p)
+{
+   int     i;  
    double  tau;
    double  na, rpt, apr, doo, dn2;
    Tors    Pi;
@@ -319,19 +305,17 @@ double calc_dn2(double *p)
 
    dn2 = (rpt - no)*(rpt - no);
    return(no+dn2);
+}
 
-} /* End of calc_dn2 */
-
-/**********************************************************************
-**********************************************************************/
-void optimize_n(int phino, int psino, int omeno, int fres, int lres) 
-
-{  int       i, j;
+/* */
+void
+optimize_n(int phino, int psino, int omeno, int fres, int lres) 
+{
+   int       i, j;
    int       iter, res1, res2;
    double    delta = 0.10, tole = 1.0E-10;
    double    n, dn2, fret, f1, *p, *g;
    Tors      Pi;
-
 
    printf("Orthogonal Optimization of Helical Structure:\n\n");
    printf("Search for nearest iso-(n=%.5lf) contour\n",no);
@@ -398,30 +382,29 @@ void optimize_n(int phino, int psino, int omeno, int fres, int lres)
    /* free heap memory for vectors */
    free_dvector(p,1,maxrtv);
    free_dvector(g,1,maxrtv);
+}
 
-} /* End of optimize_n */
-
-/**********************************************************************
-   This rutine will setup the calculations of helical parameters.
-
-   Three repeat units should have been build:
-
-   [ -A-B-C- ] 3
-        |
-        B'
-
-   The polymer repeat fragment will now be treated as a virtual fragment:
-
-        _ _ _ _ _
-       /         \
- [ -O-C           C-O- ]n
-       \_ _ _ _ _/
-
-     g2nr       g2r
-**********************************************************************/
-void calc_helix(BOOLEAN optimize, double nfold)
-
-{  int      i;
+/*
+ * This rutine will setup the calculations of helical parameters.
+ * Three repeat units should have been build:
+ *
+ * [ -A-B-C- ] 3
+ *      |
+ *      B'
+ *
+ * The polymer repeat fragment will now be treated as a virtual fragment:
+ *
+ *        _ _ _ _ _
+ *       /         \
+ * [ -O-C           C-O- ]n
+ *       \_ _ _ _ _/
+ *
+ *     g2nr       g2r
+ */
+void
+calc_helix(BOOLEAN optimize, double nfold)
+{
+   int      i;
    int      rpr, sub_from, sub_to;
    int      g2r, g2nr, offset=0;
    int      phino=-1, psino=-1, omeno=-1;
@@ -593,7 +576,4 @@ void calc_helix(BOOLEAN optimize, double nfold)
                 A[RT[phino].to].pos);
    printf("\tTAUAV:     %s - %s - %s == %7.2lf\n", 
                   A[A2].lab, A[A1].lab, A[RT[phino].to].lab, tau); 
-
-} /* End of calc_helix */
-
-/* End of file */
+}

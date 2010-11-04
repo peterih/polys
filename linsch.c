@@ -1,43 +1,40 @@
-/**********************************************************************
-  "linsch.c"
-
-  This module contains the code for a strict line search algorithm,
-using cubic interpolation.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the code for a strict line search algorithm,
+ * using cubic interpolation.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 # include <math.h>
 # include "defs.h"
 
-
 #define  EXTRA  20
 #define  INTER  20
-/**********************************************************************
-INPUT:
-n       : the dimension of the function to minimize
-*flag   :
-*eps    :
-*la     :
-*y      :
-fm[]    :
-h[]     :
-x[]     :
-func    :
-
-OUTPUT:
-*flag   :
-*eps    :
-*la     :
-*y      :
-fm[]    :
-h[]     :
-x[]     :
-func    :
-**********************************************************************/
-void linsch(int n, int *flag, double *eps, double *la, double *y, 
-             double fm[], double h[], double x[], double (*func)())
-
-{  int    i, eit, iit;
+/*
+ * INPUT:
+ * n       : the dimension of the function to minimize
+ * *flag   :
+ * *eps    :
+ * *la     :
+ * *y      :
+ * fm[]    :
+ * h[]     :
+ * x[]     :
+ * func    :
+ *
+ * OUTPUT:
+ * *flag   :
+ * *eps    :
+ * *la     :
+ * *y      :
+ * fm[]    :
+ * h[]     :
+ * x[]     :
+ * func    :
+ */
+void
+linsch(int n, int *flag, double *eps, double *la, double *y, 
+       double fm[], double h[], double x[], double (*func)())
+{
+   int    i, eit, iit;
    double t1, t2, t3, tg, f1, f2, f3, tm1, fm1, fm2, fm3, eta, gam, l;
    double *xa, *dvector();
 
@@ -161,7 +158,4 @@ void linsch(int n, int *flag, double *eps, double *la, double *y,
    *eps = t2 - t1;
    free_dvector(xa,1,n);
    return;
-
-} /* End of linsch */
-
-/* End of file */
+}

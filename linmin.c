@@ -3,10 +3,11 @@
 int    ncom=0;    /* defining declarations */
 double *pcom=0, *xicom=0, (*nrfunc)();
 
-void linmin(double p[], double xi[], int n, double tole, 
-             double *fret, double (*func)())
-
-{  int    j;
+void
+linmin(double p[], double xi[], int n, double tole, 
+       double *fret, double (*func)())
+{
+   int    j;
    double xx,xmin,fx,fb,fa,bx,ax;
    double brent(),f1dim(),*dvector();
    void   mnbrak(),free_dvector();
@@ -30,5 +31,4 @@ void linmin(double p[], double xi[], int n, double tole,
    }
    free_dvector(xicom,1,n);
    free_dvector(pcom,1,n);
-
-} /* End of linmin */ 
+}
