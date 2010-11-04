@@ -1,27 +1,20 @@
-/**********************************************************************
-  "mergeuni.c"
-
-  This program .....
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <math.h>
 #include <string.h>
 #include "defs.h"
 #include "sinput.h"
 #include "fileoper.h"
  
-/**********************************************************************
-        Reads uniras *.uni files
-**********************************************************************/
+/* Reads uniras *.uni files */
 BOOLEAN  debug;
 
 #define    MAXP   1500
 
-//// 20030117 pih: removed 'void' declaration of main.
 main()
-
-{  register int i;
+{
+   register int i;
    FILE     *fp;
    int      nch = 0;
    int      no = 0;
@@ -84,9 +77,5 @@ main()
    printf("    phi [120; 240[: %10.3lf\n\n", vol[1]/vol3);
    printf("    phi [240; 360[: %10.3lf\n\n", vol[2]/vol3);
 
-//// 20030117 pih: added 'return' statement in case of correct termination.
    return 0;
-} /* End of main */
-
-
-/* End of file */
+}
