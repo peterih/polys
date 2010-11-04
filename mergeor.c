@@ -1,28 +1,22 @@
-/**********************************************************************
-  "mergeor.c"
-
-  This program takes a number of optical rotation map files and merge
-then into a single "adiabatic" map file.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This program takes a number of optical rotation map files and merge
+ * then into a single "adiabatic" map file.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <math.h>
 #include <string.h>
 #include "defs.h"
 #include "sinput.h"
 #include "fileoper.h"
  
-/**********************************************************************
-        Reads optical rotation *.or files
-**********************************************************************/
+/* Reads optical rotation *.or files */
 BOOLEAN  debug;
 
 #define    MAXP   1500
 
-//// 20030117 pih: removed 'void' declaration of main.
 main()
-
-{  register int i;
+{
+   register int i;
    FILE *fp;
    int  nch = 0;
    int  no = 0;
@@ -31,9 +25,7 @@ main()
    double   xphi, xpsi, xEabs, xRot;
    char     line[MAXLEN+1], *fname;
 
-   /**************************************************************
-       READ THE REFERENCE MAP 
-   **************************************************************/
+   /* READ THE REFERENCE MAP */
    Emin = 10000.0;
    GEmin = getreal("Write global energy minimum: ");
    fname = getstring("Write name on Optical Rotation map file: ");
@@ -134,9 +126,5 @@ main()
    }
    fileclose(fname, fp);
 
-//// 20030117 pih: added 'return' statement in case of correct termination.
    return 0;
-} /* End of main */
-
-
-/* End of file */
+}

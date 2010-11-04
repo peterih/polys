@@ -1,10 +1,7 @@
-/**********************************************************************
-  "Minimize.c"
-
-  This module contains the source for a conjugate gradients algorithm.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the source for a conjugate gradients algorithm.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include "polys.h"
 #include "extern.h"
 
@@ -38,5 +35,4 @@ Minimize(int space, int maxfun, int maxit, double enetol,
       }
       phimin(silent, maxfun, maxit, enetol, grdtol);
    }
-}  /* End of Minimize */	
-/* End of file */
+}

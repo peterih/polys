@@ -7,10 +7,11 @@
 #define SIGN(a,b) ((b) > 0.0 ? fabs(a) : -fabs(a))
 #define SHFT(a,b,c,d) (a)=(b);(b)=(c);(c)=(d);
 
-void mnbrak(double *ax, double *bx, double *cx,
-            double *fa, double *fb, double *fc, double (*func)(double))
-
-{  double ulim,u,r,q,fu,dum;
+void
+mnbrak(double *ax, double *bx, double *cx,
+       double *fa, double *fb, double *fc, double (*func)(double))
+{
+   double ulim,u,r,q,fu,dum;
 
    *fa=(*func)(*ax);
    *fb=(*func)(*bx);

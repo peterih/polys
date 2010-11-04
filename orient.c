@@ -1,29 +1,25 @@
-/**********************************************************************
-  "orient.c"
-
-  This file contains the source code for orienting the polysaccharide
-in space.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * Code for orienting the polysaccharide in space.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include "defs.h"
 #include "typs.h"
 #include "matrix.h"
 #include "extern.h"
 
-
-/**********************************************************************
-Transform:
-	atomnumber no  to origo 
-	atomnumber nx  to the X-axis
-	atomnumber nxy to the XY-plane 
-   The variables "ia" and "oa" should contain the range of atom
-indicies to be transformed.
-**********************************************************************/
-void Orient(int res1, int res2, int no, int nx, int nxy)
-
-{  int i;
+/*
+ * Transform:
+ *     atomnumber no  to origo 
+ *     atomnumber nx  to the X-axis
+ *     atomnumber nxy to the XY-plane 
+ * The variables "ia" and "oa" should contain the range of atom
+ * indicies to be transformed.
+ */
+void
+Orient(int res1, int res2, int no, int nx, int nxy)
+{
+   int i;
    Vector3 vo, vx, vxy;
    double  da, db, dc;
 
@@ -62,7 +58,4 @@ void Orient(int res1, int res2, int no, int nx, int nxy)
          A[i].pos.z = dc;
       }
 
-}  /* End of Orient */
-
-
-/* End of file */
+}
