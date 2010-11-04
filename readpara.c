@@ -1,19 +1,12 @@
-/**********************************************************************
-   "ReadParam.c"
-
-   This module contains the subroutine "main" to program polys.
-
-   Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-**********************************************************************/
 void ReadParam(void)
-
-{  int tstart;
+{
+   int tstart;
 
    tstart = cput();
    read_bp(M.nbond);
@@ -22,8 +15,4 @@ void ReadParam(void)
    read_cp(M.nphi, &M.ncon);
    read_nbp(M.nat, M.nbond);
    tpara += cput() - tstart;
-
-}  /* End of ReadParam */
-
-
-/* End of file */
+}

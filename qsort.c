@@ -1,6 +1,6 @@
-/**********************************************************************
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include "defs.h"
 
 void
@@ -24,4 +24,4 @@ Qsort(int low, int high, int ia[])
       Qsort(low, j, ia);
       Qsort(i, high, ia);
    }   
-} /* End of Qsort */
+}

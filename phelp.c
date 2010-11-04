@@ -1,22 +1,18 @@
-/**********************************************************************
-  "phelp.c"
-
-  This module contains the source and text for help functions.
-
-  Written by Soren Balling Engelsen, INRA-95.
-**********************************************************************/
+/*
+ * This module contains the source and text for help functions.
+ * Written by Soren Balling Engelsen, INRA-95.
+ */
 #include <stdio.h>
 #include <string.h>
 #include "polypars.tab.h"
  
-
-/**********************************************************************
-<cmd> ATTACH BUILD CALC COORD CREATE DATE DOUBLEHELIX END ENER GENERATE INIT
-<cmd> HELIX HELP LABEL MINI PRIMARY READ RECORD MODIFY SET TIME WRITE
-**********************************************************************/
+/*
+ * <cmd> ATTACH BUILD CALC COORD CREATE DATE DOUBLEHELIX END ENER GENERATE INIT
+ * <cmd> HELIX HELP LABEL MINI PRIMARY READ RECORD MODIFY SET TIME WRITE
+ */
 void phelp(int ycom)
-
-{  register int i;
+{
+   register int i;
 
    printf("POLYS HELP INFORMATION\n");
 
@@ -196,6 +192,4 @@ void phelp(int ycom)
       otherwise:
        printf("\nThe ????? command\n");
    }
-
-} /* End of phelp */
-
+}

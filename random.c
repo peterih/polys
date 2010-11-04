@@ -1,12 +1,8 @@
-/**********************************************************************
-  "random.c"
-
-  This module contains the source code for generating a random
-number between 0 and 1. 
-  The rutine is implementation specific.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the source code for generating a random
+ * number between 0 and 1. The rutine is implementation specific.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -14,11 +10,9 @@ number between 0 and 1.
 
 extern BOOLEAN debug;
 
-/**********************************************************************
-**********************************************************************/
 double get_random(int *idum)
-
-{  static int     iff = 0;
+{
+   static int     iff = 0;
    int            j;
    static double  y, v[98];
    int            dum;
@@ -44,7 +38,4 @@ double get_random(int *idum)
    y = v[j];
    v[j] = (double) rand()/RAND_MAX;
    return (y);
-
-} /* end of get_random */
-
-/* end of file */
+}
