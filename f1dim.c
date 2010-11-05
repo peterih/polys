@@ -14,4 +14,4 @@ double f1dim(double x)
    free_dvector(xt,1,ncom);
    return f;
 
-} /* End of f1dim */
+}

@@ -1,3 +1,0 @@
-flex polylex
-bison -d polypars
-make polys

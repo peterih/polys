@@ -90,7 +90,6 @@ dist_tabel()
    putchar('\n');
 }
 
-/* */
 double
 atomass(int i)
 {
@@ -120,7 +119,6 @@ atomass(int i)
    }
 }
 
-/* */
 void
 calc_mass()
 {
@@ -134,7 +132,6 @@ calc_mass()
    printf("\nMolecular Weight for %s = %10.3lf Daltons\n", M.id, molw);
 }
 
-/* */
 void
 calc_rgyr()
 {
@@ -172,7 +169,6 @@ calc_rgyr()
 
 }
 
-/* */
 void
 calc_vol()
 {

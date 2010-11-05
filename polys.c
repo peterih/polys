@@ -1,24 +1,19 @@
-/**********************************************************************
-POLYS MAIN MODULE <polys.c>
-
-   This module contains the subroutine "main" to program polys.
-
-   Written by Soren Balling Engelsen, INRA-93.
-   Last revision: S.B.E. 1997
-**********************************************************************/
+/*
+ * This module contains the subroutine "main" to program polys.
+ * Written by Soren Balling Engelsen, INRA-93.
+ * Last revision: S.B.E. 1997
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "polys.h"
 #include "vars.h"
 
-
-/**********************************************************************
-	Print welcome header on output device.
-**********************************************************************/
-void header(void)
-
-{  printf("\n\n\n\n");
+/* Print welcome header on output device */
+void
+header(void)
+{
+   printf("\n\n\n\n");
    printf("\tPPPPPPP      OOOOO     LL      YY      YY   SSSSSS\n");
    printf("\tPP   PPP   OOO   OOO   LL       YY    YY   SSS\n");
    printf("\tPP   PPP  OO       OO  LL        YY  YY    SS\n");
@@ -35,15 +30,12 @@ void header(void)
    printf("\t\tSoren Balling Engelsen\n\n");
    printf("\t\tMilou Kouwijzer\n\n");
    printf("\t\tPeter Ibsen Hansen\n\n");
+}
 
-} /* End of header */
-
-
-/**********************************************************************
-	Print welcome header on output device.
-**********************************************************************/
+/* Print welcome header on output device */
 main(int argc, char **argv)
-{  int        yy, mm, dd, hh, min, ss;
+{
+   int        yy, mm, dd, hh, min, ss;
    double     tforce;
    
    /* initialize time */
@@ -90,20 +82,13 @@ main(int argc, char **argv)
    printf("\n\n");
 
    return (0);
+}
 
-}  /* End of main */
-
-
-/**********************************************************************
-   Print syntax error from the parser.
-**********************************************************************/
-void yyerror(char *s)
-
-{  fprintf(stderr, "\n%s: %s\n", ProgName, s);
+/* Print syntax error from the parser */
+void
+yyerror(char *s)
+{
+   fprintf(stderr, "\n%s: %s\n", ProgName, s);
    fprintf(stderr, " line %d\n\n", lineno);
    exit(0);
-
-} /* End of yyerror */
-
-
-/* End of file */
+}

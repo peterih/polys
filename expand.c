@@ -1,29 +1,25 @@
-/**********************************************************************
-POLYS MODULE <expand.c>
-
-  This module contains the source code for maintaining and updating 
-the residue list Res[] during the PRIMARY command and the code for
-3D generation and linking of the primary sequence during the BUILD
-command.
-
-  Written by Soren Balling Engelsen, INRA 1994.
-  Last revision: S.B.E. 1997
-**********************************************************************/
+/*
+ * This module contains the source code for maintaining and updating 
+ * the residue list Res[] during the PRIMARY command and the code for
+ * 3D generation and linking of the primary sequence during the BUILD
+ * command.
+ * Written by Soren Balling Engelsen, INRA 1994.
+ * Last revision: S.B.E. 1997
+ */
 #include <math.h>
 #include <string.h>
 #include "polys.h"
 #include "extern.h"
- 
 
-
-/**********************************************************************
-This routine will read a macro structure from a file and attach it to
-the POLYSaccharide which has been buildt.
-**********************************************************************/
-void addmacro(int polyres, int con_b, int con_f, int macrores, char *mf,
-              double phi, double psi, double omega)
-
-{  int       i, j, mres, redmax;
+/*
+ * This routine will read a macro structure from a file and attach it to
+ * the POLYSaccharide which has been buildt.
+ */
+void
+addmacro(int polyres, int con_b, int con_f, int macrores, char *mf,
+         double phi, double psi, double omega)
+{
+   int       i, j, mres, redmax;
    int       sideno[10], next[10];
 
    printf("Adding a macro structure to the generated polysaccharide..\n");
@@ -45,19 +41,19 @@ printf("Macrostructure attachment site:  residue %d position %d from file %s\n",
  
    /* 4. Reset topology information */
    M.nbond=0;
+}
 
-} /* End of tertiary */
-
-/**********************************************************************
-This routine BUILDs the 3D structure of the polysaccharide from the
-monosaccharide conectivity table Res[]
-
-Hydrolysis has to be performed seperately by the routine Hydrolysis in
-the module <glyclink.c>
-**********************************************************************/
-void tertiary(int resmax)
-
-{  int       i, j, con_to, oi, dummy;
+/*
+ * This routine BUILDs the 3D structure of the polysaccharide from the
+ * monosaccharide conectivity table Res[]
+ *
+ * Hydrolysis has to be performed seperately by the routine Hydrolysis in
+ * the module <glyclink.c>
+ */
+void
+tertiary(int resmax)
+{
+   int       i, j, con_to, oi, dummy;
    int       sideno[10], next[10];
 
    /* read in the coordinates from MONOBANK */
@@ -116,17 +112,17 @@ void tertiary(int resmax)
        }
      }
    }
+}
 
-} /* End of tertiary */
-
-/**********************************************************************
-This routine modifies connectivity values of individual members 
-of the monosaccharide connectivity table
-**********************************************************************/
-void modify_val(int res, int back, int forward, double theta, 
-                double phi, double psi, double omega)
-
-{  int      i;
+/*
+ * This routine modifies connectivity values of individual members 
+ * of the monosaccharide connectivity table
+ */
+void
+modify_val(int res, int back, int forward, double theta, 
+           double phi, double psi, double omega)
+{
+   int      i;
 
    Res[res].theta=theta;
    Res[res].phi=phi;
@@ -134,21 +130,21 @@ void modify_val(int res, int back, int forward, double theta,
    Res[res].omega=omega;
    Res[res].from=back;
    Res[res].to=forward;
+}
 
-} /* End of modify_val */
-
-/**********************************************************************
-This routine add a new members to the monosaccharide connectivity table
-
-     status:     0   main chain
-                 1   side chain
-                 2   connecting residue on side chain
-**********************************************************************/
-void expand(int newres, char *fname, int back, int forward, 
-            double theta, double phi, double psi, double omega, 
-            int conres, int status)
-
-{  int      i;
+/*
+ * This routine add a new members to the monosaccharide connectivity table
+ * 
+ *   status:     0   main chain
+ *               1   side chain
+ *               2   connecting residue on side chain
+ */
+void
+expand(int newres, char *fname, int back, int forward, 
+       double theta, double phi, double psi, double omega, 
+       int conres, int status)
+{
+   int      i;
 
    strcpy(Res[newres].resid,fname);
    Res[newres].ringtype=6;            /* pyranose */
@@ -170,32 +166,32 @@ void expand(int newres, char *fname, int back, int forward,
 
    /* save glyclink information in index zero */
    modify_val(0,back,forward,theta,phi,psi,omega);
+}
 
-} /* End of expand */
-
-/**********************************************************************
-This routine modifies connectivity parameters of individual members 
-of the monosaccharide connectivity table
-**********************************************************************/
-void modify_con(int res, int conres, int status)
-
-{  int      i;
+/*
+ * This routine modifies connectivity parameters of individual members 
+ * of the monosaccharide connectivity table
+ */
+void
+modify_con(int res, int conres, int status)
+{
+   int      i;
 
    if (debug) 
      printf("MODIFY: res #%d from conres [%d] to conres [%d]\n",
              res,Res[res].conres,conres);
    Res[res].conres=conres;
    Res[res].status=status;
+}
 
-} /* End of modify_res */
-
-/**********************************************************************
-This routine copies one member of the monosaccharide connectivity table 
-Res[source] to another member Res[destin]
-**********************************************************************/
-void copy_res(int source, int destin, int offset)
-
-{  int      i;
+/*
+ * This routine copies one member of the monosaccharide connectivity table 
+ * Res[source] to another member Res[destin]
+ */
+void
+copy_res(int source, int destin, int offset)
+{
+   int      i;
 
    strcpy(Res[destin].resid,Res[source].resid);
    Res[destin].ringtype= Res[source].ringtype;
@@ -207,16 +203,16 @@ void copy_res(int source, int destin, int offset)
    Res[destin].phi     = Res[source].phi;
    Res[destin].psi     = Res[source].psi;
    Res[destin].omega   = Res[source].omega;
+}
 
-} /* End of copy_res */
-
-/**********************************************************************
-This routine prints the monosaccharide connectivity table Res[] on the
-standard output
-**********************************************************************/
-void res_list(int maxres)
-
-{  int      i;
+/*
+ * This routine prints the monosaccharide connectivity table Res[] on the
+ * standard output
+ */
+void
+res_list(int maxres)
+{
+   int      i;
 
    printf("\nMONOSACCHARIDE CONNECTIVITY TABLE\n\n");
    for (i=1; i<=maxres; i++)
@@ -228,7 +224,4 @@ void res_list(int maxres)
               Res[i].status,Res[i].resid,Res[i].from,Res[i].to,Res[i].conres,
               Res[i].phi,Res[i].psi,Res[i].omega);
    }
-
-} /* End of res_list */
-
-/* End of file */
+}

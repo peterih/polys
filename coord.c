@@ -1,7 +1,6 @@
 /*
  * This file contains the source code for doing coordinate manipulations
  * in cartesian space.
-
  * Written by Soren Balling Engelsen, INRA-94.
  */
 #include <stdio.h>
@@ -9,7 +8,6 @@
 #include "polys.h"
 #include "extern.h"
 
-/* */
 int
 getAno(int resnum, Label lab)
 {
@@ -23,7 +21,6 @@ getAno(int resnum, Label lab)
    return (-1);
 }
 
-/* */
 void
 Coord_copy()
 {
@@ -33,7 +30,6 @@ Coord_copy()
       Ar[i]  = A[i].pos;
 }
 
-/* */
 void
 symneighbor(int nat, Matrix TM)
 {
@@ -69,7 +65,6 @@ Coord_orient(no, nx, nxy)
    printf("\tAtom no. %3d: %-8s [%d]\n", nxy, A[nxy].lab, A[nxy].res);
 }
 
-/* */
 void
 Coord_rms(BOOLEAN heavy)
 {
@@ -123,7 +118,6 @@ Coord_rms(BOOLEAN heavy)
    printf("\nThe rms difference:                %.4lf\n", rms);
 }
 
-/**/
 void
 jacoby(Matrix A, Matrix B)
 {
@@ -221,7 +215,6 @@ C --- ENTER ROTATION IN EIGENVECTOR MATRIX
 */
 } /* End of jacoby */
 
-/* */
 void
 Coord_stat()
 {

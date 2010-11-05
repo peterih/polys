@@ -95,7 +95,6 @@ FindConn(int na, int nb, int ai, int ae, int *rotlevel)
    
 }
  
-/* */
 void
 rotbond(Tors Pi, double torang)
 {
@@ -138,7 +137,6 @@ rotbond(Tors Pi, double torang)
    trot += cput() - tstart;
 }
              
-
 /*
  * This rutine will drive to torsional angles through a specified
  * part of conformational space.

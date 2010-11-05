@@ -1,23 +1,18 @@
-/**********************************************************************
-POLYS MODULE <phimin.c>
-
-  This module contains rutines for minimizing energy in dihedral space.
-
-  Written by Soren Balling Engelsen, INRA-93.
-  Last revision: S.B.E. 1997
-**********************************************************************/
+/*
+ * This module contains rutines for minimizing energy in dihedral space.
+ * Written by Soren Balling Engelsen, INRA-93.
+ * Last revision: S.B.E. 1997
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-
-/**********************************************************************
-   Updates the vector of rotatable bonds - rotvec[].
-**********************************************************************/
-static void new_rotmem(int bnr, int a, int b, int c, int d, int *pnr)
-
-{  static   BOOLEAN status = FALSE;
+/* Updates the vector of rotatable bonds - rotvec[] */
+static void
+new_rotmem(int bnr, int a, int b, int c, int d, int *pnr)
+{
+   static   BOOLEAN status = FALSE;
    static   int nsav = 0;         /* saves the bond number */
    static   double wsav = 0.0;    /* saves the weight priority */
    BOOLEAN  ring = FALSE;
@@ -56,18 +51,18 @@ static void new_rotmem(int bnr, int a, int b, int c, int d, int *pnr)
       wsav = weight;
       status = TRUE;
    }
-} /* End of new_rotmem */   
+}
 
-
-/**********************************************************************
-   Generates a vector of rotatable bonds - rotvec[]. Only one
-torsional angle will be choosen as a reference and preferably one
-without terminal hydrogens. Torsions which are a part of a cyclic
-structure will be discarded.
-**********************************************************************/
-void gen_rotvec()
-
-{  register int bi;
+/*
+ * Generates a vector of rotatable bonds - rotvec[]. Only one
+ * torsional angle will be choosen as a reference and preferably one
+ * without terminal hydrogens. Torsions which are a part of a cyclic
+ * structure will be discarded.
+ */
+void
+gen_rotvec()
+{
+   register int bi;
    register int bj; 
    register int bk; 
    int      i, pno;
@@ -112,17 +107,16 @@ void gen_rotvec()
 
    M.nrot = pno+1;
    printf("  Number of rotatable bonds: %5d\n\n", M.nrot);
+}
 
-} /* End of gen_rotvec */
-
-
-/**********************************************************************
-   The potential energy function as a function of phi instead of as
-a function of cartesian coordinates.
-**********************************************************************/
-double func(double x[])
-
-{  register int  i;
+/*
+ * The potential energy function as a function of phi instead of as
+ * a function of cartesian coordinates.
+ */
+double
+func(double x[])
+{
+   register int  i;
    double        Vpot;
    Tors          Pi;
 
@@ -137,14 +131,12 @@ double func(double x[])
 
    /* printf("%12.7f\n",Vpot); */
    return Vpot;
- 
-}  /* End of func */
+}
 
-/**********************************************************************
-**********************************************************************/
-void phimin(BOOLEAN silent, int maxfun, int maxit, double enetol, double grdtol)
-
-{  int    i, iter, j;
+void
+phimin(BOOLEAN silent, int maxfun, int maxit, double enetol, double grdtol)
+{
+   int    i, iter, j;
    double delta = 0.02;
    double *p, *g, fret, f1, **xi;
    Tors   Pi;
@@ -185,7 +177,4 @@ void phimin(BOOLEAN silent, int maxfun, int maxit, double enetol, double grdtol)
    free_dmatrix(xi,1,M.nrot,1,M.nrot);
    free_dvector(p,1,M.nrot);
    free_dvector(g,1,M.nrot);
-
-} /* End of phimin */
-
-/* End of file */
+}

@@ -1,10 +1,7 @@
-/*****************************************************************************
-   "extern.h"
-
-                GLOBAL VARIABLE DECLARATIONS 
-
-SBE93-INRA
-*****************************************************************************/
+/*
+ * GLOBAL VARIABLE DECLARATIONS 
+ * SBE93-INRA
+ */
 extern BOOLEAN debug;  /* Boolean control variables */
 extern BOOLEAN plot;
 extern BOOLEAN print;
@@ -49,5 +46,3 @@ extern int      ANB[3*MAXATOM];   /* nonbonded exclusions */
 extern int      A14[3*MAXATOM];   /* nonbonded 1-4 interactions */
 extern Nbap     NBP[MAXTYPE];     /* nonbonded parameters */
 extern int      DA[MAXATOM];      /* index vector for hydrolysis */
-
-/* End of file */

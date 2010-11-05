@@ -1,8 +1,7 @@
-/**********************************************************************
-	"matrix.h" contains functions for matrix manipulations for 
-three dimensional modelling.
-SBE93-INRA
-**********************************************************************/
+/*
+ * functions for matrix manipulations for three dimensional modelling.
+ * SBE93-INRA
+ */
 
 double length(Vector3 a);
 double dotprod(Vector3 a, Vector3 b);
@@ -17,5 +16,3 @@ void matprint(Matrix A);
 void genrot(double phi, Vector3 b, Vector3 d, Matrix A);
 void TransfV(Vector3 v, Matrix TM, Vector3 *w);
 void TransfAV(atom A[], int ai, int ao, Matrix TM);
-   
-/* End of file */

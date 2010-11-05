@@ -1,27 +1,18 @@
-/**********************************************************************
-   "phipsi.c"
-
-  This program .....
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, INRA-93 */
 #include <math.h>
 #include <string.h>
 #include "defs.h"
 #include "sinput.h"
 #include "fileoper.h"
  
-/**********************************************************************
-        Reads polys PHIPSI.MAP files
-**********************************************************************/
+/* Reads polys PHIPSI.MAP files */
 BOOLEAN debug;
 
 #define    MAXP   1500
 
-//// 20030117 pih: removed 'void' declaration of main.
 main()
-
-{  register int i;
+{
+   register int i;
    FILE *fp;
    int  nch = 0;
    int  no = 0;
@@ -80,9 +71,5 @@ main()
    }
    fileclose(fname, fp);
 
-//// 20030117 pih: added 'return' statement in case of correct termination.
    return 0;
-} /* End of main */
-
-
-/* End of file */
+}
