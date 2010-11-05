@@ -5,9 +5,7 @@
 #include "fileoper.h"
 
 BOOLEAN debug;
-/**********************************************************************
-	Print welcome header on output device.
-**********************************************************************/
+/* Print welcome header on output device */
 main(int argc, char **argv)
 
 {  char    *finame, *foname, str[80], dum[4];
@@ -95,4 +93,4 @@ main(int argc, char **argv)
          fileclose(foname,fp);
       }
    }
-}  /* end of main */
+}

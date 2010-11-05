@@ -1,8 +1,4 @@
-/**********************************************************************
-  "r_dat.c"
-
-  Written by Soren Balling Engelsen, INRA-93, 94.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, INRA-93, 94 */
 #include <string.h>
 #include "defs.h"
 #include "typs.h"
@@ -10,31 +6,32 @@
 #include "sinput.h"
 #include "fileoper.h"
  
-/**********************************************************************
-    Simple routine which takes a string and replace all occurencies
-of comma's with space's.
-**********************************************************************/
-void CommaSpace(char *str)
-
-{  register int i;
+/*
+ * Simple routine which takes a string and replace all occurencies
+ * of comma's with space's.
+ */
+void
+CommaSpace(char *str)
+{
+   register int i;
 
    while (*str++ != '\0')
       if (*str == ',')
          *str = ' ';
+}
 
-}  /* End of CommaSpace */
-
-/**********************************************************************
-        Reads DAT format coordinate files.
-        ==================================
-1 LINE:  title
-2 LINE:  orthogonal transformations
-3 LINE:  lines per atom
-* LINE:  A[i].lab, A[i].pos.x, A[i].pos.y, A[i].pos.z, type, A[i].chg, res
-**********************************************************************/
-void read_DAT(char *fname)
-
-{  register int i;
+/*
+ *      Reads DAT format coordinate files.
+ *      ==================================
+ * 1 LINE:  title
+ * 2 LINE:  orthogonal transformations
+ * 3 LINE:  lines per atom
+ * * LINE:  A[i].lab, A[i].pos.x, A[i].pos.y, A[i].pos.z, type, A[i].chg, res
+ */
+void
+read_DAT(char *fname)
+{
+   register int i;
    FILE *fp;
    int  nal, nch = 0;
    char line[MAXLEN+1], uplab[8];
@@ -100,9 +97,5 @@ void read_DAT(char *fname)
          frac2carte(CELL, FALSE);
 
       M.nres = A[i].res + 1;
-
    }
-
-} /* End of read_DAT */
-
-/* End of file */
+}

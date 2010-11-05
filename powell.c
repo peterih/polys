@@ -1,11 +1,8 @@
-/**********************************************************************
-  "powell.c"
-
-  This module contains the nonderivative Powell rutine for minimizing 
-a function. See Numerical Recipes p. 299.
-
-  Adapted for POLYS by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the nonderivative Powell rutine for minimizing 
+ * a function. See Numerical Recipes p. 299.
+ * Adapted for POLYS by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
@@ -13,17 +10,18 @@ a function. See Numerical Recipes p. 299.
 
 static double sqrarg;
 #define SQR(a) (sqrarg=(a),sqrarg*sqrarg)
-/**********************************************************************
-   option is used for printing:
-
-	-1: No printout
-	 0: Energy printout (phimin).
-	 1: dn2 printout (helix).
-**********************************************************************/
-void powell(BOOLEAN option, double *p, double **xi, int ndim,
-            double ftol, int *iter, double *fret, double (*func)())
-
-{  int    i, ibig, j;
+/*
+ * option is used for printing:
+ *
+ *      -1: No printout
+ *       0: Energy printout (phimin).
+ *       1: dn2 printout (helix).
+ */
+void
+powell(BOOLEAN option, double *p, double **xi, int ndim,
+       double ftol, int *iter, double *fret, double (*func)())
+{
+   int    i, ibig, j;
    double t,fptt,fp,del,new,tole=0.02;
    double *pt,*ptt,*xit;
 
@@ -100,7 +98,5 @@ void powell(BOOLEAN option, double *p, double **xi, int ndim,
          }
       }
    }
-} /* End of powell */
+}
 #undef SQR
-
-/* End of file */

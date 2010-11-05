@@ -9,12 +9,11 @@
 #include "fileoper.h"
  
 BOOLEAN debug;
-/**********************************************************************
-        Translates cartesian coordinates.
-**********************************************************************/
+/*
+ * Translates cartesian coordinates.
+ */
 #define    MAXA   1500
 
-/* 20030117 pih: removed 'void' declaration of main */
 int
 main()
 {

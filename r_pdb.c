@@ -1,8 +1,4 @@
-/**********************************************************************
-  "r_pdb.c"
-
-  Written by Soren Balling Engelsen, KVL 95.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, KVL 95 */
 #include <string.h>
 #include "defs.h"
 #include "typs.h"
@@ -10,13 +6,11 @@
 #include "sinput.h"
 #include "fileoper.h"
  
-/**********************************************************************
-        Reads PDB format coordinate files.
-        ===========================================
-
-**********************************************************************/
-void read_PDB(char *fname)
-{  FILE    *fp;
+/* Reads PDB format coordinate files */
+void
+read_PDB(char *fname)
+{
+   FILE    *fp;
    char    cdum, line[100], dumtyp[4], cmd[6], *unused ;
    int     i, nat=0, idum ;
    BOOLEAN orthogonal;
@@ -93,8 +87,6 @@ void read_PDB(char *fname)
 
       } while( !feof(fp) );
 
-
-
       for ( i=0; i<nat; i++)
       {  printf("%-10d %-10s %10.5lf %10.5lf %10.5lf\n",
                 i, A[i].lab, A[i].pos.x, A[i].pos.y, A[i].pos.z); 
@@ -141,7 +133,6 @@ void read_PDB(char *fname)
                        {  A[i].ztyp =  604; 
                           printf("Atom #%d with label %s assigned as standard sp3 carbon\n", i, A[i].lab);
                           break; }     /* sp3 oxygen */
-
 
             case 'O' : if (strcmp(A[i].lab, "O")==0)
                        {  A[i].ztyp =  802; break; }     /* sp3 oxygen */
@@ -212,6 +203,4 @@ void read_PDB(char *fname)
       printf("Coordinates for %s succesfully read from file %s\n\n", 
                               M.id,                       fname);
   }
-} /* End of read_PDB */
-
-/* End of file */
+}

@@ -1,24 +1,18 @@
-/**********************************************************************
-POLYS MODULE <ReadCoor.c>
-
-  This module contains the source code for entering Cartesian
-coordinates into polys.
-
-  Written by Soren Balling Engelsen, INRA-93.
-  Last revision: S.B.E. 1997
-**********************************************************************/
+/*
+ * Code for entering Cartesian coordinates into polys.
+ * Written by Soren Balling Engelsen, INRA-93.
+ * Last revision: S.B.E. 1997
+ */
 #include <math.h>
 #include <string.h>
 #include "polys.h"
 #include "extern.h"
  
-
-/**********************************************************************
-    Simple routine which deletes the quotes from the quoted string.
-**********************************************************************/
-void DelQuotes(char *str)
-
-{  register int i;
+/* Simple routine which deletes the quotes from the quoted string */
+void
+DelQuotes(char *str)
+{
+   register int i;
    char     strs[MAXLEN];
 
    strcpy(strs,str);
@@ -29,17 +23,17 @@ void DelQuotes(char *str)
          *str++;
       }
    } while (strs[i++] != '\0');
+}
 
-}  /* End of DelQuotes */
-
-/**********************************************************************
-   Guides the input rutines.
-   AMBER, SPF and CFF formats have not been programmed yet and will
-default to PF format.
-**********************************************************************/
-void ReadCoord(int format, char *fname, BOOLEAN ref)
-
-{  register int i;
+/*
+ * Guides the input rutines.
+ * AMBER, SPF and CFF formats have not been programmed yet and will
+ * default to PF format.
+ */
+void
+ReadCoord(int format, char *fname, BOOLEAN ref)
+{
+   register int i;
 
    /* first remove the quotes from the file name */
    DelQuotes(fname);
@@ -89,19 +83,18 @@ void ReadCoord(int format, char *fname, BOOLEAN ref)
                    printf("Tinker XYZ format NOT implemented yet\n");
                    break;
    }
+}
 
-} /* End of ReadCoord */
-
-/**********************************************************************
-        Reads atomic partial charges from a file.
-        =========================================
-1 LINE:  comments
-2 LINE:  atom number (%5d)
-* LINE:  partial charge (%10.5lf)
-**********************************************************************/
+/*
+ * Reads atomic partial charges from a file.
+ * 
+ * 1 LINE:  comments
+ * 2 LINE:  atom number (%5d)
+ * * LINE:  partial charge (%10.5lf)
+ */
 void ReadCharges(char *fname)
-
-{  FILE    *fp;
+{
+   FILE    *fp;
    char    line[MAXLEN+1];
    int     i, idum, nchg, unused;
    double  oldchg, sumchg;
@@ -139,6 +132,4 @@ void ReadCharges(char *fname)
       printf("Charges for '%s' succesfully read from file '%s'\n",M.id,fname); 
       neutralize(M.nat);
    }
-} /* End of ReadCharges */
-
-/* End of file */
+}

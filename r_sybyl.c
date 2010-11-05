@@ -1,36 +1,32 @@
-/**********************************************************************
-  "r_sybyl.c"
-
-  Written by Soren Balling Engelsen, INRA-93, 94.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, INRA-93, 94 */
 #include <string.h>
 #include "defs.h"
 #include "typs.h"
 #include "extern.h"
 #include "sinput.h"
 #include "fileoper.h"
- 
 
-/**********************************************************************
-        Reads SYBYL "mol2" format coordinate files.
-        ===========================================
-find @<TRIPOS>MOLECULE
-1* LINE:  (%45s)                         titel
-2* LINE:  (%5d %5d %5d %5d %5d)          M.nat, M.nbond, 1, 0, 1
-find @<TRIPOS>ATOM
-3* LINE:  (%7d %-8s%10.4lf%10.4lf%10.4lf %-4s %6d <1>  %12.4lf)
-          atom number
-          atom label
-          X coordinate (%10.4lf)
-          Y coordinate (%10.4lf)
-          Z coordinate (%10.4lf)
-          atom type (%-4s)
-          residue number (%6d)
-          fractional chrage (%12.4lf)
-**********************************************************************/
-void read_SYBYL(char *fname)
-
-{  FILE    *fp;
+/*
+ *      Reads SYBYL "mol2" format coordinate files.
+ *      ===========================================
+ * find @<TRIPOS>MOLECULE
+ * 1* LINE:  (%45s)                         titel
+ * 2* LINE:  (%5d %5d %5d %5d %5d)          M.nat, M.nbond, 1, 0, 1
+ * find @<TRIPOS>ATOM
+ * 3* LINE:  (%7d %-8s%10.4lf%10.4lf%10.4lf %-4s %6d <1>  %12.4lf)
+ *         atom number
+ *         atom label
+ *         X coordinate (%10.4lf)
+ *         Y coordinate (%10.4lf)
+ *         Z coordinate (%10.4lf)
+ *         atom type (%-4s)
+ *         residue number (%6d)
+ *         fractional chrage (%12.4lf)
+ */
+void
+read_SYBYL(char *fname)
+{
+   FILE    *fp;
    char    line[MAXLEN+1], styp[4], dumtyp[30];
    int     i, nat, idum;
 
@@ -148,6 +144,4 @@ void read_SYBYL(char *fname)
       printf("Coordinates for %s succesfully read from file %s\n\n", 
                               M.id,                       fname);
   }
-} /* End of read_SYBYL */
-
-/* End of file */
+}

@@ -1,33 +1,29 @@
-/**********************************************************************
-  "r_mm3.c"
-
-  Written by Soren Balling Engelsen, INRA-93,94.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, INRA-93,94 */
 #include <string.h>
 #include "defs.h"
 #include "typs.h"
 #include "extern.h"
 #include "sinput.h"
 #include "fileoper.h"
- 
 
-/**********************************************************************
-        Reads MM3 format coordinate files.
-        =====================================
-1* LINE:  (6A10,I1,I4,I2,I1,2I2,I3,F5.0) Name card
-1a* LINE: (60L1,2I1,7I2,2I1,I2)          Conjugated phi-system
-2* LINE:  (I1,I4,5X,F10.5,9I5,5X,2I5)    Lists and options
-5* LINE:  (3F10.5, I5)                   Coordinates
-         X coordinate (%10.5lf)
-         Y coordinate (%10.5lf)
-         Z coordinate (%10.5lf)
-         atom type letter (%c)           Imberty
-         atom type (%2d)
-         atom label (%s)                 Imberty
-**********************************************************************/
-void read_MM3(char *fname)
-
-{  FILE    *fp;
+/*
+ *      Reads MM3 format coordinate files.
+ *      =====================================
+ * 1* LINE:  (6A10,I1,I4,I2,I1,2I2,I3,F5.0) Name card
+ * 1a* LINE: (60L1,2I1,7I2,2I1,I2)          Conjugated phi-system
+ * 2* LINE:  (I1,I4,5X,F10.5,9I5,5X,2I5)    Lists and options
+ * 5* LINE:  (3F10.5, I5)                   Coordinates
+ *       X coordinate (%10.5lf)
+ *       Y coordinate (%10.5lf)
+ *       Z coordinate (%10.5lf)
+ *       atom type letter (%c)           Imberty
+ *       atom type (%2d)
+ *       atom label (%s)                 Imberty
+ */
+void
+read_MM3(char *fname)
+{
+   FILE    *fp;
    char    line[MAXLEN+1], titel1[MAXLEN+1], titel2[MAXLEN+1];
    char    cha;
    int     i, idum, method, nat, kfixtyp, ncon, nattch, nls, attyp;
@@ -105,7 +101,4 @@ void read_MM3(char *fname)
       printf("Coordinates for %s succesfully read from file %s\n\n", 
                               M.id,                       fname);
    }
-} /* End of read_MM3 */
-
-
-/* End of file */
+}

@@ -1,12 +1,11 @@
-/*************************************************************************
-
-   P O L Y S   C O M M A N D   P A R S E R
-   P O L Y S   C O M M A N D   P A R S E R
-   P O L Y S   C O M M A N D   P A R S E R
-
-   Written by Soren B. Engelsen, INRA 1993-94.
-   Last revision: S.B.E. 1997
-*************************************************************************/
+/*
+ * P O L Y S   C O M M A N D   P A R S E R
+ * P O L Y S   C O M M A N D   P A R S E R
+ * P O L Y S   C O M M A N D   P A R S E R
+ *
+ * Written by Soren B. Engelsen, INRA 1993-94.
+ * Last revision: S.B.E. 1997
+ */
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +13,7 @@
 #include "defs.h"
 #include "polys.h"
 
-/*****************************************************************
-   parser variables needed for the subcommands
-*****************************************************************/
+/* parser variables needed for the subcommands */
 Label    lab;
 BOOLEAN  descarte = TRUE;       /* write as cartesian coordinates */
 BOOLEAN  reference = FALSE;     /* read into the reference coordinate set */
@@ -52,9 +49,7 @@ double   psiv = 999.9;
 double   omev = 999.9;
 Matrix   TM;
 
-/*****************************************************************
-   parser variables needed for the BUILD command
-*****************************************************************/
+/* parser variables needed for the BUILD command */
 char     *fname;               /* the name of the MONOBANK member */
 char     *mapfile;             /* the name of the DIBANK member */
 char     *macrof;              /* the name of the macro file */
@@ -71,9 +66,7 @@ struct
   int    last;                 /* last residue in repeating segment */
 } reptab[10];  /* repeat table */
 
-/*****************************************************************
-   External variabels  needed for the parser
-*****************************************************************/
+/* External variabels  needed for the parser */
 extern   BOOLEAN debug;
 extern   int lineno;
 extern   int seed;

@@ -1,12 +1,12 @@
-/*************************************************************************
-
-          P O L Y S   L E X I C A L   A N A L Y S E R
-          P O L Y S   L E X I C A L   A N A L Y S E R
-          P O L Y S   L E X I C A L   A N A L Y S E R
-
-         Written by Soren B. Engelsen (INRA 1993-94)
-         Last revision: S.B.E. 1997
-*************************************************************************/
+/*
+ *
+ *        P O L Y S   L E X I C A L   A N A L Y S E R
+ *        P O L Y S   L E X I C A L   A N A L Y S E R
+ *        P O L Y S   L E X I C A L   A N A L Y S E R
+ *
+ *       Written by Soren B. Engelsen (INRA 1993-94)
+ *       Last revision: S.B.E. 1997
+ */
 %START   XRAY
 %{
 #include <stdio.h>

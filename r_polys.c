@@ -1,34 +1,30 @@
-/**********************************************************************
-  "r_polys.c"
-
-  Written by Soren Balling Engelsen, INRA-93,94.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, INRA-93,94 */
 #include <string.h>
 #include "defs.h"
 #include "typs.h"
 #include "extern.h"
 #include "fileoper.h"
- 
 
-/**********************************************************************
-        Reads POLYS format coordinate files.
-        ====================================
-1 LINE:  residue id
-2 LINE:  litterature reference
-3 LINE:  orthogonal transformations (A, B, C, alpha, beta, gamma)
-4 LINE:  number of atoms (lines following)
-* LINE:  atom number (%6d)
-         residue number (%3d)
-         X coordinate (%10.5lf)
-         Y coordinate (%10.5lf)
-         Z coordinate (%10.5lf)
-         partial charge (%10.5lf)
-         atomtype (%d)
-         atom label (%s)
-**********************************************************************/
-void read_PF(char *fname, BOOLEAN ref)
-
-{  FILE    *fp;
+/*
+ *      Reads POLYS format coordinate files.
+ *      ====================================
+ * 1 LINE:  residue id
+ * 2 LINE:  litterature reference
+ * 3 LINE:  orthogonal transformations (A, B, C, alpha, beta, gamma)
+ * 4 LINE:  number of atoms (lines following)
+ * * LINE:  atom number (%6d)
+ *        residue number (%3d)
+ *        X coordinate (%10.5lf)
+ *        Y coordinate (%10.5lf)
+ *        Z coordinate (%10.5lf)
+ *        partial charge (%10.5lf)
+ *        atomtype (%d)
+ *        atom label (%s)
+ */
+void
+read_PF(char *fname, BOOLEAN ref)
+{
+   FILE    *fp;
    char    line[MAXLEN+1];
    int     i, idum, nat, nbond, nsymop, unused ;
    BOOLEAN orthogonal;
@@ -158,6 +154,4 @@ void read_PF(char *fname, BOOLEAN ref)
                                  M.id,                       fname);
       }
    }
-} /* End of read_PF */
-
-/* End of file */
+}

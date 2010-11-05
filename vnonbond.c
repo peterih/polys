@@ -1,4 +1,4 @@
-/**********************************************************************
+/*
  * This module contains the source code for calculation of nonbonded
  * energy as well as its derivatives vrt. cartesians (F). The function
  * includes spherical cutoff (rcut) and minimum imaging in a cubic box.

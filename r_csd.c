@@ -1,12 +1,9 @@
-/**********************************************************************
-  "r_csd.c"
-
-  Programme de conversion de donnees de la Cambridge Database en donnees 
-  au format Polys 
-
-  Written by C. Durand, INRA Nantes 1994.
-  Implementation in POLYS by Soren Balling Engelsen, INRA-94.
-**********************************************************************/
+/*
+ * Programme de conversion de donnees de la Cambridge Database en donnees 
+ * au format Polys 
+ * Written by C. Durand, INRA Nantes 1994.
+ * Implementation in POLYS by Soren Balling Engelsen, INRA-94.
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -14,13 +11,11 @@
 #include "polys.h"
 #include "extern.h"
 
-
 char    liste[200];
 void    symetrie(int sform, int centre , int nbre);
 
-double puiss(double X , int Y)
-/**********************************************************************
-**********************************************************************/
+double
+puiss(double X , int Y)
 { 
    int l;
    float val;
@@ -29,22 +24,23 @@ double puiss(double X , int Y)
    for (l=1; l<=Y; l++)
       val /= 10.0;
    return val; 
-} /* End of puiss */
+}
 
-/**********************************************************************
-        Reads CSD format database files.
-        ====================================
-1 Enregistrement:  
-2 Enregistrement:  
-3 Enregistrement:  
-4 Enregistrement:  
-5 Enregistrement:  
-6 Enregistrement:  
-7 Enregistrement:  
-**********************************************************************/
-void read_CSD(char *csd_id, BOOLEAN ref)
-
-{  FILE    *fp;
+/*
+ *      Reads CSD format database files.
+ *      ====================================
+ * 1 Enregistrement:  
+ * 2 Enregistrement:  
+ * 3 Enregistrement:  
+ * 4 Enregistrement:  
+ * 5 Enregistrement:  
+ * 6 Enregistrement:  
+ * 7 Enregistrement:  
+ */
+void
+read_CSD(char *csd_id, BOOLEAN ref)
+{
+   FILE    *fp;
    int     sform = 1;
    int     i, k, s, l, longueur, sup, lignes, centre, nbre, liaisons, NSAT;
    char    spacegrp, record[100], chaine[11], connect[800], fname[15];
@@ -219,7 +215,6 @@ void read_CSD(char *csd_id, BOOLEAN ref)
         } 
       }
 
-
       /************** Enregistrement 7 ******************************/ 
       longueur = M.nat < 100 ? 2 : 3;
       for(i=0; i<(liaisons/(82/longueur) + 1); i++)
@@ -266,12 +261,10 @@ void read_CSD(char *csd_id, BOOLEAN ref)
      /* LOOP OUT */
      fin:;
   }
+}
 
-} /* End of read_csd */
-
-void symetrie(int sform, int centre , int nbre)
-/**********************************************************************
-**********************************************************************/
+void
+symetrie(int sform, int centre , int nbre)
 {
    int     i, j, k, point, matrice[3][3], transl[3];
    char    symet[10];
@@ -355,7 +348,6 @@ void symetrie(int sform, int centre , int nbre)
       matprint(MAT[nmat]);
       nmat++;
 
-
       /* traduction de la matrice avec centre de symetrie */
 
       if (!centre)
@@ -431,7 +423,4 @@ void symetrie(int sform, int centre , int nbre)
       }
    }
    return;
-
-} /* End of symmetrie */
-
-/* End of file */
+}

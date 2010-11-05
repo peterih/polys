@@ -1,25 +1,23 @@
-/**********************************************************************
-  "potener.c"
-
-  This module contains the bookeeping of the potential energy 
-calculations as well as the "tester" subroutine for checking the 
-implementation of analytical derivatives needed for the minimization
-algorithms.
-
-  Written by Soren Balling Engelsen, INRA-93.
-**********************************************************************/
+/*
+ * This module contains the bookeeping of the potential energy 
+ * calculations as well as the "tester" subroutine for checking the 
+ * implementation of analytical derivatives needed for the minimization
+ * algorithms.
+ * Written by Soren Balling Engelsen, INRA-93.
+ */
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
 #include "extern.h"
 
-/**********************************************************************
-    Calculates the root-mean-square product of a vector with 
-"no" elements of the type Vector3
-**********************************************************************/
-double RMSE(int no, Vector3 V[])
-
-{  int     i;
+/*
+ * Calculates the root-mean-square product of a vector with 
+ * "no" elements of the type Vector3
+ */
+double
+RMSE(int no, Vector3 V[])
+{
+   int     i;
    double  rmse = 0.0;
 
    for (i=0; i<no; i++)
@@ -27,16 +25,13 @@ double RMSE(int no, Vector3 V[])
 
    rmse /= no*3;
    return (sqrt(rmse));
+}
 
-} /* End of RMSE */
-
-
-/**********************************************************************
-    Calculates the potential energy
-**********************************************************************/
-double potener(int option)
- 
-{  int    i;
+/* Calculates the potential energy */
+double
+potener(int option)
+{ 
+   int    i;
    double Vs, Vvdw, Vc = 0.0;
 
    /* initialize variables */
@@ -62,15 +57,12 @@ double potener(int option)
 
    nfun++;
    return(M.Epot);
+}
 
-} /* End of potener */
-
-
-/**********************************************************************
-**********************************************************************/
-void tester()
-
-{  int      i;
+void
+tester()
+{
+   int      i;
    double   V0, V1, dVnum, dVana, dVdif;
    double   delta = RODEPS;
    double   sqsum = 0.0;
@@ -110,17 +102,16 @@ void tester()
    }
    sqsum /= M.nat*3;
    printf("\n\nThe RootMeanSquared residue sum: %.2e\n\n", sqrt(sqsum));
-      
-} /* End of tester */
+}
 
-
-/**********************************************************************
-    Calculates the potential energy and prints the energy 
-distributions on standard output
-**********************************************************************/
-void printener(BOOLEAN deriv)
- 
-{  potener(0);
+/*
+ * Calculates the potential energy and prints the energy 
+ * distributions on standard output
+ */
+void
+printener(BOOLEAN deriv)
+{ 
+   potener(0);
    printf("Potential Energy Contributions for %s: \n", M.id);
    putchar('\n');
    printf("   %-40s %15s\n", "TYPE", "KCAL/MOL");
@@ -140,7 +131,4 @@ void printener(BOOLEAN deriv)
    putchar('\n');
    if (deriv)
       tester();
-
-} /* End of potener */ 
-
-/* End of file */
+}

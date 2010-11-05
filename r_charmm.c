@@ -1,35 +1,31 @@
-/**********************************************************************
-  "r_charmm.c"
-
-  Written by Soren Balling Engelsen, INRA-93, 94.
-**********************************************************************/
+/* Written by Soren Balling Engelsen, INRA-93, 94 */
 #include <string.h>
 #include "defs.h"
 #include "typs.h"
 #include "extern.h"
 #include "sinput.h"
 #include "fileoper.h"
- 
 
-/**********************************************************************
-        Reads CHARMM format coordinate files.
-        =====================================
-lines begining with a asterisk '*' are header (comment) lines
-1 LINE:  number of atoms (lines following)
-* LINE:  atom number (%5d)
-         residue number (%5d)
-         residue name (x%-4s)
-         atom label (x%-4s)
-         X coordinate (%10.5lf)
-         Y coordinate (%10.5lf)
-         Z coordinate (%10.5lf)
-         residue name (x%-4s)        ?
-         residue number (x%d)        ?
-         partial charge (x%12.5lf)
-**********************************************************************/
-void read_CHARMM(char *fname)
-
-{  FILE    *fp;
+/*
+ *      Reads CHARMM format coordinate files.
+ *      =====================================
+ * lines begining with a asterisk '*' are header (comment) lines
+ * 1 LINE:  number of atoms (lines following)
+ * * LINE:  atom number (%5d)
+ *       residue number (%5d)
+ *       residue name (x%-4s)
+ *       atom label (x%-4s)
+ *       X coordinate (%10.5lf)
+ *       Y coordinate (%10.5lf)
+ *       Z coordinate (%10.5lf)
+ *       residue name (x%-4s)        ?
+ *       residue number (x%d)        ?
+ *       partial charge (x%12.5lf)
+ */
+void
+read_CHARMM(char *fname)
+{
+   FILE    *fp;
    char    line[MAXLEN+1];
    char    resname[4];
    int     i, idum, nat, unused ;
@@ -83,6 +79,4 @@ void read_CHARMM(char *fname)
       printf("Coordinates for %s succesfully read from file %s\n\n", 
                               M.id,                       fname);
    }
-} /* End of read_CHARMM */
-
-/* End of file */
+}

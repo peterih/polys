@@ -12,7 +12,6 @@ BOOLEAN  debug;
 
 #define    MAXP   1500
 
-/* 20030117 pih: removed 'void' declaration of main */
 int
 main()
 {
