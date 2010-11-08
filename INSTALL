@@ -12,7 +12,7 @@ Advanced
 Should you decide to modify the parser, a coople more steps is required
 to compile Polys.
 
-bison -y polypars
 flex -l polylex
+bison -d polypars
 
 make all
