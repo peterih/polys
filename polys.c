@@ -90,5 +90,4 @@ yyerror(char *s)
 {
    fprintf(stderr, "\n%s: %s\n", ProgName, s);
    fprintf(stderr, " line %d\n\n", lineno);
-   exit(0);
 }
