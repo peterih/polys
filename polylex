@@ -1,8 +1,5 @@
 /*
- *
- *        P O L Y S   L E X I C A L   A N A L Y S E R
- *        P O L Y S   L E X I C A L   A N A L Y S E R
- *        P O L Y S   L E X I C A L   A N A L Y S E R
+ *       P O L Y S   L E X I C A L   A N A L Y S E R
  *
  *       Written by Soren B. Engelsen (INRA 1993-94)
  *       Last revision: S.B.E. 1997
@@ -50,275 +47,272 @@ nl          \n
 <XRAY>"z"   {  ECHO; return yytext[0]; }
 <XRAY>"+"   {  ECHO; return yytext[0]; }
 <XRAY>"-"   {  ECHO; return yytext[0]; }
-ATTACH      {  ECHO; yylval.cmd = ATTACH;
-               return (ATTACH);
-            }
-BUILD       {  ECHO; yylval.cmd = BUILD;
-               return (BUILD);
-            }
-CALC        {  ECHO; yylval.cmd = CALC;
-               return (CALC);
-            }
-COORD       {  ECHO; yylval.cmd = COORD;
-               return (COORD);
-            }
-CREATE      {  ECHO; yylval.cmd = CREATE;
-               return (CREATE);
-            }
-DATE        {  ECHO; yylval.cmd = DATE;
-               return (DATE);
-            }
-DOUBLEHELIX {  ECHO; yylval.cmd = DOUBLEHELIX;
-               return (DOUBLEHELIX);
-            }
-END         {  ECHO; yylval.cmd = END;
-               return (END);
-            }
-ENER        {  ECHO; yylval.cmd = ENER;
-               return (ENER);
-            }
-GENERATE    {  ECHO; yylval.cmd = GENERATE;
-               return (GENERATE);
-            }
-HELIX       {  ECHO; yylval.cmd = HELIX;
-               return (HELIX);
-            }
-HELP        {  ECHO; yylval.cmd = HELP;
-               return (HELP);
-            }
-INIT        {  ECHO; yylval.cmd = INIT;
-               return (INIT);
-            }
-LABEL       {  ECHO; yylval.cmd = LABEL;
-               return (LABEL);
-            }
-MINI        {  ECHO; yylval.cmd = MINI;
-               return (MINI);
-            }
-MODIFY      {  ECHO; yylval.cmd = MODIFY;
-               return (MODIFY);
-            }
-PRIMARY     {  ECHO; yylval.cmd = PRIMARY;
-               return (PRIMARY);
-            }
-READ        {  ECHO; yylval.cmd = READ;
-               return (READ);
-            }
-RECORD      {  ECHO; yylval.cmd = RECORD;
-               return (RECORD);
-            }
-SET         {  ECHO; yylval.cmd = SET;
-               return (SET);
-            }
-STOP        {  ECHO; yylval.cmd = STOP;
-               BEGIN 0;
-               return (STOP);
-            }
-TIME        {  ECHO; yylval.cmd = TIME;
-               return (TIME);
-            }
-WRITE       {  ECHO; yylval.cmd = WRITE;
-               return (WRITE);
-            }
-all         {  ECHO; yylval.cmd = ALL;
-               return (ALL);
-            }
-angle       {  ECHO; yylval.cmd = ANGLE;
-               return (ANGLE);
-            }
-bond        {  ECHO; yylval.cmd = BOND;
-               return (BOND);
-            }
-carte       {  ECHO; yylval.cmd = CARTE;
-               return (CARTE);
-            }
-charges     {  ECHO; yylval.cmd = CHARGES;
-               return (CHARGES);
-            }
-coord       {  ECHO; yylval.cmd = COORD;
-               return (COORD);
-            }
-copy        {  ECHO; yylval.cmd = COPY;
-               return (COPY);
-            }
-debug       {  ECHO; yylval.cmd = DEBUG;
-               return (DEBUG);
-            }
-dtab        {  ECHO; yylval.cmd = DTAB;
-               return (DTAB);
-            }
-deriv       {  ECHO; yylval.cmd = DERIV;
-               return (DERIV);
-            }
-dihed       {  ECHO; yylval.cmd = DIHED;
-               return (DIHED);
-            }
-dist        {  ECHO; yylval.cmd = DIST;
-               return (DIST);
-            }
-enetol      {  ECHO; yylval.cmd = ENETOL;
-               return (ENETOL);
-            }
-frac        {  ECHO; yylval.cmd = FRAC;
-               return (FRAC);
-            }
-grdtol      {  ECHO; yylval.cmd = GRDTOL;
-               return (GRDTOL);
-            }
-id          {  ECHO; yylval.cmd = ID;
-               return (ID);
-            }
-internal    {  ECHO; yylval.cmd = INTERNAL;
-               return (INTERNAL);
-            }
-mass        {  ECHO; yylval.cmd = MASS;
-               return (MASS);
-            }
-maxit       {  ECHO; yylval.cmd = MAXIT;
-               return (MAXIT);
-            }
-maxfun      {  ECHO; yylval.cmd = MAXFUN;
-               return (MAXFUN);
-            }
-nbond       {  ECHO; yylval.cmd = NBOND;
-               return (NBOND);
-            }
-nfold       {  ECHO; yylval.cmd = NFOLD;
-               return (NFOLD);
-            }
-noise       {  ECHO; yylval.cmd = NOISE;
-               return (NOISE);
-            }
-nreps       {  ECHO; yylval.cmd = NREPS;
-               return (NREPS);
-            }
-nsets       {  ECHO; yylval.cmd = NSETS;
-               return (NSETS);
-            }
-nstr        {  ECHO; yylval.cmd = NSTR;
-               return (NSTR);
-            }
-one         {  ECHO; yylval.cmd = ONE;
-               return (ONE);
-            }
-orient      {  ECHO; yylval.cmd = ORIENT;
-               return (ORIENT);
-            }
-optimize    {  ECHO; yylval.cmd = OPTIMIZE;
-               return (OPTIMIZE);
-            }
-param       {  ECHO; yylval.cmd = PARAM;
-               return (PARAM);
-            }
-phi         {  ECHO; yylval.cmd = PHI;
-               return (PHI);
-            }
-phib        {  ECHO; yylval.cmd = PHIB;
-               return (PHIB);
-            }
-phie        {  ECHO; yylval.cmd = PHIE;
-               return (PHIE);
-            }
-phiinc      {  ECHO; yylval.cmd = PHIINC;
-               return (PHIINC);
-            }
-psi         {  ECHO; yylval.cmd = PSI;
-               return (PSI);
-            }
-psib        {  ECHO; yylval.cmd = PSIB;
-               return (PSIB);
-            }
-psie        {  ECHO; yylval.cmd = PSIE;
-               return (PSIE);
-            }
-psiinc      {  ECHO; yylval.cmd = PSIINC;
-               return (PSIINC);
-            }
-ranseed     {  ECHO; yylval.cmd = RANSEED;
-               return (RANSEED);
-            }
-ref         {  ECHO; yylval.cmd = REF;
-               return (REF);
-            }
-recopt      {  ECHO; yylval.cmd = RECOPT;
-               return (RECOPT);
-            }
-rgyr        {  ECHO; yylval.cmd = RGYR;
-               return (RGYR);
-            }
-rms         {  ECHO; yylval.cmd = RMS;
-               return (RMS);
-            }
-rotbond     {  ECHO; yylval.cmd = ROTBOND;
-               return (ROTBOND);
-            }
-save        {  ECHO; yylval.cmd = SAVE;
-               return (SAVE);
-            }
-shift       {  ECHO; yylval.cmd = SHIFT;
-               return (SHIFT);
-            }
-silent      {  ECHO; yylval.cmd = SILENT;
-               return (SILENT);
-            }
-stat        {  ECHO; yylval.cmd = STAT;
-               return (STAT);
-            }
-symmetry    {  ECHO; yylval.cmd = STAT;
-               BEGIN XRAY;
-               return (SYMMETRY);
-            }
-title       {  ECHO; yylval.cmd = TITLE;
-               return (TITLE);
-            }
-torsion     {  ECHO; yylval.cmd = TORSION;
-               return (TORSION);
-            }
-volume      {  ECHO; yylval.cmd = VOLUME;
-               return (VOLUME);
-            }
-AMBER       {  ECHO; yylval.cmd = AMBER;
-               return (AMBER);
-            }
-CHARMM      {  ECHO; yylval.cmd = CHARMM;
-               return (CHARMM);
-            }
-CFF         {  ECHO; yylval.cmd = CFF;
-               return (CFF);
-            }
-CSD         {  ECHO; yylval.cmd = CSD;
-               return (CSD);
-            }
-DAT         {  ECHO; yylval.cmd = DAT;
-               return (DAT);
-            }
-MM3         {  ECHO; yylval.cmd = MM3;
-               return (MM3);
-            }
-MONO        {  ECHO; yylval.cmd = MONO;
-               return (MONO);
-            }
-PDB         {  ECHO; yylval.cmd = PDB;
-               return (PDB);
-            }
-PF          {  ECHO; yylval.cmd = PF;
-               return (PF);
-            }
-PLOT        {  ECHO; yylval.cmd = PLOT;
-               return (PLOT);
-            }
-SYBYL       {  ECHO; yylval.cmd = SYBYL;
-               return (SYBYL);
-            }
-SPF         {  ECHO; yylval.cmd = SPF;
-               return (SPF);
-            }
-PIM         {  ECHO; yylval.cmd = PIM;
-               return (PIM);
-            }
-XYZ         {  ECHO; yylval.cmd = XYZ;
-               return (XYZ);
-            }
+(?i:attach)        { ECHO; yylval.cmd = ATTACH;
+                     return (ATTACH);
+                   }
+(?i:build)         { ECHO; yylval.cmd = BUILD;
+                     return (BUILD);
+                   }
+(?i:calc)          { ECHO; yylval.cmd = CALC;
+                     return (CALC);
+                   }
+(?i:coord)         { ECHO; yylval.cmd = COORD;
+                     return (COORD);
+                   }
+(?i:create)        { ECHO; yylval.cmd = CREATE;
+                     return (CREATE);
+                   }
+(?i:date)          { ECHO; yylval.cmd = DATE;
+                     return (DATE);
+                   }
+(?i:doublehelix)   { ECHO; yylval.cmd = DOUBLEHELIX;
+                     return (DOUBLEHELIX);
+                   }
+(?i:end)           { ECHO; yylval.cmd = END;
+                     return (END);
+                   }
+(?i:ener)          { ECHO; yylval.cmd = ENER;
+                     return (ENER);
+                   }
+(?i:generate)      { ECHO; yylval.cmd = GENERATE;
+                     return (GENERATE);
+                   }
+(?i:helix)         { ECHO; yylval.cmd = HELIX;
+                     return (HELIX);
+                   }
+(?i:help)          { ECHO; yylval.cmd = HELP;
+                     return (HELP);
+                   }
+(?i:init)          { ECHO; yylval.cmd = INIT;
+                     return (INIT);
+                   }
+(?i:label)         { ECHO; yylval.cmd = LABEL;
+                     return (LABEL);
+                   }
+(?i:mini)          { ECHO; yylval.cmd = MINI;
+                     return (MINI);
+                   }
+(?i:modify)        { ECHO; yylval.cmd = MODIFY;
+                     return (MODIFY);
+                   }
+(?i:primary)       { ECHO; yylval.cmd = PRIMARY;
+                     return (PRIMARY);
+                   }
+(?i:read)          { ECHO; yylval.cmd = READ;
+                     return (READ);
+                   }
+(?i:record)        { ECHO; yylval.cmd = RECORD;
+                     return (RECORD);
+                   }
+(?i:set)           { ECHO; yylval.cmd = SET;
+                     return (SET);
+                   }
+(?i:stop)          { ECHO; yylval.cmd = STOP;
+                     BEGIN 0;
+                     return (STOP);
+                   }
+(?i:time)          { ECHO; yylval.cmd = TIME;
+                     return (TIME);
+                   }
+(?i:write)         { ECHO; yylval.cmd = WRITE;
+                     return (WRITE);
+                   }
+(?i:all)           { ECHO; yylval.cmd = ALL;
+                     return (ALL);
+                   }
+(?i:angle)         { ECHO; yylval.cmd = ANGLE;
+                     return (ANGLE);
+                   }
+(?i:bond)          { ECHO; yylval.cmd = BOND;
+                     return (BOND);
+                   }
+(?i:carte)         { ECHO; yylval.cmd = CARTE;
+                     return (CARTE);
+                   }
+(?i:charges)       { ECHO; yylval.cmd = CHARGES;
+                     return (CHARGES);
+                   }
+(?i:copy)          { ECHO; yylval.cmd = COPY;
+                     return (COPY);
+                   }
+(?i:debug)         { ECHO; yylval.cmd = DEBUG;
+                     return (DEBUG);
+                   }
+(?i:dtab)          { ECHO; yylval.cmd = DTAB;
+                     return (DTAB);
+                   }
+(?i:deriv)         { ECHO; yylval.cmd = DERIV;
+                     return (DERIV);
+                   }
+(?i:dihed)         { ECHO; yylval.cmd = DIHED;
+                     return (DIHED);
+                   }
+(?i:dist)          { ECHO; yylval.cmd = DIST;
+                     return (DIST);
+                   }
+(?i:enetol)        { ECHO; yylval.cmd = ENETOL;
+                     return (ENETOL);
+                   }
+(?i:frac)          { ECHO; yylval.cmd = FRAC;
+                     return (FRAC);
+                   }
+(?i:grdtol)        { ECHO; yylval.cmd = GRDTOL;
+                     return (GRDTOL);
+                   }
+(?i:id)            { ECHO; yylval.cmd = ID;
+                     return (ID);
+                   }
+(?i:internal)      { ECHO; yylval.cmd = INTERNAL;
+                     return (INTERNAL);
+                   }
+(?i:mass)          { ECHO; yylval.cmd = MASS;
+                     return (MASS);
+                   }
+(?i:maxit)         { ECHO; yylval.cmd = MAXIT;
+                     return (MAXIT);
+                   }
+(?i:maxfun)        { ECHO; yylval.cmd = MAXFUN;
+                     return (MAXFUN);
+                   }
+(?i:nbond)         { ECHO; yylval.cmd = NBOND;
+                     return (NBOND);
+                   }
+(?i:nfold)         { ECHO; yylval.cmd = NFOLD;
+                     return (NFOLD);
+                   }
+(?i:noise)         { ECHO; yylval.cmd = NOISE;
+                     return (NOISE);
+                   }
+(?i:nreps)         { ECHO; yylval.cmd = NREPS;
+                     return (NREPS);
+                   }
+(?i:nsets)         { ECHO; yylval.cmd = NSETS;
+                     return (NSETS);
+                   }
+(?i:nstr)          { ECHO; yylval.cmd = NSTR;
+                     return (NSTR);
+                   }
+(?i:one)           { ECHO; yylval.cmd = ONE;
+                     return (ONE);
+                   }
+(?i:orient)        { ECHO; yylval.cmd = ORIENT;
+                     return (ORIENT);
+                   }
+(?i:optimize)      { ECHO; yylval.cmd = OPTIMIZE;
+                     return (OPTIMIZE);
+                   }
+(?i:param)         { ECHO; yylval.cmd = PARAM;
+                     return (PARAM);
+                   }
+(?i:phi)           { ECHO; yylval.cmd = PHI;
+                     return (PHI);
+                   }
+(?i:phib)          { ECHO; yylval.cmd = PHIB;
+                     return (PHIB);
+                   }
+(?i:phie)          { ECHO; yylval.cmd = PHIE;
+                     return (PHIE);
+                   }
+(?i:phiinc)        { ECHO; yylval.cmd = PHIINC;
+                     return (PHIINC);
+                   }
+(?i:psi)           { ECHO; yylval.cmd = PSI;
+                     return (PSI);
+                   } 
+(?i:psib)          { ECHO; yylval.cmd = PSIB;
+                     return (PSIB);
+                   }
+(?i:psie)          { ECHO; yylval.cmd = PSIE;
+                     return (PSIE);
+                   }
+(?i:psiinc)        { ECHO; yylval.cmd = PSIINC;
+                     return (PSIINC);
+                   }
+(?i:ranseed)       { ECHO; yylval.cmd = RANSEED;
+                     return (RANSEED);
+                   }
+(?i:ref)           { ECHO; yylval.cmd = REF;
+                     return (REF);
+                   }
+(?i:recopt)        { ECHO; yylval.cmd = RECOPT;
+                     return (RECOPT);
+                   }
+(?i:rgyr)          { ECHO; yylval.cmd = RGYR;
+                     return (RGYR);
+                   }
+(?i:rms)           { ECHO; yylval.cmd = RMS;
+                     return (RMS);
+                   }
+(?i:rotbond)       { ECHO; yylval.cmd = ROTBOND;
+                     return (ROTBOND);
+                   }
+(?i:save)          { ECHO; yylval.cmd = SAVE;
+                     return (SAVE);
+                   }
+(?i:shift)         { ECHO; yylval.cmd = SHIFT;
+                     return (SHIFT);
+                   }
+(?i:silent)        { ECHO; yylval.cmd = SILENT;
+                     return (SILENT);
+                   }
+(?i:stat)          { ECHO; yylval.cmd = STAT;
+                     return (STAT);
+                   }
+(?i:symmetry)      { ECHO; yylval.cmd = STAT;
+                     BEGIN XRAY;
+                     return (SYMMETRY);
+                   }
+(?i:title)         { ECHO; yylval.cmd = TITLE;
+                     return (TITLE);
+                   }
+(?i:torsion)       { ECHO; yylval.cmd = TORSION;
+                     return (TORSION);
+                   }
+(?i:volume)        { ECHO; yylval.cmd = VOLUME;
+                     return (VOLUME);
+                   }
+(?i:amber)         { ECHO; yylval.cmd = AMBER;
+                     return (AMBER);
+                   }
+(?i:charmm)        { ECHO; yylval.cmd = CHARMM;
+                     return (CHARMM);
+                   }
+(?i:cff)           { ECHO; yylval.cmd = CFF;
+                     return (CFF);
+                   }
+(?i:csd)           { ECHO; yylval.cmd = CSD;
+                     return (CSD);
+                   }
+(?i:dat)           { ECHO; yylval.cmd = DAT;
+                     return (DAT);
+                   }
+(?i:mm3)           { ECHO; yylval.cmd = MM3;
+                     return (MM3);
+                   }
+(?i:mono)          { ECHO; yylval.cmd = MONO;
+                     return (MONO);
+                   }
+(?i:pdb)           { ECHO; yylval.cmd = PDB;
+                     return (PDB);
+                   }
+(?i:pf)            { ECHO; yylval.cmd = PF;
+                     return (PF);
+                   }
+(?i:plot)          { ECHO; yylval.cmd = PLOT;
+                     return (PLOT);
+                   }
+(?i:sybyl)         { ECHO; yylval.cmd = SYBYL;
+                     return (SYBYL);
+                   }
+(?i:spf)           { ECHO; yylval.cmd = SPF;
+                     return (SPF);
+                   }
+(?i:pim)           { ECHO; yylval.cmd = PIM;
+                     return (PIM);
+                   }
+(?i:xyz)           { ECHO; yylval.cmd = XYZ;
+                     return (XYZ);
+                   }
 {nl}        {  yylval.cmd = NL; 
                return(NL);
             }
