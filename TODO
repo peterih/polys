@@ -6,3 +6,6 @@ fix pdb format
 handle unused return values
     - for now I stored them in an 'int unused;' variable, but this
       return value should be checked.
+
+bug 20101108-01:
+    - using the 'set id name' sequence crashes the program.
