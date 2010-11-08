@@ -13,23 +13,21 @@
 void
 header(void)
 {
-   printf("\n\n\n\n");
-   printf("\tPPPPPPP      OOOOO     LL      YY      YY   SSSSSS\n");
-   printf("\tPP   PPP   OOO   OOO   LL       YY    YY   SSS\n");
-   printf("\tPP   PPP  OO       OO  LL        YY  YY    SS\n");
-   printf("\tPPPPPPP   OO       OO  LL         YYYY      SSSSSS\n");
-   printf("\tPP        OO       OO  LL          YY            SS\n");
-   printf("\tPP         OOO   OOO   LL          YY           SSS\n");
-   printf("\tPP           OOOOO     LLLLLLL     YY       SSSSSS\n");
-   printf("\n\n\n\n\n");
+   printf("\n\n");
+   printf("\tPPPP   OOO  L    Y   Y  SSS\n");
+   printf("\tP   P O   O L     Y Y  S\n");
+   printf("\tPPPP  O   O L      Y    SSS\n");
+   printf("\tP     O   O L      Y       S\n");
+   printf("\tP      OOO  LLLL   Y   SSSS\n");
+   printf("\n");
    printf("\tTHE POLYSaccharide BUILDER (1993-95) - INRA Nantes\n\n");
-   printf("\t\tSoren Balling Engelsen and Serge Perez\n\n\n");
-   printf("\t\tKVL                        CERMAV\n\n\n");
+   printf("\t\tSoren Balling Engelsen and Serge Perez\n\n");
+   printf("\t\tKVL                        CERMAV\n\n");
    printf("\t\tPOLYS VERSION 1.4 (2004)\n\n");
    printf("\t\tCode Contributors\n\n");
-   printf("\t\tSoren Balling Engelsen\n\n");
-   printf("\t\tMilou Kouwijzer\n\n");
-   printf("\t\tPeter Ibsen Hansen\n\n");
+   printf("\t\tSoren Balling Engelsen\n");
+   printf("\t\tMilou Kouwijzer\n");
+   printf("\t\tPeter Ibsen Hansen\n");
 }
 
 /* Print welcome header on output device */
