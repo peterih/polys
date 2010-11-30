@@ -23,7 +23,7 @@ header(void)
    printf("\tTHE POLYSaccharide BUILDER (1993-95) - INRA Nantes\n\n");
    printf("\t\tSoren Balling Engelsen and Serge Perez\n\n");
    printf("\t\tKVL                        CERMAV\n\n");
-   printf("\t\tPOLYS VERSION 1.4 (2004)\n\n");
+   printf("\t\tPOLYS VERSION 1.5 (2010)\n\n");
    printf("\t\tCode Contributors\n\n");
    printf("\t\tSoren Balling Engelsen\n");
    printf("\t\tMilou Kouwijzer\n");
