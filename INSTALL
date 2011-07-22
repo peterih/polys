@@ -1,16 +1,16 @@
 Basic
 -----
 
-Polys does currently install in the source code directory can be
-compiled by simply using:
+Polys currently installs itself in the source code directory. 
+It can be compiled by simply using:
 
 make all
 
 Advanced
 --------
 
-Should you decide to modify the parser, a coople more steps is required
-to compile Polys.
+Should you decide to modify the parser, a couple more steps is 
+required to compile Polys.
 
 flex -l polylex
 bison -d polypars
