@@ -1,0 +1,1177 @@
+################################################################################
+
+  DOCUMENTATION OF THE POLYS PROGRAMME
+
+
+
+
+	PPPPPPP      OOOOO     LL      YY      YY   SSSSSS
+	PP   PPP   OOO   OOO   LL       YY    YY   SSS
+	PP   PPP  OO       OO  LL        YY  YY    SS
+	PPPPPPP   OO       OO  LL         YYYY      SSSSSS
+	PP        OO       OO  LL          YY            SS
+	PP         OOO   OOO   LL          YY           SSS
+	PP           OOOOO     LLLLLLL     YY       SSSSSS
+
+
+
+
+
+		T H E   P O L Y S   P R I M E R
+ 
+
+  By Soren Balling Engelsen, INRA-93.
+  Last revision: PIH 2004
+################################################################################
+
+
+================
+LIST OF CONTENTS
+================
+
+I	INTRODUCTION
+
+II	THE POLYS COMMANDS
+
+III	EXAMPLE 1. Building a Dimer and Energy Minimize
+
+IV	EXAMPLE 2. Building a Homopolymer
+
+V	EXAMPLE 3. Building a Complex Oligomer
+
+VI	EXAMPLE 4. Pseudo Monte Carlo Generation of O-mannose
+
+APPENDIX A. Running the POLYS Program
+
+APPENDIX C. The Format of the POLYS Coordinate Files
+
+APPENDIX C. POLYS Atomtypes
+
+APPENDIX D. Potential Energy Functions
+
+APPENDIX E. The Format of the POLYS Parameter Files
+
+APPENDIX F. The Monobank Database
+
+APPENDIX G. The Format of the GlycLink Database
+
+APPENDIX X. Instructions to POLYS Programmers
+
+
+
+I. INTRODUCTION
+===============
+	The program POLYS is primarily a builder for polysaccharides and
+complex carbohydrates. It was initiated under the framework of CM2AO and
+version 1.0 was designed and programmed by Soren Balling Engelsen supervised
+by Serge Perez (Ingenierie Moleculaire, INRA Nantes).
+
+
+II. THE POLYS COMMANDS
+======================
+	The POLYS commands in alphabetic order. Note that all POLYS 
+commands are in capitals whereas subcommands are in lower case with a 
+few special exceptions such as the format subcommands. 
+	Comments
+	<space>
+	<integer>
+	<real>
+	<qstring>
+
+>-------------------------------------------------------------------------------
+Command:	ATTACH
+--------------------------------------------------------------------------------
+Function:	Attachment of a macro (sidechain) structure from a file to
+                the newly built polysaccharide
+
+Subcommands:	<1. integer>	Number of (non-reducing) residue to connect 
+                                on polymer
+		connexion	Glycosidic linkage parameters
+		<2. integer>	Number of residue to connect on macro-structure
+                <qstring>       Filename for file containing macro-structure
+
+Note:		BEWARE! macrofile must be in simple MONO format
+
+Example:	ATTACH 16 (6:1; 140.0; 60.0; -60.0) 2 "macro.x"
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	BUILD
+--------------------------------------------------------------------------------
+Function:	Creates the polysaccharide coordinates from the mono-
+		saccharide connectivity table.
+
+Subcommands:	The BUILD command is seperated from the PRIMARY
+		command in order to support for building multiple
+		structures such as in Monte Carlo generation.
+		NOT IMPLEMENTED YET.
+
+		N=<integer>	Number of structures to be generated.
+		geometry	Structure comparison based on rotable
+				bonds.
+		energy		Structure and energy comparison.
+		minimize	Structure and minimized energy comparison.
+		unique		Save only unique structures.
+
+Note:		See also the PRIMARY command.
+
+Example:	BUILD
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	CALC (1)
+--------------------------------------------------------------------------------
+Function:	Calculates geometric parameters for the current structure
+
+Subcommands:	dist		Calculate bonded and nonbonded inter-
+				atomic distances
+		angle		Calculate angle defined by three atoms
+		torsion		Calculate torsional angle defined by four
+				atoms
+		[atom]+		List of atoms to be used in the 
+				calculation of the internal coordinates.
+				One atom is: <label> <res. no.>
+
+Note:		-
+
+Example:	CALC angle AO5 1 BHO3 1 BO3 1
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	CALC (2)
+--------------------------------------------------------------------------------
+Function:	Calculates physical properties derived from the current
+		structure
+
+Subcommands:	dist		
+		dtab		Calculate the interatomic distance matrix
+		mass		Calculate the molecular mass
+		rgyr		Calculate the radius of gyration
+		volume		Calculate the volume of the molecular
+				system
+
+Note:		-
+
+Example:	CALC mass
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	COORD
+--------------------------------------------------------------------------------
+Function:	Performs coordinate manipulations and calculates coordinate
+		charistica on the complete molecular system
+
+Subcommands:	copy
+		orient		
+		rms		
+		stat
+
+Note:		-
+
+Example:	COORD stat
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	CREATE
+--------------------------------------------------------------------------------
+Function:	Creates new entries in the internal coordinate tables
+
+Subcommands:	bond
+		angle
+		torsion
+		[atom]+		List of atoms needed in the definition 
+				of the internal coordinates.
+				One atom is: <label> <res. no.>
+
+Note:		See also GENERATE internal command
+
+Example:	CREATE torsion O5 1 C1 1 O1 1 C4 2
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	DATE
+--------------------------------------------------------------------------------
+Function:	Writes the current time and date on stdout
+
+Subcommands:	-
+
+Note:		See also the TIME command
+
+Example:	DATE
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	DOUBLEHELIX
+--------------------------------------------------------------------------------
+Function:	Performs a rotation or screw operationon the single
+                stranded helix to generate double, triple, ...,
+                helices. Like with the HELIX command, the helical
+                parameters are calculated. Unlike the HELIX command,
+                where exactly 3 repeats must be given, here 4 or more
+                repeats must be given. The helix will be rotated so
+                that the helix axis coincides with the z-axis of the
+                coordinate system, which may also be helpfull for
+                single helices.
+
+Subcommands:	nstr=<integer>	duplicate the single-stranded helix to
+				an n-stranded helix
+		nstr=<integer> nreps=<integer>
+				to give the number of repeats
+				explicitly. See note.
+		nstr=<integer> shift=<double>
+				shifts the n-th strand n times the 'shift'
+				part of the helical pitch. 
+
+Note:		When the helix command is invoked a table of rotatable
+		bonds must have been created (see GENERATE internal). 
+		Furthermore the number of repeats must have been set to 
+		at least 4 (no maximum) in the PRIMARY command. The
+		subroutine tries to calculate nreps from the total
+		number of units, but this can fail (e.g. when the
+		number of main chain units and the number of side
+		chain units have a common divisor). Thus, it is
+		advised to include nreps in the command line.
+
+Example:	DOUBLEHELIX nstr=2 nreps=12 shift=0.5
+                DOUBLEHELIX nstr=1 nreps=18
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	END
+--------------------------------------------------------------------------------
+Function:	Terminates the POLYS session
+
+		Date and time will be written to stdout along with
+		a simple description of the session CPU distribution
+
+Subcommands:	-
+
+Note:		-
+
+Example:	END
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	ENER
+--------------------------------------------------------------------------------
+Function:	Calculates the potential energy of the molecule in the 
+		currently implemented force field
+
+Subcommands:	deriv		Calculates the numerical and anlytical
+				derivatives, and their difference
+
+Note:		The deriv subcommand is strongly recommended to check
+		new implementations or alternations of potential energy
+		functions.
+
+		See READ parameters command
+
+Example:	ENER deriv
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	GENERATE (1)
+--------------------------------------------------------------------------------
+Syntax:		GENERATE internal
+--------------------------------------------------------------------------------
+Function:	Generates internal coordinate tables
+
+Subcommands:	one		reduced torsional table with only
+				one torsion per bond.
+		all		complete torsional table (default).
+		rotbond		generates also a table of totatable bonds. 
+				Needed for minimizing energy in dihedral space
+				and for helix calculations.
+
+Note:		See also READ parameters command
+
+Example:	GENERATE internal rotbond
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	GENERATE (2)
+--------------------------------------------------------------------------------
+Syntax:		GENERATE symmetry
+	 		[symelems]+
+		STOP
+--------------------------------------------------------------------------------
+Function:	Generates symmetry elements of the initial structure
+
+Subcommands:	symmetry
+		<symelem>	The symmetry elements in the form
+				(-x, y+0.5,-z)
+		STOP
+
+Note:		This option is complementary to the option in the POLYS
+		format coordinate files
+		Initial structure must have been read in as fractional
+		coordinates.
+
+Example:	GENERATE (-x,-y,-z) STOP
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	HELIX
+--------------------------------------------------------------------------------
+Function:	Calculation of helical parameters. The command can also 
+		optimize the nfold of an helical structure to be an
+		integral number. The output is a set of main chain dihedral
+		values corresponding to the integral helical structure.
+		To create the integral helical structure the user have to
+		run a second POLYS session with the calculated values in the
+		PRIMARY command.
+
+Subcommands:	-		No subcommands will just calculate
+				the helical parameters n and h.
+		optimize	Optimization of the helical 
+				structure to the nearest orthogonal
+				integral value.
+		optimize nfold=<integer>
+		optimize nfold=<real>
+				Orthogonal optimization to nearest 
+				iso-n == <integer> contour.
+
+Note:		When the helix command is invoked a table of rotatable
+		bonds must have been created (see GENERATE internal). 
+		Furthermore the number of repeats must have been set to 
+		3 in the PRIMARY command.
+
+Example:	HELIX optimize nfold=5
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	HELP
+--------------------------------------------------------------------------------
+Function:	Write command help to stdout
+
+Subcommands:	-
+
+Note:		No updated lately.
+
+Example:	HELP
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	INIT
+--------------------------------------------------------------------------------
+Function:	Initializes the POLYS data structures
+
+Subcommands:	-
+
+Note:		-
+
+Example:	INIT
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	LABEL
+--------------------------------------------------------------------------------
+Function:	Intended to be used for the creation of loop structures in the
+		input stream together with a (IF test GOTO label) command.
+
+Subcommands:	id			unique name
+
+Note:		Not implemented.
+
+Example:	LABEL loop1
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	MINI
+--------------------------------------------------------------------------------
+Function:	Performs conjugate gradients energy minimization of 
+		the structure.
+
+Subcommands:	carte                   Minimization in cartesian space.
+		dihed			Minimization in dihedral space.
+					A table of rotatable bonds must have
+					been created (see GENERATE internal)
+		noise			full printout
+		silent			minimum printout (default)
+		grdtol=<float>		stop criterium on the gradient
+		enetol=<float>		stop criterium in the energy difference
+		maxit=<integer>		maximum number of iterations
+		maxfun=<integer>	maximum number of PEF calls
+
+Note:		-
+
+Example:	MINI carte grdtol=0.001 enetol=0.0 maxit=50 maxfun=20000 noise
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	MODIFY
+--------------------------------------------------------------------------------
+Function:	Modify a internal coordinate 
+
+Subcommands:	torsion
+		angle			
+                [atom]+         List of atoms to be used in the
+                                calculation of the internal coordinates.
+                                One atom is: <label> <res. no.>
+ 		phi=<double>	New value of angle.
+
+Note:		Torsional angles within a cyclic structure cannot be modified
+
+Example:	MODIFY torsion C_1 1 O_1 1 C_4 2 C_5 2 phi=180.0
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	PRIMARY
+--------------------------------------------------------------------------------
+Syntax:		PRIMARY
+			 'residuelist'
+                STOP
+--------------------------------------------------------------------------------
+Function:	Builds monosaccharide connectivity table. 
+		The resulting table will be written to stdout.
+
+Subcommands:	'residuelist'	This list is the primary structure
+				language of POLYS. It will be described 
+				seperately
+		STOP		Facultativ. Tells POLYS that primary
+				structure describtion has ended.
+
+Note:		Support for repeating segments within repeating segments 
+		are not fully implemented. 
+
+Example:        PRIMARY
+		<aDManp> (1:2; 250.0; 250.0) 
+		<aDManp>
+		STOP
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	READ (1)
+--------------------------------------------------------------------------------
+Syntax:		READ coord
+--------------------------------------------------------------------------------
+Function:	Reads fractional and cartesian coordinates in different
+		formats
+
+Subcommands:	'format':	AMBER  - prepared but not implemented
+				CHARMM - CHARMm format coordinate file
+				CFF    - Consistent Force Field format
+				CSD    - Cambridge Structural Database
+				DAT    - DAT format coordinate file
+				MM3    - MM3 format input file
+				MONO   - special format for MONOBANK
+				PF     - POLYS format (see App. C)
+				PDB    - Brookhaven Protein Data Bank 
+				SYBYL  - Tripos 'mol2' format input file
+		ref		read coordinates into the reference set
+		<qstring>	name of the coordinate file
+
+Note:		When reading CSD formats the CSD-base should be available in
+		the file "CSD.DAT"
+
+Example:	READ coord SYBYL "molecule.mol2"
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	READ (2)
+--------------------------------------------------------------------------------
+Syntax:		READ charges
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	-
+
+Note:		<qstring>
+
+Example:	READ charges "molecule.chg"
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	READ (3)
+--------------------------------------------------------------------------------
+Syntax:		READ internal
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	all
+		bond
+		nbond
+		angle
+		torsion
+		rotbond
+		<qstring>
+
+Note:		-
+
+Example:	READ internal "molint.TOP"
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	READ (4)
+--------------------------------------------------------------------------------
+Syntax:		READ param 
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	<qstring>
+
+Note:		-
+
+Example:	READ param "parafile.PRM"
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	RECORD
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	phi=<integer>
+		psi=<integer>
+		phib=<real>
+		psib=<real>
+		phie=<real>
+		psie=<real>
+		phiinc=<real>
+		psiinc=<real>
+		recopt=<integer>
+		noise
+		silent
+
+Note:		-
+
+Example:	RECORD phi=0 psi=6 phiinc=60.0 psiinc=60.0 recopt=6 noise
+
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	SET
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	debug			With this flag set the program 
+					will generate extensive debug
+					information on stdout.
+		id <string>		This flag will set the ID of the
+					molecular structure. The ID is
+					used as the first line in the 
+					PF coordinate files (see App. C).
+		ranseed <integer>	Initializes the random number
+					generator. Can be used to reproduce
+					a random number sequence.
+		title <qstring>		This flag relates a title or headline
+					to the molecular structure. The title
+					is used as the second line of the 
+                                        PF coordinate files (see App. C).
+
+Note:		There exist some inconsistencies in the programs use of the
+		molecular ID. 
+
+Example:	SET title "2-O-sulphate-alpha-L-Iduronic Acid"
+		SET id aLIduA2OS
+		SET ranseed 1122334
+		SET debug
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	TIME
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	-
+
+Note:		-
+
+Example:	TIME
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	WRITE (1)
+--------------------------------------------------------------------------------
+Syntax:		WRITE coord
+--------------------------------------------------------------------------------
+Function:	Writes cartesian (or fractional) coordinates to stdout
+		or to a file. 
+
+Subcommands:	'format':	AMBER  - prepared but not implemented
+				CHARMM - CHARMm format coordinate file
+				CFF    - Consistent Force Field format
+				CSD    - Cambridge Structural Database
+				DAT    - DAT format coordinate file
+				MM3    - MM3 format input file
+				MONO   - special format for MONOBANK
+				PF     - (default) POLYS format (see App. C)
+				PDB    - Brookhaven Protein Data Bank 
+				SYBYL  - Tripos 'mol2' coordinate file
+				PIM    - idem, with special
+                                         carbohydrate parameters
+                                         (A. Imberty, K.D. Hardman,
+                                         J.P. Carver & S. Perez,
+                                         Glycobiology 1 (1991) 631)
+				SPF    - format to be used with the
+                                         pluton and platon programs of
+                                         the EUCLID package (A.L. Spek,
+                                         Acta Cryst. A46 (1990) C34) 
+
+		<qstring>       filename
+
+		frac
+
+Note:		-
+
+Example(s):	WRITE coord SYBYL "molecule.mol2"
+        	WRITE coord frac PF "molecule.x"
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	WRITE (2)
+--------------------------------------------------------------------------------
+Syntax:		WRITE internal
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	all
+		bond
+		nbond
+		angle
+		torsion
+		rotbond
+		<qstring>
+
+Note:		-
+
+Example:	WRITE internal
+--------------------------------------------------------------------------------
+
+>-------------------------------------------------------------------------------
+Command:	WRITE (3)
+--------------------------------------------------------------------------------
+Syntax:		WRITE param
+--------------------------------------------------------------------------------
+Function:	? 
+
+Subcommands:	<qstring>
+
+Note:		-
+
+Example:	WRITE param "parafile.PRM"
+--------------------------------------------------------------------------------
+
+
+III. EXAMPLE 1. Building a Dimer and Energy Minimize
+====================================================
+
+----------EXAMPLE---------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+IV.  EXAMPLE 2. Building a Homopolymer
+======================================
+
+----------EXAMPLE---------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+V. EXAMPLE 3. Building a Complex Oligomer
+=========================================
+
+----------EXAMPLE---------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+VI. EXAMPLE 4. Pseudo Monte Carlo Generation of O-mannose
+=========================================================
+
+----------EXAMPLE---------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+APPENDIX A. Running the POLYS Program
+=====================================
+	Before running POLYS it will be necessary to set a few environment 
+variables in your c-shell (csh). This can most convieniently be done by
+copying the following lines into your .cshrc file.
+
+# POLYS
+setenv POLYS_DIR /home/engelsen/polys
+setenv PARAM_DIR /home/engelsen/polys/force
+setenv MONOBANK_DIR /home/engelsen/polys/mono
+
+Then you should make sure that you have the proper read and excute access 
+to the POLYS directories.
+	When this is done POLYS is run by simply typing "polys" at the UNIX
+prompt. Since POLYS is designed as a simple stream program it will from then
+take over the UNIX prompt and replace it with a POLYS prompt.
+
+
+UNIX prompt -> polys
+
+################################################################################
+WELCOME ETC........
+################################################################################
+
+POLYS:1 > DATE
+DATE
+
+Now:  19:51 on 21-1-1995
+--------------------------------------------------------------------------------
+
+POLYS:2 > 
+
+
+	For the trained user this type of comminication can be usefull to 
+convert coordinate files etc. but usually it will be practical to collect
+the needed commands in a file. In this case the POLYS session can easily be
+corrected and repeated in case of input errors. It further has the advantage
+that it can be combined with UNIX commands. The example below will simply
+convert CHARMM coordinate files into POLYS format.
+
+----------EXAMPLE---------------------------------------------------------------
+polys << !
+
+/* initialize datastructures and set variables to default values */
+INIT
+
+/* read cartesians */
+READ coord CHARMM "$1.CRD"
+
+/* now generate the topology */
+GENERATE internal
+
+/* write the coordinates to a file  */
+WRITE coord PF "$1.x" 
+
+/* end session */
+END
+!
+
+candy $1.x
+--------------------------------------------------------------------------------
+ 
+Taken that the above example was written to file 'CHARMM_2_POLYS' and this file
+was given execution rigths it can be called as follows:
+
+UNIX prompt -> CHARMM_2_POLYS sucrose
+
+As usual in UNIX scripts everything between '<< !' and '!' will be streamed
+to POLYS. POLYS will perform the following actions:
+
+(1)	INITialize its data structures (not needed in a simple POLYS session) 
+(2)	READ the CHARMM format cartesian coordinate file: 'sucrose.CRD'
+(3)	GENERATE internal coordinates.
+(4)	WRITE the cartesian coordinates to the file 'sucrose.x' in POLYS
+	format (PF).
+(5)	END the session
+
+When the POLYS session is finished another program can be invoked f.ex. a
+molecular graphics program as indicated in the example.
+	Hopefully the very simple example demonstrates the possibilities in
+this type of program execution. When typing the primary structures for complex 
+carbohydrates into POLYS such a type of program execution is necessary and
+highly practical.
+
+
+APPENDIX B. The Format of the POLYS Coordinate Files
+====================================================
+
+LINE 1:		Molecular ID. Serves no real purpose except for being used
+		in the output.
+LINE 2:		Title or molecular name.
+LINE 3:		Unit cell parameters a, b, c, alpha, beta, gamma.
+		If cartesian input they should be written accordingly.
+		Format: (%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f)
+LINE 4:		Number of atoms, number of bonds and number of symmetry
+		operations, respectively.
+		If no connectivity table is provided then number of bonds
+		should be set to zero. Likewise if no symmetry operations are
+		provided the number of symmetry operations should be set
+		to zero.
+		Format: (%5d%5d%5d)
+LINE 5->	List of atoms. The columns are:
+
+		(1) Number of the atom
+			This information is not used by the program during
+			input. POLYS will renumber according to the list
+			sequence. Note that the numbering starts from zero
+			which is due to C-convensions for array indexing.
+		(2) Number of the residue
+			Although this information is not crusial it can be
+			quite usefull when building and modelling polymers,
+			especially for identifying atoms with same labels.
+			In this case (to be inconsistent) the numbering starts
+			from one.
+		(3) X coordinate (a)
+		(4) Y coordinate (b)
+		(5) Z coordinate (c)
+		(6) Atomic charge
+			Gives the user the possibility to provide atomic
+			charges for energy evaluation and dipole moment 
+			calculation.
+		(7) Atomic type (see Appendix C)
+		(8) Atom label (max. 8 characters)
+
+		Format: (%5d %3d %15.5f %15.5f %15.5f %7.4f %6d %s)
+
+LINE -->	Molecular Graph or Connectivity Table (optional).
+		Format: 8*(%5d%5d)
+
+LINE -->	Symmetry operations.
+			The symmetry operations must be in the form of
+			4*4 matrices.
+
+----------EXAMPLE---------------------------------------------------------------
+MEMANP11
+Crystal structure of methyl alpha-D-mannopyranose from CSD (SBE 95)
+   9.42900   9.31500  10.05500  90.00000  90.00000  90.00000
+   27   27    4
+    0   1         0.35950         0.04180         0.39050  0.0000    604 C1   
+    1   1         0.47460         0.07500         0.28860  0.0000    604 C2   
+    2   1         0.62140         0.04970         0.34880  0.0000    604 C3   
+    3   1         0.63760         0.13220         0.47830  0.0000    604 C4   
+    4   1         0.51460         0.09720         0.57190  0.0000    604 C5   
+    5   1         0.51500         0.18660         0.69810  0.0000    604 C6   
+    6   1         0.25630        -0.15470         0.50400  0.0000    604 C7   
+    7   1         0.36250        -0.10640         0.41400  0.0000    802 O1   
+    8   1         0.45580         0.22040         0.25180  0.0000    802 O2   
+    9   1         0.72790         0.09650         0.25860  0.0000    802 O3   
+   10   1         0.76650         0.09050         0.54250  0.0000    802 O4   
+   11   1         0.38090         0.12270         0.50780  0.0000    802 O5   
+   12   1         0.51230         0.33570         0.67230  0.0000    802 O6   
+   13   1         0.25430         0.07530         0.35410  0.0000    101 H1   
+   14   1         0.46040         0.00350         0.20190  0.0000    101 H2   
+   15   1         0.63410        -0.06560         0.37000  0.0000    101 H3   
+   16   1         0.63970         0.24820         0.45760  0.0000    101 H4   
+   17   1         0.52150        -0.01710         0.60080  0.0000    101 H5   
+   18   1         0.42340         0.15560         0.75810  0.0000    101 H61  
+   19   1         0.61140         0.16260         0.75430  0.0000    101 H62  
+   20   1         0.15610        -0.11260         0.47950  0.0000    101 H71  
+   21   1         0.25350        -0.26740         0.49850  0.0000    101 H72  
+   22   1         0.27920        -0.12330         0.60280  0.0000    101 H73  
+   23   1         0.53630         0.25330         0.20250  0.0000    101 H20  
+   24   1         0.72980         0.03080         0.18300  0.0000    101 H30  
+   25   1         0.82940         0.17130         0.54580  0.0000    101 H40  
+   26   1         0.41610         0.36740         0.67740  0.0000    101 H60  
+    0    1    0    7    0   11    0   13    1    2    1    8    1   14    2    3
+    2    9    2   15    3    4    3   10    3   16    4    5    4   11    4   17
+    5   12    5   18    5   19    6    7    6   20    6   21    6   22    8   23
+    9   24   10   25   12   26
+  1.000000  0.000000  0.000000  0.000000
+  0.000000  1.000000  0.000000  0.000000
+  0.000000  0.000000  1.000000  0.000000
+  0.000000  0.000000  0.000000  1.000000
+  1.000000  0.000000  0.000000  0.500000
+  0.000000 -1.000000  0.000000  0.500000
+  0.000000  0.000000 -1.000000  0.000000
+  0.000000  0.000000  0.000000  1.000000
+ -1.000000  0.000000  0.000000  0.000000
+  0.000000  1.000000  0.000000  0.500000
+  0.000000  0.000000 -1.000000  0.500000
+  0.000000  0.000000  0.000000  1.000000
+ -1.000000  0.000000  0.000000  0.500000
+  0.000000 -1.000000  0.000000  0.000000
+  0.000000  0.000000  1.000000  0.500000
+  0.000000  0.000000  0.000000  1.000000
+--------------------------------------------------------------------------------
+
+
+APPENDIX C. POLYS Atomtypes
+===========================
+	The POLYS atom type specification is a compound number. For standard
+sp2 hybridized carbon as in unsaturated fatty acids will have the following
+representation:
+
+	6 1 3
+
+	| | |
+	| | ---> The atom valency (number of bonds attached)
+	| |
+	| -----> Specific functional group (carboxyl, ketone e.t.c.)
+	|
+	-------> Atomic number in the periodic table
+
+
+	The numbers for specific functional group are important when 
+implementing new force fields into POLYS, wherefore below list of POLYS atom 
+types only can be considered as an approximate implementation (different force
+fields will often have different demands in this respect).
+ 
+--------------------------------------------------
+Element no.  1.  Hydrogen
+--------------------------------------------------
+ 101                aliphatic hydrogen
+ 111                hydroxyl hydrogen
+ 121                amide and imino hydrogen
+ 131                amino hydrogen                    NOT USED IN MONOBANK
+ 141                hydrogen attached to sulfur
+
+--------------------------------------------------
+Element no.  3.  Lithium
+--------------------------------------------------
+ 300                nonbonded Lithium
+
+--------------------------------------------------
+Element no.  4.  Beryllium
+--------------------------------------------------
+ 400                nonbonded Beryllium
+
+--------------------------------------------------
+Element no.  5.  Boron
+--------------------------------------------------
+ 503                sp2 hybridized Boron
+
+--------------------------------------------------
+Element no.  6.  Carbon
+--------------------------------------------------
+ 602                sp hybridized Carbon
+ 603                sp2 hybridized Carbon (carbonyl)
+ 613                sp2 hybridized Carbon (alkene)
+ 623                sp2 hybridized Carbon (aromatic)
+ 604                sp3 hybridized Carbon (aliphatic)
+ 614                sp3 hybridized Carbon (aliphatic, anomeric)
+
+--------------------------------------------------
+Element no.  7.  Nitrogen
+--------------------------------------------------
+ 701                azo Nitrogen
+ 702                sp hybridized Nitrogen
+ 703                sp2 hybridized Nitrogen (amide)
+ 713                sp3 hybridized Nitrogen (amine, unprotonated)
+ 704                sp3 hybridized Nitrogen (amine)
+
+--------------------------------------------------
+Element no.  8.  Oxygen
+--------------------------------------------------
+ 800                Nonbonded Oxygen (carboxyl/phosphate)
+ 801                sp2 hybridized Oxygen (carbonyl)
+ 811                sp2 hybridized Oxygen (carboxylate ion)
+ 802                sp3 hybridized Oxygen (hydroxyl)
+ 812                sp3 hybridized Oxygen (ether)
+ 822                sp3 hybridized Oxygen (carboxyl)
+
+--------------------------------------------------
+Element no.  9.  Flour
+--------------------------------------------------
+ 901                Flour
+
+--------------------------------------------------
+Element no. 11.  Natrium
+--------------------------------------------------
+1100                nonbonded Natrium
+
+--------------------------------------------------
+Element no. 12.  Magnesium
+--------------------------------------------------
+1200                nonbonded Magnesium
+
+--------------------------------------------------
+Element no. 13.  Aluminium
+--------------------------------------------------
+1300                nonbonded Aluminium
+
+--------------------------------------------------
+Element no. 14.  Silicium
+--------------------------------------------------
+1400                nonbonded Silicium
+1404                sp3 Silicium
+
+--------------------------------------------------
+Element no. 15.  Phosphour
+--------------------------------------------------
+1504                Phosphate
+
+--------------------------------------------------
+Element no. 16.  Sulfur
+--------------------------------------------------
+1602                sp2 hybridized Sulfur (thio or "ether")
+1604                sp3 hybridized Sulfur (sulphate)
+
+--------------------------------------------------
+Element no. 17.  Chlor
+--------------------------------------------------
+1701                Chlor
+
+--------------------------------------------------
+Element no. 19.  Potassium
+--------------------------------------------------
+1900                nonbonded Potassium
+
+--------------------------------------------------
+Element no. 20.  Calsium
+--------------------------------------------------
+2000                nonbonded Calsium
+
+--------------------------------------------------
+Element no. 29.  Cupper
+--------------------------------------------------
+2900                nonbonded Cupper
+
+--------------------------------------------------
+Element no. 35.  Bromide
+--------------------------------------------------
+3501                Bromide
+
+--------------------------------------------------
+Element no. 53.  Iodine
+--------------------------------------------------
+5301                Iodine
+
+
+APPENDIX D. Potential Energy Functions
+======================================
+
+D.1 The Potentials for Covalent Bonds
+	The Harmonic Potential
+	The Morse Potential
+
+D.2 The Potential for Valence Angles
+
+D.3 The Potential for Dihedrals
+
+D.4 The Potentials for Nonbonded Interactions
+
+D.5 The Harmonic Constraint Potential
+
+
+APPENDIX E. The Format of the Parameter Files
+=============================================
+
+E.1 The Parameter File for the Bonded Potential
+
+----------EXAMPLE---------------------------------------------------------------
+Karplus and Smith force field. Implemented by SBE-93
+  7   1
+  101  604  660.00  1.100
+  604  604  471.00  1.530
+  604  603  374.00  1.524
+  603  812 1190.00  1.215
+  603  109  660.00  1.110
+  101  603  660.00  1.100
+  603  603 1200.00  1.335
+--------------------------------------------------------------------------------
+
+
+E.2 The Parameter File for the Valence Angle Potential
+
+----------EXAMPLE---------------------------------------------------------------
+Karplus and Smith force field. Implemented by SBE-93
+ 12   1
+  101  604  101   75.58  108.50
+  101  604  604   89.82  109.50
+  604  604  604  120.00  113.00
+  604  603  109  100.00  116.00
+  812  603  109  100.00  121.70
+  604  603  604  100.00  115.40
+  604  603  812  129.20  122.30
+  101  604  603  110.60  109.50
+  604  603  101  100.00  114.00
+  101  603  603  100.00  120.50
+  604  603  603  100.00  125.50
+  101  603  101  100.00  118.00
+--------------------------------------------------------------------------------
+
+E.3 The Parameter File for the Dihedral Potential
+
+----------EXAMPLE---------------------------------------------------------------
+Karplus and Smith force field. Implemented by SBE-93
+  6   2
+ 9999  604  604 9999   0.157  -2     0.00
+  101  604  603  812   0.097   3   180.00 
+  101  604  603  109   0.104   3     0.00
+  101  604  603  101   0.000   3     0.00
+  101  604  603  604   0.020   3     0.00
+  101  604  603  603   0.333   3   180.00
+--------------------------------------------------------------------------------
+
+E.4 The Parameter File for the Nonbonded Potential
+
+----------EXAMPLE---------------------------------------------------------------
+Karplus and Smith force field. Implemented by SBE-93.
+    5   1   1.0   9.0  1.0   1.0
+  101  -0.0045  1.468
+  111  -0.0498  0.80
+  604  -0.0903  1.80
+  802  -0.1591  1.60
+  812  -0.1591  1.60
+--------------------------------------------------------------------------------
+
+E.5 The Parameter File for the Constraint Potential
+
+----------EXAMPLE---------------------------------------------------------------
+At present no torsional constraints.
+  0 
+  11   500.00   180.00
+  26   500.00   -31.30
+  33   500.00   -31.60
+  56   500.00   +65.20
+  83   500.00   -31.30
+ 110   500.00   -31.60
+ 135   500.00   +65.40
+--------------------------------------------------------------------------------
+
+
+APPENDIX F. The Monobank Database
+=================================
+
+--------------------------------------------------------------------------------
+Member        ID             IUPAC
+--------------------------------------------------------------------------------
+             +----+----+
+  1           aDAnGalp       3,6-Anhydro-alpha-D-Galactopyranose
+  2           aDAbe          alpha-D-Abequose
+  3           aDGalp         alpha-D-Galactopyranose
+  4           aDGalpOMe      6-O-Methyl-alpha-D-Galactopyranose
+  5           aDGalpA        alpha-D-Galactopyranuronic Acid
+  6           aDGalpAOMe     Methyl-alpha-D-Galactopyraniduronate
+  7           aDGalpN        2-Amino-2-Deoxy-alpha-D-Galactopyranose
+  8           aDGalpNAc      2-Acetamido-2-Deoxy-alpha-D-Galactopyranose
+  9           aDGlcpA        alpha-D-Glucopyranuronic Acid
+ 10           aDGlcp         alpha-D-Glucopyranose
+ 11           aDManp         alpha-D-Mannopyranose
+ 12           aDManpA        alpha-D-Mannopyranuronic Acid 
+ 13           aDXylp         alpha-D-Xylopyranose
+              aDFrup         alpha-D-Fructopyranose
+             +----+----+
+ 14           aLAnGalp       3,6-Anhydro-alpha-L-Galactopyranose
+ 15           aLArap         alpha-L-Araninopyranose
+ 16           aLFucp         alpha-L-Fucopyranose
+ 17           aLGalp         alpha-L-Galactopyranose
+ 18           aLGulpA        alpha-L-Gulopyranuronic Acid
+ 19           aLRhap         alpha-L-Rhamnopyranose
+ 20           aNeupA         alpha-Neuraminic Acid
+              aLXylp         alpha-L-Xylopyranose
+              aLSorp         alpha-L-Sorbopyranose
+             +----+----+
+ 21           bDArap         beta-D-Arabinopyranose
+ 22           bDGalpN        2-Amino-2-Deoxy-beta-D-Galactopyranose
+ 23           bDGalp         beta-D-Galactopyranose
+ 24           bDGalpOAc      6-O-Acetyl-beta-D-Galactopyranose
+ 25           bDGalpAOMe     Methyl-beta-D-Galactopyraniduronate
+ 26           bDGlcpA        beta-D-Glucopyranuronic Acid
+ 27           bDGlcpN        2-Amino-2-Deoxy-beta-D-Glucopyranose
+ 28           bDGlcp         beta-D-Glucopyranose
+ 29           bDGlcpOAc      6-O-Acetyl-beta-D-Glucopyranose
+ 30           bDGlcpNAc      2-Acetamido-2-Deoxy-beta-D-Glucopyranose
+ 31           bDManpA        beta-D-Mannopyranuronic Acid
+ 32           bDManp         beta-D-Mannopyranose
+ 33           bDXylp         beta-D-Xylopyranose
+              bDRibp         beta-D-Ribopyranose
+             +----+----+
+ 34           bLArap         beta-L-Arabinopyranose
+              bLLyxp         beta-L-Lyxopyranose
+--------------------------------------------------------------------------------
+Member        ID             IUPAC
+--------------------------------------------------------------------------------
+
+
+APPENDIX G. The Format of the GlycLink Database
+===============================================
+
+----------EXAMPLE---------------------------------------------------------------
+aDManp(1:3)Manp information
+   85.0  175.0    0.0        0.7430167313
+   70.0  100.0    0.0        0.9908281527
+  150.0  150.0    0.0        0.9992771783
+  125.0   70.0    0.0        0.9999363280
+  180.0 -170.0    0.0        0.9999993076
+   85.0  -40.0    0.0        1.0000000000
+--------------------------------------------------------------------------------
+
+
+APPENDIX X. Maintaining the Source Code
+=======================================
+  It is recommended that new commands added to the "polys language" is
+followed up in this document at the end of the day.
+  It is adviced to run "lint" on new source for an elaborate check list.
+
+
