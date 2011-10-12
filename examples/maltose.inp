@@ -1,4 +1,4 @@
-/home/pih/hg/polys/polys << !
+$POLYS_DIR/polys << !
 
 /* initialize and set variables to default values */
 INIT
