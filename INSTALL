@@ -1,5 +1,6 @@
 Basic
 -----
+Dependencies: flex
 
 Polys currently installs itself in the source code directory. 
 It can be compiled by simply using:
