@@ -1,0 +1,38 @@
+PEF95ALC by Fabricius, Rasmussen and Engelsen. SBE-95.
+ 16   2
+  604  604   88.2   2.2545  1.5185
+  604  614   88.2   2.2545  1.5011
+  604  603   88.2   2.3383  1.5024   /* PEF91L */
+  604  802   90.0   2.2396  1.4119
+  604  812   90.0   2.1558  1.4003
+  604  101  101.6   1.8139  1.0950
+  604  703   79.0   2.5514  1.4425   /* PEF91L */
+  614  802   90.0   2.2396  1.3939
+  614  812   90.0   2.1558  1.3899
+  614  101  101.6   1.8139  1.0950
+  603  812   90.0   1.8307  1.3008   /* PEF91L */
+  603  801  125.7   2.4625  1.2086   /* PEF91L */
+  603  101  101.6   1.8251  1.2176   /* PEF91L */
+  603  703   79.0   2.3190  1.3500   /* PEF91L */
+  703  121  103.0   1.9950  1.1812   /* PEF91L */
+  802  111  100.0   2.3502  0.9571
+
+Parameters are from:
+
+(1) Engelsen, PhD Thesis, The Technical University of Denmark (1991).
+
+(2) Engelsen and Rasmussen, "Conformations of disaccharides by empirical force
+field calculations. Prat V: Conformational maps of beta-gentiobiose in an 
+optimized consistent force field", Int. J. Biol. Macromol., 15, 56-62 (1993).
+
+(3) Engelsen, Fabricius and Rasmussen, "The Consistent Force Field. 1. Methods
+and Strategies for Optimization of Empirical Potential Energy Functions", 
+Acta Chem. Scand., 48, 548-552 (1994).
+
+(4) Engelsen, Fabricius and Rasmussen, "The Consistent Force Field. 2. 
+An Optimized Set of Potential Energy Functions for the Alkanes", 
+Acta Chem. Scand., 48, 553-565 (1994).
+
+(5) Fabricius, Engelsen and Rasmussen, "The Consistent Force Field. 4. 
+An Optimized Set of Potential Energy for Aliphatic and Alicyclic Ethers and
+Anomeric Carbon Atoms", New J. of Chem., (1995).
