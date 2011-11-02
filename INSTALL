@@ -17,9 +17,3 @@ flex -l polylex
 bison -d polypars
 
 make all
-
-FAQ
-------
-
-Q. I get the build error "/usr/bin/ld: cannot find -lfl"
-A. Your system does not have Flex installed.
