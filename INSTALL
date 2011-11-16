@@ -7,6 +7,9 @@ It can be compiled by simply using:
 
 make all
 
+Before POLYS will generate any output the environment variables
+POLYS_DIR and MONOBANK_DIR should be set.
+
 Advanced
 --------
 
