@@ -1,6 +1,6 @@
 Basic
 -----
-Dependencies: flex
+Dependencies: flex, bison, gcc, make
 
 Polys currently installs itself in the source code directory. 
 It can be compiled by simply using:
@@ -9,6 +9,11 @@ make all
 
 Before POLYS will generate any output the environment variables
 POLYS_DIR and MONOBANK_DIR should be set.
+
+If e.g. you are using bash, put these lines in .bashrc
+export POLYS_DIR=/home/USER/PATH_TO/polys
+export MONOBANK_DIR=/home/USER/PATH_TO/polys/mono
+export PATH=${PATH}:/home/USER/PATH_TO/polys
 
 Advanced
 --------
