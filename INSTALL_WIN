@@ -1,0 +1,15 @@
+Download current setup.exe from cygwin.com and run it
+
+Select 'Install from internet'
+
+Create a folder somewhere for the install files
+
+'Direct connection' is fine for most people
+
+Pick a mirror close to you
+
+Add the packages: flex bison make gcc-core mercurial
+
+Clone polys repo as described on https://bitbucket.org/polys/polys
+
+Follow instruction in the INSTALL file
