@@ -13,3 +13,7 @@ Add the packages: flex bison make gcc-core mercurial
 Clone polys repo as described on https://bitbucket.org/polys/polys
 
 Follow instruction in the INSTALL file
+
+Always save text files in UNIX format. If you are not using an editor
+from within cygwin, use a format aware editor such as notepad++, jedit,
+or gvim.
