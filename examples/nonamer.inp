@@ -4,11 +4,7 @@ INIT
 SET title "PIH 2011 nonamer"
 
 PRIMARY
- <aDglucGG>  (1:4; 92.0; -142.0)      
- <aDglucGG>  (1:4; 92.0; -142.0)      
- <aDglucGG>  (1:4; 92.0; -142.0)      
- <aDglucGG>  (1:4; 92.0; -142.0)      
- <aDglucGG>  (1:4; 92.0; -142.0)      
+ [<aDglucGG>] 5 (1:4; 92.0; -142.0)      
  <aDglucpOMe1>  
 <<aDglucGG>  (1:4; 92.0; -142.0)      
  <aDglucGG>  (1:4; 92.0; -142.0)      
