@@ -16,7 +16,7 @@ GENERATE internal rotbond
 
 WRITE internal rotbond
 
-WRITE coord PDB "mgm.pdb" 
+WRITE coord PDB "forkose.pdb" 
 
 END
 !
