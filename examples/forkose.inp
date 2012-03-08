@@ -1,0 +1,22 @@
+$POLYS_DIR/polys << !
+
+INIT
+SET title "PIH 2005 Forkose"
+
+PRIMARY
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>
+<<aDglucGG>  (1:6; 71.4; 165.2; 75.7) 
+<#2>> 
+STOP
+
+BUILD
+
+GENERATE internal rotbond
+
+WRITE internal rotbond
+
+WRITE coord PDB "mgm.pdb" 
+
+END
+!
