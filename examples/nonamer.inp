@@ -1,0 +1,28 @@
+$POLYS_DIR/polys << ! > nonamer.out
+
+INIT
+SET title "PIH 2011 nonamer"
+
+PRIMARY
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucpOMe1>  
+<<aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>  (1:4; 92.0; -142.0)      
+ <aDglucGG>  (1:6; 71.4; 165.2; 75.7) 
+<#3>> 
+STOP
+
+BUILD
+
+GENERATE internal rotbond
+
+WRITE internal rotbond
+
+WRITE coord PDB "nonamer.pdb" 
+
+END
+!
