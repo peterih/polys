@@ -1,0 +1,27 @@
+/home/pih/code/polys/polys << !
+
+/* initialize and set variables to default values */
+INIT
+SET title "PIH 20070611 maltose-6-P"
+
+/* then build the polysaccharide */
+PRIMARY
+ <aDglucGG> (1:4; 92.0; -142.0)       /*1*/
+ <aDglucP6>                           /*2*/
+STOP
+
+BUILD
+
+GENERATE internal rotbond
+
+WRITE internal rotbond
+
+/* write the minimized coordinates to a file */
+WRITE coord PF "mal6P.x"   
+WRITE coord PDB "mal6P.pdb" 
+WRITE coord CHARMM "mal6P.crd" 
+WRITE coord SYBYL "mal6P.mol2" 
+/*WRITE coord MONO "mal6P.xyz" */
+
+END
+!

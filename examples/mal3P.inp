@@ -1,0 +1,31 @@
+/home/pih/code/polys/polys << !
+/*
+Peter I. Hansen, DOI: 10.1002/bip.21111
+
+*/
+
+/* initialize and set variables to default values */
+INIT
+SET title "PIH 20070611 maltose-3-P"
+
+/* then build the polysaccharide */
+PRIMARY
+ <aDglucGG> (1:4; 92.0; -142.0)       /*1*/
+ <aDglucP3>                           /*2*/
+STOP
+
+BUILD
+
+GENERATE internal rotbond
+
+WRITE internal rotbond
+
+/* write the minimized coordinates to a file */
+WRITE coord PF "mal3P.x"   
+WRITE coord PDB "mal3P.pdb"
+WRITE coord CHARMM "mal3P.crd"
+WRITE coord SYBYL "mal3P.mol2"
+WRITE coord MONO "mal3P.xyz"   
+
+END
+!
