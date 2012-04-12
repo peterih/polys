@@ -2,7 +2,7 @@ $POLYS_DIR/polys << !
 
 /* initialize and set variables to default values */
 INIT
-SET title "PIH 2007 maltose"
+SET title "Peter I. Hansen 2007 maltose"
 
 /* then build the polysaccharide */
 PRIMARY
