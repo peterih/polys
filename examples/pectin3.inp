@@ -1,0 +1,50 @@
+/home/engelsen/polys/polys << !
+/*********************************************************************
+   PECTIN MODEL III: Arabinogalactan type I
+
+   S.B. Engelsen, S. Cros, and S. Perez, Biopolymers, 1995, Vol. ??.
+
+*********************************************************************/
+
+/* initialize datastructures and set variables to default values */
+INIT
+SET title "Pectin model III"
+SET id pectin3
+
+/* then build the polysaccharide */
+PRIMARY 
+[ <aDGalpA>    (1:4;80.0;100.0) ] 16  (1:4;80.0;100.0)
+[ <aDGalpA>    (1:2;80.0;190.0)
+  <aLRhap>     (1:4;-80.0;150.0)
+ <<bDGalp>     (1:4;290.0;150.0)
+  <bDGalp>     (1:4;290.0;150.0)
+  <bDGalp>     (1:4;290.0;150.0)
+  <bDGalp>     (1:4;250.0;160.0)
+  <#18>>
+ <<Araf>       (1:3;270.0;190.0)
+  <#21>>
+ <<Araf>       (1:5;250.0;180.0;-60.0)
+  <Araf>       (1:5;250.0;180.0;-60.0)
+  <Araf>       (1:5;250.0;180.0;-60.0)
+  <Araf>       (1:3;270.0;190.0)
+  <#20>>   
+ <<Araf>       (1:3;280.0;160.0)
+  <#25>>   ] 5 (1:4;-80.0;150.0)
+[ <aDGalpA>    (1:4;100.0;160.0) ] 4 (1:4;80.0;100.0)
+[ <aDGalpAOMe> (1:4;100.0;160.0) ] 10 (1:4;80.0;100.0)
+[ <aDGalpA>    (1:4;100.0;160.0) ] 3 (1:4;80.0;100.0)
+STOP
+BUILD
+
+/* now generate the topology */
+GENERATE internal
+
+/* write rotatable bonds to stdout 
+WRITE internal */
+
+/* write the minimized coordinates to a file */
+WRITE coord PF "pectin3.x"
+WRITE coord SYBYL "pectin3.mol2"
+
+END
+/* end of file */

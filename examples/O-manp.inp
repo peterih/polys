@@ -1,0 +1,42 @@
+$POLYS_DIR/polys << !
+/*********************************************************************
+   This is an example input file building an oligo-mannose type of 
+   the N-Glycan. Phi-psi-ome data taken from: 
+
+   Imberty, A., Gerber, S., Tran V. and Perez, S.
+   Glycoconjugate J (1990) 7:27-54
+*********************************************************************/
+
+/* initialize datastructures and set variables to default values */
+INIT
+SET title "Oligo-mannose Type N-Glycans"
+SET id O-mannose
+SET debug
+
+/* then build the polysaccharide */
+PRIMARY 
+<aDManp> (1:3;85.2;163.4)
+<aDManp> (1:6;70.9;-179.5;-66.2)
+<bDManp> (1:4;-75.0;-111.6) 
+<bDGlcpNAc> (1:4;-85.0;-105.0) 
+<bDGlcpNAc> 
+<<aDManp> (1:6;67.4;179.2;-66.6)
+<#2>>
+<<aDManp> (1:2;94.7;162.8)
+<aDManp>  (1:3;89.6;-174.7)
+<#3>>
+
+BUILD
+
+/* now generate the topology */
+GENERATE internal
+
+/* write rotatable bonds to stdout */
+WRITE internal
+
+/* write the minimized coordinates in SYBYL format to a file */
+WRITE coord SYBYL "O-manp.mol2"
+WRITE coord PF "O-manp.x"
+
+END
+/* end of file */

@@ -1,0 +1,38 @@
+$POLYS_DIR/polys << !
+/*********************************************************************
+   PECTIN MODEL I: The Backbone
+
+   S.B. Engelsen, S. Cros, and S. Perez, Biopolymers, 1995, Vol. ??.
+
+*********************************************************************/
+
+/* initialize datastructures and set variables to default values */
+INIT
+SET title "Pectin model I"
+SET id pectin1
+
+/* then build the polysaccharide */
+PRIMARY 
+[ <aDGalpA>    (1:4;100.0;160.0) ] 6  (1:4;80.0;100.0)
+[ <aDGalpAOMe> (1:4;100.0;160.0) ] 10 (1:4;80.0;100.0)
+[ <aDGalpA>    (1:4;80.0;100.0) ] 11  (1:4;80.0;100.0)
+[ <aDGalpA>    (1:2;80.0;190.0)
+  <aLRhap>     (1:4;-80.0;150.0)] 1 (1:4;-80.0;150.0)
+[ <aDGalpA>    (1:4;100.0;160.0) ] 4 (1:4;80.0;100.0)
+[ <aDGalpAOMe> (1:4;100.0;160.0) ] 10 (1:4;80.0;100.0)
+[ <aDGalpA>    (1:4;100.0;160.0) ] 6 (1:4;80.0;100.0)
+STOP
+BUILD
+
+/* now generate the topology */
+GENERATE internal
+
+/* write rotatable bonds to stdout 
+WRITE internal */
+
+/* write the minimized coordinates to a file */
+WRITE coord PF "pectin1.x"
+WRITE coord SYBYL "pectin1.mol2"
+
+END
+/* end of file */

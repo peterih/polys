@@ -1,0 +1,65 @@
+$POLYS_DIR/polys << !
+/*********************************************************************
+   PECTIN MODEL IV: Arabinogalactan type II
+
+   S.B. Engelsen, S. Cros, and S. Perez, Carbohydr. Res., 1995.
+
+*********************************************************************/
+
+/* initialize datastructures and set variables to default values */
+INIT
+SET title "Pectin model IV"
+SET id pectin4
+
+/* then build the polysaccharide */
+PRIMARY 
+[ <aDGalpA>    (1:4;80.0;100.0) ] 12  (1:4;80.0;100.0)
+[ <aDGalpA>    (1:2;80.0;190.0)
+  <aLRhap>     (1:4;-80.0;150.0)         /* 14 */
+ <<bDGalp>     (1:3;260.0;60.0)
+  <bDGalp>     (1:3;260.0;60.0)
+  <bDGalp>     (1:3;260.0;60.0)
+  <bDGalp>     (1:3;260.0;60.0)          /* 18 */
+  <bDGalp>     (1:3;260.0;60.0)
+  <bDGalp>     (1:3;260.0;60.0)
+  <bDGalp>     (1:4;250.0;160.0)
+  <#14>>
+ <<Araf>       (1:6;280.0;180.0;60.0)   /* 22 */
+  <bDGalp>     (1:6;280.0;180.0;60.0)
+  <#16>>
+ <<Araf>       (1:6;280.0;180.0;60.0)   /* 24 */
+  <bDGalp>     (1:6;280.0;180.0;60.0)
+  <bDGalp>     (1:6;280.0;180.0;60.0)
+  <#18>>
+ <<Araf>       (1:6;280.0;180.0;60.0)   /* 27 */
+  <bDGalp>     (1:6;280.0;180.0;60.0)
+  <bDGalp>     (1:6;280.0;180.0;60.0)
+  <bDGalp>     (1:6;280.0;180.0;60.0)
+  <#20>>
+ <<Araf>       (1:3;280.0;160.0)
+  <#23>>
+ <<Araf>       (1:3;280.0;160.0)
+  <#25>>
+ <<Araf>       (1:3;280.0;160.0)
+  <#26>>
+ <<Araf>       (1:3;280.0;160.0)
+  <#28>>
+ <<Araf>       (1:3;280.0;160.0)         /* 35 */
+  <#29>>   ] 5 (1:4;-80.0;150.0)
+[ <aDGalpA>    (1:4;100.0;160.0) ] 4 (1:4;80.0;100.0)
+[ <aDGalpAOMe> (1:4;100.0;160.0) ] 10 (1:4;80.0;100.0)
+STOP
+BUILD
+
+/* now generate the topology */
+GENERATE internal
+
+/* write rotatable bonds to stdout 
+WRITE internal */
+
+/* write the minimized coordinates to a file */
+WRITE coord PF "pectin4.x"
+WRITE coord SYBYL "pectin4.mol2"
+
+END
+/* end of file */
