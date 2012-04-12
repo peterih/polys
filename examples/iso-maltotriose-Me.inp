@@ -1,0 +1,27 @@
+/home/pih/code/polys/polys << !
+
+/* initialize and set variables to default values */
+INIT
+SET title "PIH 20050523 iso-maltotriose-Me"
+
+/* then build the polysaccharide */
+PRIMARY
+ <aDglucGG> (1:6; 71.4; 165.2; 75.7)  /*1*/
+ <aDglucGG> (1:6; 71.4; 165.2; 75.7)  /*2*/
+ <aDglucpOMe1>                        /*3*/
+STOP
+
+BUILD
+
+GENERATE internal rotbond
+
+WRITE internal rotbond
+
+/* write the minimized coordinates to a file */
+WRITE coord PF "iso-maltotriose-Me.x"   
+WRITE coord PDB "iso-maltotriose-Me.pdb" 
+WRITE coord CHARMM "iso-maltotriose-Me.crd" 
+WRITE coord SYBYL "iso-maltotriose-Me.mol2" 
+
+END
+!
