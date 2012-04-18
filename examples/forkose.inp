@@ -1,4 +1,5 @@
 $POLYS_DIR/polys << !
+
 /*
 Peter I. Hansen, DOI:10.1002/bip.21075
 
@@ -7,7 +8,7 @@ P. & Engelsen, S.
 Structure and hydration of the amylopectin trisaccharide building 
 blocks-Synthesis, NMR, and molecular dynamics
 Biopolymers, 2008, 89
-/*
+*/
 
 INIT
 SET title "Peter I. Hansen 2005 Forkose"
