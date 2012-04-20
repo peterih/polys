@@ -7,7 +7,7 @@ P. & Engelsen, S.
 Structure and hydration of the amylopectin trisaccharide building 
 blocks-Synthesis, NMR, and molecular dynamics
 Biopolymers, 2008, 89
-/*
+*/
 
 /* initialize and set variables to default values */
 INIT
