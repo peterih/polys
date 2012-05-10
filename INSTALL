@@ -2,6 +2,8 @@ Basic
 -----
 Dependencies: flex, bison, gcc, make
 
+The package 'build-essential' is needed on some Debian systems.
+
 Polys currently installs itself in the source code directory. 
 It can be compiled by simply using:
 
