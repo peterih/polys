@@ -1,4 +1,8 @@
-/* Written by Soren Balling Engelsen, INRA-93, 94. */
+/****************************************************
+** bondtab.c                                       **
+**                                                 **
+** Written by Soren Balling Engelsen, INRA-93, 94. **
+****************************************************/
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
@@ -24,7 +28,7 @@ dist(Vector3 a, Vector3 b)
    return(sqrt(dx*dx + dy*dy + dz*dz));
 }
 
-/* */
+/* Updates the bondtable */
 void
 add_bond(int i, int j)
 {

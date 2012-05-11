@@ -1,10 +1,15 @@
-/*
- * This module contains the source for a conjugate gradients algorithm.
- * Written by Soren Balling Engelsen, INRA-93.
- */
+/*************************************************
+** minimize.c                                   **
+**                                              **
+** Written by Soren Balling Engelsen, INRA-93.  **
+**************************************************/
 #include "polys.h"
 #include "extern.h"
 
+
+/* This function call the energy minimization algorithm */
+/* If space=0 then minimization in cartesian space      */
+/* If space=1 then minimization in dihedral space       */
 void
 Minimize(int space, int maxfun, int maxit, double enetol,
               double grdtol, BOOLEAN silent)

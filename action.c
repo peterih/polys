@@ -1,30 +1,36 @@
-/*  Written by Soren Balling Engelsen, INRA-93, 94. */
+/*****************************************************
+**  action.c                                        **
+**                                                  **
+**  Written by Soren Balling Engelsen, INRA-93, 94. **
+**                                                  **
+******************************************************/
 #include <math.h>
 #include <stdio.h>
 #include "polys.h"
 
 /*
  * Actiontype determines which type of interaction exists between
- * two atoms a1 and a2. Code for hydrogen bonds not included yet.
+ * two atoms a1 and a2 based on their cartesian coordinaters. 
  *
- * return value      interaction type
- * ----------------------------------------
- * -1                close approach warning
- *  0                non-bonded
- *  1                bonded
- *  2                hydrogen bond and nonbonded
- * ----------------------------------------
+ * Prepared for hydrogen bonds (type=2).
  *
- * BEWARE! It is not recommended to make any changes here without
- * making elaborate tests.
+ * return value    interaction type
+ * ----------------------------------------------
+ *     -1          close approach warning
+ *      0          non-bonded
+ *      1          bonded
+ *      2          hydrogen bond and nonbonded
+ * ----------------------------------------------
+ *
  */
 
 int
 actiontype(atom a, atom b, double *ab)
 
-#define MAXBDIST   1.81    /* max. bonded distance in topology search */
-#define MINBDIST   0.85    /* min. bonded distance in topology search */
-#define MAXBHDIST  1.25    /* max. bonded distance to a hydrogen */
+/* BEWARE! Changes here require elaborate tests */
+#define MAXBDIST   1.81    /* max. bonded distance in topology search    */
+#define MINBDIST   0.85    /* min. bonded distance in topology search    */
+#define MAXBHDIST  1.25    /* max. bonded distance to a hydrogen         */
 #define MINNHDIST  1.15    /* min. bonded distance between non hydrogens */
 
 

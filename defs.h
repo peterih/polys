@@ -1,8 +1,12 @@
-/*
- * This file contains a number of convinient definitions of global 
- * constants and logical operators.
- * SBE93-INRA
- */
+/************************************************
+** defs.h                                      **
+**                                             **
+** This file contains a number of convinient   **
+** definitions of global constants and logical **
+** operators.                                  **
+**                                             **
+** Written by Soren Balling Engelsen -INRA 93  **
+*************************************************/
 
 /* FIRST some general convinient definitions */
 

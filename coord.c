@@ -1,8 +1,12 @@
-/*
- * This file contains the source code for doing coordinate manipulations
- * in cartesian space.
- * Written by Soren Balling Engelsen, INRA-94.
- */
+/************************************************
+** coord.c                                     **
+**                                             **
+** This file contains the source code for      **
+** doing coordinate manipulations in           **
+** cartesian space.                            **
+**                                             **
+** Written by Soren Balling Engelsen, INRA-94. **
+*************************************************/
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
