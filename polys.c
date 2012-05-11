@@ -1,8 +1,19 @@
-/*
- * This module contains the subroutine "main" to program polys.
- * Written by Soren Balling Engelsen, INRA-93.
- * Last revision: S.B.E. 1997
- */
+/*****************************************************
+** polys.c                                          **
+**                                                  **
+** This module contains the subroutine "main"       **
+** to programme polys:                              **
+**                                                  **
+** THE POLYSaccharide BUILDER                       **
+**                                                  **
+** S.B. Engelsen, S. Cros, W. Mackie & S. Pérez,    **
+**  A molecular builder for carbohydrates.          **
+**  Application to polysaccharides and complex      **
+**  carbohydrates, Biopolymers (1996), 39, 417-433. **
+**                                                  **
+** Written by Soren Balling Engelsen, INRA-93.      **
+** Revisions: S.B.E. 1997/2012                      **
+******************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -20,14 +31,14 @@ header(void)
    printf("\tP     O   O L      Y       S\n");
    printf("\tP      OOO  LLLL   Y   SSSS\n");
    printf("\n");
-   printf("\tTHE POLYSaccharide BUILDER (1993-95) - INRA Nantes\n\n");
-   printf("\t\tSoren Balling Engelsen and Serge Perez\n\n");
-   printf("\t\tKVL                        CERMAV\n\n");
-   printf("\t\tPOLYS VERSION 1.5 (2010)\n\n");
-   printf("\t\tCode Contributors\n\n");
-   printf("\t\tSoren Balling Engelsen\n");
-   printf("\t\tMilou Kouwijzer\n");
-   printf("\t\tPeter Ibsen Hansen\n");
+   printf("\tTHE POLYSaccharide BUILDER\n\n");
+   printf("\tSoren Balling Engelsen and Serge Perez\n\n");
+   printf("\tNantes - Copenhagen - Grenoble\n\n");
+   printf("\tPOLYS VERSION 2.0 (2012)\n\n");
+   printf("\tCode Contributors:\n\n");
+   printf("\tSoren Balling Engelsen * ");
+   printf("Milou Kouwijzer * ");
+   printf("Peter Ibsen Hansen\n");
 }
 
 /* Print welcome header on output device */
