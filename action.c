@@ -13,6 +13,7 @@
  *  0                non-bonded
  *  1                bonded
  *  2                hydrogen bond and nonbonded
+ * ----------------------------------------
  *
  * BEWARE! It is not recommended to make any changes here without
  * making elaborate tests.
