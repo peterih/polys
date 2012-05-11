@@ -8,6 +8,7 @@ Create a folder somewhere for the install files
 
 Pick a mirror close to you
 
+IMPORTANT: Take your time in the package selection window.
 Add the packages: flex bison make gcc-core mercurial
 
 Clone polys repo as described on https://bitbucket.org/polys/polys
