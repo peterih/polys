@@ -1,8 +1,14 @@
-/*
- * This module contains rutines to drive torsional angles through
- * conformational ("phi-psi") space.
- * Written by Soren Balling Engelsen, INRA-93.
- */
+/******************************************************************POLYS
+** driver.c                                                           **
+**                                                                    **
+** Molecular Topology                                                 **
+** ------------------                                                 **
+** This file contains the source code for driving torsional angles    **
+** through conformational ("phi-psi") space                           **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93                         **
+***********************************************************************/
+
 #include <stdlib.h>
 #include <math.h>
 #include "polys.h"

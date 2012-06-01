@@ -1,8 +1,14 @@
-/*
- * This file contains the source code for helix duplications
- * Written by Milou Kouwijzer, INRA-95.
- * Last revision: S.B.E. 97
- */
+/******************************************************************POLYS
+** doubleh.c                                                          **
+**                                                                    **
+** Helix Generation                                                   **
+** ----------------                                                   **
+** This file contains the source code for helix duplications          **
+**                                                                    **
+** Written by Milou Kouwijzer, INRA-95                                **
+** Revised by Soren Balling Engelsen, UCPH-97                         **
+***********************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

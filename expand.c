@@ -1,11 +1,17 @@
-/*
- * This module contains the source code for maintaining and updating 
- * the residue list Res[] during the PRIMARY command and the code for
- * 3D generation and linking of the primary sequence during the BUILD
- * command.
- * Written by Soren Balling Engelsen, INRA 1994.
- * Last revision: S.B.E. 1997
- */
+/******************************************************************POLYS
+** expand.c                                                           **
+**                                                                    **
+** POLYS Builder                                                      **
+** -------------                                                      **
+** This module contains the source code for maintaining and updating  **
+** the residue list Res[] during the PRIMARY command and the code for **
+** 3D generation and linking of the primary sequence during the BUILD **
+** command                                                            **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-1994                       **
+** Revised by Soren Balling Engelsen, UCPH-1997                       **
+***********************************************************************/
+
 #include <math.h>
 #include <string.h>
 #include "polys.h"

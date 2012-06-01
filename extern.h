@@ -1,7 +1,11 @@
-/*
- * GLOBAL VARIABLE DECLARATIONS 
- * SBE93-INRA
- */
+/******************************************************************POLYS
+** extern.h                                                           **
+**                                                                    **
+** GLOBAL VARIABLE DECLARATIONS                                       **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93                         **
+***********************************************************************/
+
 extern BOOLEAN debug;  /* Boolean control variables */
 extern BOOLEAN plot;
 extern BOOLEAN print;
