@@ -1,19 +1,19 @@
-/*****************************************************
-** polys.c                                          **
-**                                                  **
-** This module contains the subroutine "main"       **
-** to programme polys:                              **
-**                                                  **
-** THE POLYSaccharide BUILDER                       **
-**                                                  **
-** S.B. Engelsen, S. Cros, W. Mackie & S. Pérez,    **
-**  A molecular builder for carbohydrates.          **
-**  Application to polysaccharides and complex      **
-**  carbohydrates, Biopolymers (1996), 39, 417-433. **
-**                                                  **
-** Written by Soren Balling Engelsen, INRA-93.      **
-** Revisions: S.B.E. 1997/2012                      **
-******************************************************/
+/******************************************************************POLYS
+** polys.c                                                            **
+**                                                                    **
+** This module contains the subroutine "main" to programme polys:     **
+**                                                                    **
+** THE POLYSaccharide BUILDER                                         **
+**                                                                    **
+** S.B. Engelsen, S. Cros, W. Mackie & S. Pérez,                      **
+**  A molecular builder for carbohydrates.                            **
+**  Application to polysaccharides and complex carbohydrates,         ** 
+**  Biopolymers (1996), 39, 417-433.                                  **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93/94                      **
+** Revised by Soren Balling Engelsen, UCPH-97/12                      **
+***********************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

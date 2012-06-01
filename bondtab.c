@@ -1,8 +1,14 @@
-/****************************************************
-** bondtab.c                                       **
-**                                                 **
-** Written by Soren Balling Engelsen, INRA-93, 94. **
-****************************************************/
+/******************************************************************POLYS
+** bondtable.c                                                        **
+**                                                                    **
+** Molecular Topolopy                                                 **
+** ------------------                                                 **
+** This file contains the source code for the generation of the       **
+** bondtable                                                          **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93/94                      **
+***********************************************************************/
+
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"

@@ -1,8 +1,15 @@
-/**************************************************************
-** brent.c	                                             **
-**                                                           **
-**                                                           **
-**************************************************************/
+/******************************************************************POLYS
+** brent.c                                                            **
+**                                                                    **
+** Energy Minimization                                                **
+** -------------------                                                **
+** This file contains the source code for a line search using Brents  **
+** method. From Numerical Receipes by Press, Flannery, Teukolsky and  **
+** Vetterling.                                                        **
+**                                                                    **
+** Adapted for POLYS by Soren Balling Engelsen, INRA-93/94.           **
+***********************************************************************/
+
 #include <math.h>
 #include <stdio.h>
 

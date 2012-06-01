@@ -1,6 +1,8 @@
 /******************************************************************POLYS
 ** action.c                                                           **
 **                                                                    **
+** Molecular Topology                                                 **
+** ------------------                                                 **
 ** This file contains the source code for utility calculations        **
 **                                                                    **
 ** Written by Soren Balling Engelsen, INRA-93/94                      **

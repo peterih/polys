@@ -1,9 +1,11 @@
 /******************************************************************POLYS
 ** calculate.c                                                        **
 **                                                                    **
+** Molecular Topology                                                 **
+** ------------------                                                 **
 ** This file contains the source code for utility calculations        **
 **                                                                    **
-** Written by Soren Balling Engelsen, INRA-93.                        **
+** Written by Soren Balling Engelsen, INRA-93                         **
 ***********************************************************************/
 
 #include <stdio.h>

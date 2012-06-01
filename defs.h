@@ -1,12 +1,11 @@
-/************************************************
-** defs.h                                      **
-**                                             **
-** This file contains a number of convinient   **
-** definitions of global constants and logical **
-** operators.                                  **
-**                                             **
-** Written by Soren Balling Engelsen -INRA 93  **
-*************************************************/
+/******************************************************************POLYS
+** defs.h                                                             **
+**                                                                    **
+** This file contains a number of convinient definitions of global    **
+** constants and logical operators                                    **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93/94                      **
+***********************************************************************/
 
 /* FIRST some general convinient definitions */
 

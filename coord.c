@@ -1,12 +1,14 @@
-/************************************************
-** coord.c                                     **
-**                                             **
-** This file contains the source code for      **
-** doing coordinate manipulations in           **
-** cartesian space.                            **
-**                                             **
-** Written by Soren Balling Engelsen, INRA-94. **
-*************************************************/
+/******************************************************************POLYS
+** coord.c                                                            **
+**                                                                    **
+** Molecular Topology                                                 **
+** ------------------                                                 **
+** This file contains the source code for performing coordinate       **
+** manipulations in cartesian space                                   **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93/94                      **
+***********************************************************************/
+
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"
