@@ -1,11 +1,11 @@
-/************************************************
-** calculate.c                                 **
-**                                             **
-** This file contains the source code for      **
-** utility calculations                        **
-**                                             **
-** Written by Soren Balling Engelsen, INRA-93. **
-*************************************************/
+/******************************************************************POLYS
+** calculate.c                                                        **
+**                                                                    **
+** This file contains the source code for utility calculations        **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93.                        **
+***********************************************************************/
+
 #include <stdio.h>
 #include <math.h>
 #include "polys.h"

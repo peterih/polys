@@ -1,9 +1,11 @@
-/*****************************************************
-**  action.c                                        **
-**                                                  **
-**  Written by Soren Balling Engelsen, INRA-93, 94. **
-**                                                  **
-******************************************************/
+/******************************************************************POLYS
+** action.c                                                           **
+**                                                                    **
+** This file contains the source code for utility calculations        **
+**                                                                    **
+** Written by Soren Balling Engelsen, INRA-93/94                      **
+***********************************************************************/
+
 #include <math.h>
 #include <stdio.h>
 #include "polys.h"
