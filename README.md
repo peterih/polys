@@ -11,6 +11,14 @@ which does not exist anymore.
 The initial commit here, is my most recent snapshot 
 of the original POLYS 2.0 mercurial repository.
 
+Installation
+--------------
+Get your own working copy of this package with the commands
+
+      $ git clone https://github.com/peterih/polys.git
+      $ cd polys
+      $ make all
+
 1. https://doi.org/10.1002/bip.22449
 
 2. https://bitbucket.org/polys/polys
