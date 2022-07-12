@@ -19,7 +19,7 @@
 
 /*
  * This routine will read a macro structure from a file and attach it to
- * the POLYSaccharide which has been buildt.
+ * the POLYSaccharide which has been built.
  */
 void
 addmacro(int polyres, int con_b, int con_f, int macrores, char *mf,
